@@ -11,17 +11,18 @@ import javafx.scene.text.Font;
 
 public class Controller {
     int counter = 0;
-    @FXML
-    private Font x1;
-
-    @FXML
-    private Color x2;
 
     @FXML
     private Button btn1;
 
     @FXML
     private Label lab1;
+
+    @FXML
+    private Button btn2;
+
+    @FXML
+    private Button btn21;
 
     @FXML
     void display(ActionEvent event) {

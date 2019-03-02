@@ -43,11 +43,8 @@
                   <AnchorPane prefHeight="993.0" prefWidth="476.0">
                      <children>
                         <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Toolbar" textAlignment="CENTER" wrapText="false">
-                           <font>
-                              <Font size="18.0" fx:id="x1" />
-                           </font>
                            <textFill>
-                              <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
+                              <Color blue="0.624" green="0.624" red="0.624" />
                            </textFill>
                         </Label>
                      </children>
@@ -56,16 +53,21 @@
                      <content>
                         <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="775.0" prefWidth="620.0">
                            <children>
-                              <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="View" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                              <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="View" textAlignment="CENTER" wrapText="false">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
                               <Button fx:id="btn1" layoutX="284.0" layoutY="449.0" mnemonicParsing="false" onAction="#display" text="Button " />
                               <Label fx:id="lab1" layoutX="290.0" layoutY="398.0" />
+                              <Button fx:id="btn2" layoutX="281.0" layoutY="547.0" mnemonicParsing="false" text="Button" />
+                              <Button fx:id="btn21" layoutX="291.0" layoutY="557.0" mnemonicParsing="false" text="Button" />
                            </children>
                         </AnchorPane>
                      </content>
                   </ScrollPane>
                   <AnchorPane>
                      <children>
-                        <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Properties" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                        <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Properties" textAlignment="CENTER" wrapText="false" />
                      </children>
                   </AnchorPane>
                </items>

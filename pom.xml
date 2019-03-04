@@ -20,6 +20,11 @@
     <groupId>groupId</groupId>
     <artifactId>PhotoshopUltraLight</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+
     <dependencies>
         <dependency>
             <!-- jsoup HTML parser library @ https://jsoup.org/ -->
@@ -44,6 +49,7 @@
             <artifactId>opencv</artifactId>
             <version>3.4.2-1</version>
         </dependency>
+
 
     </dependencies>
 

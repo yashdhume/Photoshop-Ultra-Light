@@ -28,21 +28,21 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class CamCaptureDemo extends Application{
+public class CamCaptureDemo{
 
-    private ScheduledExecutorService timer;
-    private VideoCapture capture = new VideoCapture();
-    private boolean cameraActive = false;
-    private static int cameraId = 0;
+    public static ScheduledExecutorService timer;
+    public static VideoCapture capture = new VideoCapture();
+    public static boolean cameraActive = false;
+    public  static int cameraId = 0;
 
-    private ImageView cameraDisplay = new ImageView();
-    private Button btCamera = new Button("Camera");
-    private BorderPane borderPane = new BorderPane();
-    private HBox btCameraBox = new HBox();
-    private Scene scene = new Scene(borderPane, 800,600);
+    public static ImageView cameraDisplay = new ImageView();
+    public static Button btCamera = new Button("Camera");
+    public static BorderPane borderPane = new BorderPane();
+    public static HBox btCameraBox = new HBox();
 
 
-    private static BufferedImage MatToBufferedImage(Mat original)
+
+    public static BufferedImage MatToBufferedImage(Mat original)
     {
         BufferedImage image = null;
         int width = original.width(); int height = original.height(); int channels = original.channels();
@@ -61,19 +61,19 @@ public class CamCaptureDemo extends Application{
         return image;
     }
 
-    private static <T> void onFXThread(final ObjectProperty<T> property, final T value)
+    public static <T> void onFXThread(final ObjectProperty<T> property, final T value)
     {
         Platform.runLater(()->{property.set(value);});
     }
 
-    private void updateImageView(ImageView view, Image image)
+    public static void updateImageView(ImageView view, Image image)
     {
         onFXThread(view.imageProperty(), image);
     }
 
 
 
-    private static Image mat2Image(Mat frame)
+    public static Image mat2Image(Mat frame)
     {
         try
         {
@@ -86,7 +86,7 @@ public class CamCaptureDemo extends Application{
         }
     }
 
-    private void stopAcquisition(){
+    public static void stopAcquisition(){
 
         if (timer != null && !timer.isShutdown())
         {
@@ -106,11 +106,11 @@ public class CamCaptureDemo extends Application{
         }
     }
 
-    private void setClosed(){
+    public static void setClosed(){
         stopAcquisition();
     }
 
-    private void startCamera(ActionEvent e)
+    public static void startCamera(ActionEvent e)
     {
         if (!cameraActive) {
             // start the video capture.
@@ -156,7 +156,7 @@ public class CamCaptureDemo extends Application{
     }
 
 
-    private Mat grabFrame()
+    public static Mat grabFrame()
     {
         Mat frame = new Mat();
 
@@ -171,7 +171,7 @@ public class CamCaptureDemo extends Application{
                 // If the frame is not empty, process it.
                 //if (!frame.empty())
                 //{
-                    // Convert color to gray.
+                // Convert color to gray.
                 //    Imgproc.cvtColor(frame, frame, Imgproc.COLOR_BGR2RGB);
                 //}
 
@@ -185,11 +185,11 @@ public class CamCaptureDemo extends Application{
     }
 
 
-    public void start(Stage primaryStage)
+    public static BorderPane start()
     {
 
 
-        btCamera.setOnAction(this::startCamera);
+        btCamera.setOnAction(e->startCamera(e));
 
         btCameraBox.getChildren().add(btCamera);
         btCameraBox.setAlignment(Pos.CENTER);
@@ -198,23 +198,24 @@ public class CamCaptureDemo extends Application{
 
         // Image Display
         borderPane.setCenter(cameraDisplay);
-
-        primaryStage.setScene(scene);
+        return borderPane;
+        // Scene scene = new Scene(borderPane, 800,600);
+        /*primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
                 setClosed();
             }
         });
-        primaryStage.show();
+        primaryStage.show();*/
     }
 
 
 
-    public static void main(String[] args){
+   /* public static void main(String[] args){
         // load the OpenCV library
         nu.pattern.OpenCV.loadShared();
 
         launch(args);
-    }
+    }*/
 }

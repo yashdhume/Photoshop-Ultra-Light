@@ -1,5 +1,6 @@
 package sample;
 
+import CamCapture.CamCaptureDemo;
 import ImageScraper.ImageScraperView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +31,11 @@ public class Controller {
     }
     @FXML
     void cameraBtnAction(ActionEvent event) {
+        Stage stage = new Stage();
+        Scene scene = new Scene(CamCaptureDemo.start(), 800, 600);
+
+        stage.setScene(scene);
+        stage.show();
 
     }
 

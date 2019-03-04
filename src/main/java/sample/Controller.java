@@ -1,34 +1,35 @@
 package sample;
 
+import ImageScraper.ImageScraperView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+import static ImageScraper.ImageScraperView.scroll;
+
 
 public class Controller {
-    int counter = 0;
+    @FXML
+    private Button picGoogleBtn;
 
     @FXML
-    private Button btn1;
-
+    private Button cameraBtn;
     @FXML
-    private Label lab1;
+    void picGoogleBtnAction(ActionEvent event)throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(scroll, 500, 500);
+        stage.setScene(scene);
+        stage.show();
 
-    @FXML
-    private Button btn2;
 
-    @FXML
-    private Button btn21;
-
-    @FXML
-    void display(ActionEvent event) {
-        counter++;
-        lab1.setText("Button Clicked "+ counter);
     }
+    @FXML
+    void cameraBtnAction(ActionEvent event) {
 
+    }
 
 }

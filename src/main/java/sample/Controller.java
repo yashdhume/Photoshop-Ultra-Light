@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static ImageScraper.ImageScraperView.scroll;
+
 
 
 public class Controller {
@@ -20,8 +20,9 @@ public class Controller {
     private Button cameraBtn;
     @FXML
     void picGoogleBtnAction(ActionEvent event)throws IOException {
+
         Stage stage = new Stage();
-        Scene scene = new Scene(scroll, 500, 500);
+        Scene scene = new Scene(ImageScraperView.googleImageView(), 500, 500);
         stage.setScene(scene);
         stage.show();
 

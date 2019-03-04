@@ -17,12 +17,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ImageScraperView {
-    ArrayList<Image> images = new ArrayList<Image>();
-    ArrayList<ImageView> imageView = new ArrayList<ImageView>();
-    int numOfSearchResults = 100;
-    int numOfPicturesDiplayed =10;
-    public static ScrollPane scroll = new ScrollPane();
-    public void loadImage(String textField)throws IOException {
+    public  static ArrayList<Image> images = new ArrayList<Image>();
+    public  static ArrayList<ImageView> imageView = new ArrayList<ImageView>();
+    public  static int numOfSearchResults = 100;
+    public  static int numOfPicturesDiplayed =10;
+
+    public static void loadImage(String textField)throws IOException {
         ArrayList<String> googleImagesLinks = ImageScraper.getImageArray(textField, numOfSearchResults);
         for (int i = 0; i<numOfPicturesDiplayed; i++) {
             images.add(new Image(googleImagesLinks.get(i)));
@@ -44,10 +44,10 @@ public class ImageScraperView {
             imageView.get(i).setCache(true);
         }
     }
-    public void googleImageView(){
+    public static ScrollPane googleImageView(){
         final TextField textField = new TextField();
         Button btn = new Button("Search");
-
+        ScrollPane scroll = new ScrollPane();
 
 
         final FlowPane flowPane = new FlowPane();
@@ -77,6 +77,7 @@ public class ImageScraperView {
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scroll.setContent(flowPane);
+        return scroll;
 
 
     }

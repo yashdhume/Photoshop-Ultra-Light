@@ -17,8 +17,7 @@ import javafx.stage.WindowEvent;
 public class Controller {
     @FXML
     private Button picGoogleBtn;
-    @FXML
-    private AnchorPane viewContainer;
+
     @FXML
     private Button cameraBtn;
     @FXML
@@ -29,9 +28,6 @@ public class Controller {
         Stage stage = new Stage();
         Scene scene = new Scene(EditingView.EditView(),500,500);
         stage.setScene(scene);
-        stage.setX(viewContainer.getWidth()-50);
-        stage.setY(viewContainer.getHeight()-500);
-        System.out.println(viewContainer.getWidth());
         stage.setAlwaysOnTop(true);
         stage.show();
     }

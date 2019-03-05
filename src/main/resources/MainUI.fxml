@@ -15,7 +15,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" vgap="10" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="center" hgap="10" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" vgap="10" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller">
    <children>
       <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="806.0" prefWidth="1276.0">
          <children>
@@ -23,6 +23,7 @@
                <menus>
                   <Menu mnemonicParsing="false" text="File">
                      <items>
+                        <MenuItem fx:id="newMI" mnemonicParsing="false" onAction="#newMI" text="New" />
                         <MenuItem mnemonicParsing="false" text="Close" />
                      </items>
                   </Menu>
@@ -51,7 +52,7 @@
                   </AnchorPane>
                   <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
                      <content>
-                        <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="775.0" prefWidth="620.0">
+                        <AnchorPane id="Content" fx:id="viewContainer" minHeight="-1.0" minWidth="-1.0" prefHeight="775.0" prefWidth="620.0">
                            <children>
                               <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="View" textAlignment="CENTER" wrapText="false">
                                  <font>

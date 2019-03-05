@@ -1,24 +1,20 @@
 package ImageScraper;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import Main.EditingView;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ImageScraperView {
-    public  static ArrayList<Image> images = new ArrayList<Image>();
-    public  static ArrayList<ImageView> imageView = new ArrayList<ImageView>();
+    public  static ArrayList<Image> images = new ArrayList<>();
+    public  static ArrayList<ImageView> imageView = new ArrayList<>();
     public  static int numOfSearchResults = 100;
     public  static int numOfPicturesDiplayed =10;
 
@@ -31,8 +27,10 @@ public class ImageScraperView {
         int numErros=0;
         for (int j = 0; j < images.size(); j++) {
             if(images.get(j).isError()) {
-                images.remove(j);
+                //images.remove(j);
+                images.set(j,new Image(googleImagesLinks.get(j+images.size())));
                 numErros++;
+                System.out.println("test");
             }
         }
         System.out.println(numErros+ " Broken Pics");
@@ -42,6 +40,8 @@ public class ImageScraperView {
             imageView.get(i).setFitWidth(500);
             imageView.get(i).setPreserveRatio(true);
             imageView.get(i).setCache(true);
+            final int index = i;
+            Global.DragandDrop.localArray(imageView, index, EditingView.imageViewEditView);
         }
     }
     public static ScrollPane googleImageView(){

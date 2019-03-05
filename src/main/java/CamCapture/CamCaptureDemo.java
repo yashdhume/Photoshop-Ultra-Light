@@ -1,5 +1,7 @@
 package CamCapture;
 
+import Main.EditingView;
+import javafx.scene.input.*;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
@@ -121,17 +123,19 @@ public class CamCaptureDemo{
                 cameraActive = true;
 
 
-                // grab a frame every 33 ms (30 frames/sec)
+                // grab Global frame every 33 ms (30 frames/sec)
                 Runnable framGrabber = new Runnable() {
                     @Override
                     public void run() {
 
-                        // effectively grab and process a single frame
+                        // effectively grab and process Global single frame
                         Mat frame = grabFrame();
 
                         // convert and show the frame
                         Image imageToShow = mat2Image(frame);
                         updateImageView(cameraDisplay, imageToShow);
+
+                       Global.DragandDrop.local(cameraDisplay, EditingView.imageViewEditView);
                     }
                 };
 

@@ -13,14 +13,16 @@ import java.util.ArrayList;
 
 public class DragandDrop {
     public static void external(StackPane stackPane, ImageView imageView){
+
         stackPane.setOnDragOver((DragEvent e)->{
             final Dragboard db = e.getDragboard();
 
-            final boolean filesAccepted= db.getFiles().get(0).getName().toLowerCase().endsWith(".png")
-                    || db.getFiles().get(0).getName().toLowerCase().endsWith(".jpeg")
-                    || db.getFiles().get(0).getName().toLowerCase().endsWith(".jpg");
+            final boolean filesAccepted;
 
             if (db.hasFiles()) {
+                filesAccepted= db.getFiles().get(0).getName().toLowerCase().endsWith(".png")
+                        || db.getFiles().get(0).getName().toLowerCase().endsWith(".jpeg")
+                        || db.getFiles().get(0).getName().toLowerCase().endsWith(".jpg");
                 if (filesAccepted) e.acceptTransferModes(TransferMode.COPY);
                 else e.consume();
             }

@@ -24,6 +24,10 @@ public class Controller {
     private MenuItem newMI;
 
     @FXML
+    private AnchorPane toolbar;
+
+
+    @FXML
     void newMI(ActionEvent event) {
         Stage stage = new Stage();
         Scene scene = new Scene(EditingView.EditView(),500,500);

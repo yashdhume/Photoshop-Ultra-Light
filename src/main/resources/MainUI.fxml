@@ -69,6 +69,7 @@
                 <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
               </textFill>
             </Label>
+                  <Button fx:id="tempBtn" layoutX="64.0" layoutY="107.0" mnemonicParsing="false" onAction="#tempBtnAction" text="TempButton" />
           </children>
         </AnchorPane>
         <ScrollPane prefHeight="-1.0" prefWidth="-1.0">

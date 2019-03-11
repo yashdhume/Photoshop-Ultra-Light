@@ -1,17 +1,24 @@
 package Main;
-
+import Global.DragandDrop;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
 
 
 public class EditingView {
-
     public static ImageView imageViewEditView = new ImageView();
-    public static StackPane EditView(){
-        StackPane stackPane= new StackPane();
-        Global.DragandDrop.external(stackPane,imageViewEditView);
-        stackPane.getChildren().add(imageViewEditView);
-        return stackPane;
+    public static AnchorPane anchorPaneEditView = new AnchorPane();
+    public EditingView(){}
+    public AnchorPane EditView(){
+        DragandDrop dragandDrop = new DragandDrop();
+        dragandDrop.external(anchorPaneEditView,imageViewEditView);
+        imageViewEditView.setPreserveRatio(true);
+        imageViewEditView.setFitWidth(700);
+        imageViewEditView.setFitHeight(700);
+        anchorPaneEditView.getChildren().add(imageViewEditView);
+        ImageView app = (ImageView)  anchorPaneEditView.getChildren().get(0);
+        app.setX(anchorPaneEditView.getWidth()/2);
+        app.setY(anchorPaneEditView.getHeight()/2);
+        return anchorPaneEditView;
     }
 
 }

@@ -1,39 +1,53 @@
 package ImageScraper;
 
+import Global.DragandDrop;
 import Main.EditingView;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import java.io.IOException;
+import javafx.scene.layout.VBox;
+
 import java.util.ArrayList;
 
-public class ImageScraperView {
-    public  static ArrayList<Image> images = new ArrayList<>();
-    public  static ArrayList<ImageView> imageView = new ArrayList<>();
-    public  static int numOfSearchResults = 100;
-    public  static int numOfPicturesDiplayed =10;
 
-    public static void loadImage(String textField)throws IOException {
-        ArrayList<String> googleImagesLinks = ImageScraper.getImageArray(textField, numOfSearchResults);
-        for (int i = 0; i<numOfPicturesDiplayed; i++) {
+public class ImageScraperView implements Runnable {
+    private ArrayList<Image> images ;
+    private ArrayList<ImageView> imageView;
+    private int numOfPicturesDisplayed;
+    private String text;
+    private final FlowPane flowPane = new FlowPane();
+    public ImageScraperView(String text) {
+        this.text = text;
+        images = new ArrayList<>();
+        imageView = new ArrayList<>();
+        numOfPicturesDisplayed = 10;
+    }
+    public void run() {
+        int numOfSearchResults = 100;
+        ImageScraper imageScraper = new ImageScraper();
+        ArrayList<String> googleImagesLinks = imageScraper.getImageArray(text, numOfSearchResults);
+        for (int i = 0; i < numOfPicturesDisplayed; i++) {
             images.add(new Image(googleImagesLinks.get(i)));
             System.out.println(images.get(i).errorProperty());
         }
-        int numErros=0;
+        int numErrors = 0;
         for (int j = 0; j < images.size(); j++) {
-            if(images.get(j).isError()) {
-                //images.remove(j);
-                images.set(j,new Image(googleImagesLinks.get(j+images.size())));
-                numErros++;
-                System.out.println("test");
+            if (images.get(j).isError()) {
+                images.set(j, new Image(googleImagesLinks.get(j + images.size())));
+                numErrors++;
             }
         }
-        System.out.println(numErros+ " Broken Pics");
+        System.out.println(numErrors + " Broken Pics");
+        Platform.runLater(this::loadImages);
+    }
+    private void loadImages(){
         for (int i = 0; i < images.size(); i++) {
             imageView.add(new ImageView(images.get(i)));
             imageView.get(i).setFitHeight(1000);
@@ -41,39 +55,40 @@ public class ImageScraperView {
             imageView.get(i).setPreserveRatio(true);
             imageView.get(i).setCache(true);
             final int index = i;
-            Global.DragandDrop.localArray(imageView, index, EditingView.imageViewEditView);
+            DragandDrop dragandDrop = new DragandDrop();
+            dragandDrop.localArray(imageView, index, EditingView.imageViewEditView);
         }
+        for (int i = 0; i < imageView.size(); i++) {
+            flowPane.getChildren().add(imageView.get(i));
+        }
+        flowPane.getChildren().remove(flowPane.getChildren().get(1));
     }
-    public static ScrollPane googleImageView(){
+
+    public ScrollPane googleImageView() {
         final TextField textField = new TextField();
         Button btn = new Button("Search");
         ScrollPane scroll = new ScrollPane();
-
-
-        final FlowPane flowPane = new FlowPane();
+        VBox vBox = new VBox();
         flowPane.setPadding(new Insets(5, 5, 5, 5));
         flowPane.setVgap(5);
         flowPane.setHgap(5);
         flowPane.setPrefWrapLength(5);
         flowPane.setAlignment(Pos.CENTER);
-        flowPane.getChildren().add(textField);
-        flowPane.getChildren().add(btn);
-        btn.setOnAction(e-> {
-
-                try {
-                    images.clear();
-                    imageView.clear();
-                    loadImage(textField.getText());
-                    for (int i = 0; i < imageView.size(); i++) {
-                        flowPane.getChildren().add(imageView.get(i));
-                    }
-                }
-                catch (IOException ex){
-
-                }
-
+        vBox.getChildren().add(textField);
+        vBox.getChildren().add(btn);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setPadding(new Insets(5,5,5,5));
+        flowPane.getChildren().add(vBox);
+        btn.setOnAction(e -> {
+            images.clear();
+            imageView.clear();
+            flowPane.getChildren().clear();
+            flowPane.getChildren().add(vBox);
+            this.text = textField.getText();
+            ProgressBar progressBar = new ProgressBar();
+            flowPane.getChildren().add(progressBar);
+            new Thread(this).start();
         });
-
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scroll.setContent(flowPane);

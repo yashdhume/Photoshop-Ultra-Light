@@ -1,10 +1,11 @@
 package Global;
 
+import Main.EditingView;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +13,18 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class DragandDrop {
-    public static void external(StackPane stackPane, ImageView imageView){
+    public  DragandDrop(){}
+    public void visual(boolean start){
+        if(start)
+            EditingView.anchorPaneEditView.setStyle("-fx-border-color: red;"
+                    + "-fx-border-width: 5;"
+                    + "-fx-background-color: gray;"
+                    + "-fx-border-style: solid;");
+        else
+            EditingView.anchorPaneEditView.setStyle("-fx-border-color: #C6C6C6");
+
+    }
+    public void external(AnchorPane stackPane, ImageView imageView){
 
         stackPane.setOnDragOver((DragEvent e)->{
             final Dragboard db = e.getDragboard();
@@ -23,11 +35,15 @@ public class DragandDrop {
                 filesAccepted= db.getFiles().get(0).getName().toLowerCase().endsWith(".png")
                         || db.getFiles().get(0).getName().toLowerCase().endsWith(".jpeg")
                         || db.getFiles().get(0).getName().toLowerCase().endsWith(".jpg");
-                if (filesAccepted) e.acceptTransferModes(TransferMode.COPY);
+                if (filesAccepted){
+                    visual(true);
+                    e.acceptTransferModes(TransferMode.COPY);
+                }
                 else e.consume();
             }
 
         });
+
         stackPane.setOnDragDropped((DragEvent e)->{
             final Dragboard db = e.getDragboard();
             boolean success = false;
@@ -48,11 +64,12 @@ public class DragandDrop {
                     }
                 });
             }
+            visual(false);
             e.setDropCompleted(success);
             e.consume();
         });
     }
-    public static void localArray(ArrayList<ImageView> imageViewArr,int index, ImageView imageView){
+    public void localArray(ArrayList<ImageView> imageViewArr,int index, ImageView imageView){
         imageViewArr.get(index).setOnDragDetected((MouseEvent e)->{
             Dragboard db = imageViewArr.get(index).startDragAndDrop(TransferMode.MOVE);
             db.setDragView(imageViewArr.get(index).snapshot(null,null));
@@ -66,23 +83,22 @@ public class DragandDrop {
                     e.getDragboard().hasImage()) {
                 e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
             }
+            visual(true);
             e.consume();
 
 
         });
         imageViewArr.get(index).setOnDragDone((DragEvent e)-> {
-
             Dragboard db = e.getDragboard();
-
             if (db.hasImage()) {
                 imageView.setImage(db.getImage());
             }
+            visual(false);
             e.consume();
-
-
         });
+
     }
-    public static void local(ImageView imageView, ImageView imageView2){
+    public void local(ImageView imageView, ImageView imageView2){
         imageView.setOnDragDetected((MouseEvent event) -> {
             Dragboard db = imageView.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
@@ -96,6 +112,7 @@ public class DragandDrop {
                     e.getDragboard().hasImage()) {
                 e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
             }
+            visual(true);
             e.consume();
         });
         imageView.setOnDragDone((DragEvent e)-> {
@@ -104,6 +121,7 @@ public class DragandDrop {
             if (db.hasImage()) {
                 imageView2.setImage(db.getImage());
             }
+            visual(false);
             e.consume();
 
 

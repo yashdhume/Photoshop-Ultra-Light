@@ -1,5 +1,6 @@
 package CamCapture;
 
+import Global.DragandDrop;
 import Main.EditingView;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
@@ -24,19 +25,21 @@ import java.util.concurrent.TimeUnit;
 
 public class CamCaptureDemo{
 
-    public static ScheduledExecutorService timer;
-    public static VideoCapture capture = new VideoCapture();
-    public static boolean cameraActive = false;
-    public  static int cameraId = 0;
+    private ScheduledExecutorService timer;
+    private VideoCapture capture = new VideoCapture();
+    private boolean cameraActive = false;
+    private int cameraId = 0;
 
-    public static ImageView cameraDisplay = new ImageView();
-    public static Button btCamera = new Button("Camera");
-    public static BorderPane borderPane = new BorderPane();
-    public static HBox btCameraBox = new HBox();
+    private ImageView cameraDisplay = new ImageView();
+    private Button btCamera = new Button("Camera");
+    private BorderPane borderPane = new BorderPane();
+    private HBox btCameraBox = new HBox();
+    public CamCaptureDemo(){
+       // start();
+    }
 
 
-
-    public static BufferedImage MatToBufferedImage(Mat original)
+    private BufferedImage MatToBufferedImage(Mat original)
     {
         BufferedImage image = null;
         int width = original.width(); int height = original.height(); int channels = original.channels();
@@ -55,19 +58,19 @@ public class CamCaptureDemo{
         return image;
     }
 
-    public static <T> void onFXThread(final ObjectProperty<T> property, final T value)
+    private <T> void onFXThread(final ObjectProperty<T> property, final T value)
     {
         Platform.runLater(()->{property.set(value);});
     }
 
-    public static void updateImageView(ImageView view, Image image)
+    private void updateImageView(ImageView view, Image image)
     {
         onFXThread(view.imageProperty(), image);
     }
 
 
 
-    public static Image mat2Image(Mat frame)
+    private Image mat2Image(Mat frame)
     {
         try
         {
@@ -80,7 +83,7 @@ public class CamCaptureDemo{
         }
     }
 
-    public static void stopAcquisition(){
+    private void stopAcquisition(){
 
         if (timer != null && !timer.isShutdown())
         {
@@ -100,11 +103,11 @@ public class CamCaptureDemo{
         }
     }
 
-    public static void setClosed(){
+    public void setClosed(){
         stopAcquisition();
     }
 
-    public static void startCamera(ActionEvent e)
+    private void startCamera(ActionEvent e)
     {
         if (!cameraActive) {
             // start the video capture.
@@ -126,8 +129,8 @@ public class CamCaptureDemo{
                         // convert and show the frame
                         Image imageToShow = mat2Image(frame);
                         updateImageView(cameraDisplay, imageToShow);
-
-                       Global.DragandDrop.local(cameraDisplay, EditingView.imageViewEditView);
+                        DragandDrop dragandDrop = new DragandDrop();
+                       dragandDrop.local(cameraDisplay, EditingView.imageViewEditView);
                     }
                 };
 
@@ -152,7 +155,7 @@ public class CamCaptureDemo{
     }
 
 
-    public static Mat grabFrame()
+    private Mat grabFrame()
     {
         Mat frame = new Mat();
 
@@ -181,7 +184,7 @@ public class CamCaptureDemo{
     }
 
 
-    public static BorderPane start()
+    public BorderPane start()
     {
 
 
@@ -194,12 +197,15 @@ public class CamCaptureDemo{
 
         // Image Display
         borderPane.setCenter(cameraDisplay);
+        cameraDisplay.setPreserveRatio(true);
+        cameraDisplay.setFitHeight(500);
+        cameraDisplay.setFitWidth(750);
         return borderPane;
         // Scene scene = new Scene(borderPane, 800,600);
         /*primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
-            public void handle(WindowEvent event) {
+            private void handle(WindowEvent event) {
                 setClosed();
             }
         });
@@ -208,7 +214,7 @@ public class CamCaptureDemo{
 
 
 
-   /* public static void main(String[] args){
+   /* private void main(String[] args){
         // load the OpenCV library
         nu.pattern.OpenCV.loadShared();
 

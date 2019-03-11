@@ -12,7 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ImageScraper {
-    public static ArrayList<String> getImageArray(String search, int numOfSearchResults) throws IOException{
+    public ImageScraper(){}
+    public ArrayList<String> getImageArray(String search, int numOfSearchResults){
         ArrayList<String> resultUrls = new ArrayList<String>();
         String userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
         String url = "https://www.google.com/search?site=imghp&tbm=isch&source=hp&q="+search+"&gws_rd=cr";
@@ -38,7 +39,7 @@ public class ImageScraper {
 
             //for (String imageUrl : resultUrls) System.out.println(imageUrl);
 
-        } catch (ParseException e) {
+        } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
         return resultUrls;

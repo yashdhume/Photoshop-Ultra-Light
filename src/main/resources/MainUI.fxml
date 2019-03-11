@@ -23,17 +23,16 @@
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem fx:id="newMI" mnemonicParsing="false" onAction="#newMI" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
+            <MenuItem mnemonicParsing="false" text="Open…" onAction="#open" />
+            <Menu mnemonicParsing="false" text="Open Recent" onAction="#openRecent" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
+            <MenuItem mnemonicParsing="false" text="Save" onAction="#save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" onAction="#saveAs" />
+            <MenuItem mnemonicParsing="false" text="Revert" onAction="#revert" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" onAction="#preference" />
+            <SeparatorMenuItem mnemonicParsing="false"  />
+            <MenuItem mnemonicParsing="false" text="Quit" onAction="#quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">

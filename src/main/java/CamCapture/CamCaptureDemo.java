@@ -56,7 +56,7 @@ public class CamCaptureDemo{
     {
         try
         {
-            return openCVMat.matToBufferedImage(frame);
+            return openCVMat.matToMatrix(frame);
         }
         catch (Exception e)
         {

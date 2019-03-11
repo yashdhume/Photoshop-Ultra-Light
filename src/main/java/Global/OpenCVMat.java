@@ -8,6 +8,8 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
 
@@ -17,7 +19,7 @@ public class OpenCVMat {
     //Get the Original Image before the Effect
     public Image getImageOriginal(){
         try{
-            return matToBufferedImage(originalImage);
+            return matToMatrix(originalImage);
         }catch (Exception e){
             return null;
         }
@@ -36,12 +38,12 @@ public class OpenCVMat {
     public Image getImagePost(){
         try {
            // getImageOriginal();
-            return matToBufferedImage(effect);
+            return matToMatrix(effect);
         }catch(Exception e){
             return  null;
         }
     }
-    public Mat bufferedImageToMat(Image image) {
+    public Mat imageToMatrix(Image image) {
         int width = (int) image.getWidth();
         int height = (int) image.getHeight();
         byte[] buffer = new byte[width * height * 4];
@@ -56,7 +58,7 @@ public class OpenCVMat {
 
     }
 
-    public Image matToBufferedImage(Mat matrix){
+    public Image matToMatrix(Mat matrix){
         try {
             MatOfByte byteMat = new MatOfByte();
             Imgcodecs.imencode(".bmp", matrix, byteMat);
@@ -66,6 +68,31 @@ public class OpenCVMat {
             System.out.println(e);
             return null;
         }
+    }
+    public BufferedImage matToBufferedImage(Mat original) {
+        java.awt.image.BufferedImage image = null;
+        int width = original.width(); int height = original.height(); int channels = original.channels();
+        byte[] sourcePixels = new byte[width * height * channels];
+        original.get(0,0, sourcePixels);
+
+        if (original.channels() > 1){
+            image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+        }
+        else {
+            image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        }
+
+        byte[] targetPixels =  ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
+        System.arraycopy(sourcePixels, 0, targetPixels, 0, sourcePixels.length);
+        return image;
+    }
+    private Mat bufferedImageToMat(BufferedImage bi) {
+        Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3);
+        System.out.println(bi.getType());
+        byte[] data = ((DataBufferByte) bi.getRaster().getDataBuffer()).getData();
+        mat.put(0, 0, data);
+        return mat;
+
     }
 
 

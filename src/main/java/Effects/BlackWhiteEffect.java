@@ -14,7 +14,7 @@ public class BlackWhiteEffect {
                 Image image = new Image(new FileInputStream(input));
                 originalImage = new Mat();
                 bwEffect = new Mat();
-                originalImage = openCVMat.bufferedImageToMat(image);
+                originalImage = openCVMat.imageToMatrix(image);
 
                 Imgproc.cvtColor(originalImage, bwEffect, Imgproc.COLOR_RGB2GRAY);
             }catch (Exception e){System.out.println("An Error Occured");}
@@ -29,7 +29,7 @@ public class BlackWhiteEffect {
                 System.out.println("Running");
                 originalImage = new Mat();
                 bwEffect = new Mat();
-                originalImage = openCVMat.bufferedImageToMat(new Image(url));
+                originalImage = openCVMat.imageToMatrix(new Image(url));
                 Imgproc.cvtColor(originalImage, bwEffect, Imgproc.COLOR_BGR2GRAY);
             }catch (Exception e){System.out.println(e);}
 
@@ -43,7 +43,7 @@ public class BlackWhiteEffect {
                 System.out.println("Running");
                 originalImage = new Mat();
                 bwEffect = new Mat();
-                originalImage = openCVMat.bufferedImageToMat(image);
+                originalImage = openCVMat.imageToMatrix(image);
                 Imgproc.cvtColor(originalImage, bwEffect, Imgproc.COLOR_BGR2GRAY);
                 openCVMat.setEffect(bwEffect);
                 openCVMat.setOriginalImage(originalImage);

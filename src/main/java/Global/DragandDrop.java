@@ -50,17 +50,14 @@ public class DragandDrop {
             if (db.hasFiles()) {
                 success = true;
                 final File file = db.getFiles().get(0);
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        System.out.println(file.getAbsolutePath());
-                        try {
-                            //if(!stackPane.getChildren().isEmpty()) stackPane.getChildren().remove(0);
-                            Image img = new Image(new FileInputStream(file.getAbsolutePath()));
-                            imageView.setImage(img);
-                        } catch (FileNotFoundException ex) {
-                            System.out.println("error");
-                        }
+                Platform.runLater(() -> {
+                    System.out.println(file.getAbsolutePath());
+                    try {
+                        //if(!stackPane.getChildren().isEmpty()) stackPane.getChildren().remove(0);
+                        Image img = new Image(new FileInputStream(file.getAbsolutePath()));
+                        imageView.setImage(img);
+                    } catch (FileNotFoundException ex) {
+                        System.out.println("error");
                     }
                 });
             }

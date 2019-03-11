@@ -2,12 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -23,16 +25,16 @@
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem fx:id="newMI" mnemonicParsing="false" onAction="#newMI" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" onAction="#open" />
-            <Menu mnemonicParsing="false" text="Open Recent" onAction="#openRecent" />
+            <MenuItem mnemonicParsing="false" onAction="#open" text="Open…" />
+            <Menu mnemonicParsing="false" onAction="#openRecent" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Save" onAction="#save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" onAction="#saveAs" />
-            <MenuItem mnemonicParsing="false" text="Revert" onAction="#revert" />
+            <MenuItem mnemonicParsing="false" onAction="#save" text="Save" />
+            <MenuItem mnemonicParsing="false" onAction="#saveAs" text="Save As…" />
+            <MenuItem mnemonicParsing="false" onAction="#revert" text="Revert" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" onAction="#preference" />
-            <SeparatorMenuItem mnemonicParsing="false"  />
-            <MenuItem mnemonicParsing="false" text="Quit" onAction="#quit" />
+            <MenuItem mnemonicParsing="false" onAction="#preference" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#quit" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
@@ -68,7 +70,10 @@
                 <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
               </textFill>
             </Label>
-                  <Button fx:id="tempBtn" layoutX="64.0" layoutY="107.0" mnemonicParsing="false" onAction="#tempBtnAction" text="TempButton" />
+                  <Button fx:id="bWEffectBtn" layoutX="52.0" layoutY="105.0" mnemonicParsing="false" onAction="#bWEffectAction" text="Black and White" />
+                  <ColorPicker fx:id="colorPicker" layoutX="41.0" layoutY="201.0" onAction="#colorPickerAction" promptText="Change Color" />
+                  <Button fx:id="drawBtn" layoutX="81.0" layoutY="143.0" mnemonicParsing="false" onAction="#drawAction" text="Draw" />
+                  <Slider fx:id="strokeSlide" blockIncrement="1.0" layoutX="36.0" layoutY="179.0" onDragDetected="#strokeAction" />
           </children>
         </AnchorPane>
         <ScrollPane prefHeight="-1.0" prefWidth="-1.0">

@@ -1,43 +1,63 @@
 package Main;
 
 import CamCapture.CamCaptureDemo;
+import Effects.BlackWhiteEffect;
 import ImageScraper.ImageScraperView;
 import Tools.PaintDraw;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.stage.FileChooser;
+
 import java.io.File;
 import javafx.embed.swing.SwingFXUtils;
 import javax.imageio.ImageIO;
 import java.io.IOException;
-public class Controller extends AnchorPane {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class Controller extends AnchorPane implements Initializable{
     @FXML
     private Button picGoogleBtn;
 
     @FXML
     private Button cameraBtn;
     @FXML
-    private  Button tempBtn;
+    private  Button bWEffectBtn;
     @FXML
     private MenuItem newMI;
 
     @FXML
     private AnchorPane toolbar;
 
+    @FXML
+    private  Button drawBtn;
 
-    public void initialize() {
-        toolbar = new AnchorPane();
+    @FXML
+    private Slider strokeSlide;
+    @FXML
+    private ColorPicker colorPicker;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        /*toolbar = new AnchorPane();
         toolbar.getChildren().add(new Label("Hello"));
         System.out.println(toolbar.getLayoutX());
         System.out.println(toolbar.getLayoutY());
+        Button btn = new Button("df");
+        toolbar.getChildren().add(btn);*/
+
+
     }
 
     @FXML
@@ -135,11 +155,32 @@ public class Controller extends AnchorPane {
         stage.show();
 
     }
+    Color color;
     @FXML
-    void tempBtnAction(ActionEvent event){
+    void bWEffectAction(ActionEvent event){
         EditingView editingView = new EditingView();
-        PaintDraw paintDraw = new PaintDraw(Color.RED,2);
+        BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.imageViewEditView.getImage());
+        editingView.imageViewEditView.setImage(blackWhiteEffect.getEffect());
+
+    }
+    int stroke;
+    @FXML
+    void strokeAction(MouseEvent event){
+       stroke = (int)strokeSlide.getValue();
+       drawAction();
+    }
+    @FXML
+    void drawAction(){
+        EditingView editingView = new EditingView();
+        PaintDraw paintDraw = new PaintDraw(color,stroke);
         paintDraw.draw(editingView.anchorPaneEditView);
+
+    }
+    @FXML
+    void colorPickerAction(ActionEvent event){
+
+        color = colorPicker.getValue();
+        drawAction();
     }
 
 }

@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+
 public class Main extends Application {
 
     @Override
@@ -25,6 +26,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         nu.pattern.OpenCV.loadShared();
-        launch(args);
+        Application.launch(args);
     }
 }

@@ -1,13 +1,13 @@
 package CamCapture;
 
 import Global.DragandDrop;
+import Global.OpenCVMat;
 import Main.EditingView;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
 
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -17,8 +17,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -34,29 +32,13 @@ public class CamCaptureDemo{
     private Button btCamera = new Button("Camera");
     private BorderPane borderPane = new BorderPane();
     private HBox btCameraBox = new HBox();
+    OpenCVMat openCVMat = new OpenCVMat();
     public CamCaptureDemo(){
        // start();
     }
 
 
-    private BufferedImage MatToBufferedImage(Mat original)
-    {
-        BufferedImage image = null;
-        int width = original.width(); int height = original.height(); int channels = original.channels();
-        byte[] sourcePixels = new byte[width * height * channels];
-        original.get(0,0, sourcePixels);
 
-        if (original.channels() > 1){
-            image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-        }
-        else {
-            image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
-        }
-
-        byte[] targetPixels =  ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-        System.arraycopy(sourcePixels, 0, targetPixels, 0, sourcePixels.length);
-        return image;
-    }
 
     private <T> void onFXThread(final ObjectProperty<T> property, final T value)
     {
@@ -74,7 +56,7 @@ public class CamCaptureDemo{
     {
         try
         {
-            return SwingFXUtils.toFXImage(MatToBufferedImage(frame), null);
+            return openCVMat.matToBufferedImage(frame);
         }
         catch (Exception e)
         {
@@ -119,19 +101,16 @@ public class CamCaptureDemo{
 
 
                 // grab Global frame every 33 ms (30 frames/sec)
-                Runnable framGrabber = new Runnable() {
-                    @Override
-                    public void run() {
+                Runnable framGrabber = () -> {
 
-                        // effectively grab and process Global single frame
-                        Mat frame = grabFrame();
+                    // effectively grab and process Global single frame
+                    Mat frame = grabFrame();
 
-                        // convert and show the frame
-                        Image imageToShow = mat2Image(frame);
-                        updateImageView(cameraDisplay, imageToShow);
-                        DragandDrop dragandDrop = new DragandDrop();
-                       dragandDrop.local(cameraDisplay, EditingView.imageViewEditView);
-                    }
+                    // convert and show the frame
+                    Image imageToShow = mat2Image(frame);
+                    updateImageView(cameraDisplay, imageToShow);
+                    DragandDrop dragandDrop = new DragandDrop();
+                   dragandDrop.local(cameraDisplay, EditingView.imageViewEditView);
                 };
 
                 timer = Executors.newSingleThreadScheduledExecutor();

@@ -11,6 +11,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -71,9 +72,10 @@
               </textFill>
             </Label>
                   <Button fx:id="bWEffectBtn" layoutX="52.0" layoutY="105.0" mnemonicParsing="false" onAction="#bWEffectAction" text="Black and White" />
-                  <ColorPicker fx:id="colorPicker" layoutX="41.0" layoutY="201.0" onAction="#colorPickerAction" promptText="Change Color" />
+                  <ColorPicker fx:id="colorPicker" layoutX="41.0" layoutY="261.0" onAction="#colorPickerAction" promptText="Change Color" />
                   <Button fx:id="drawBtn" layoutX="81.0" layoutY="143.0" mnemonicParsing="false" onAction="#drawAction" text="Draw" />
-                  <Slider fx:id="strokeSlide" blockIncrement="1.0" layoutX="36.0" layoutY="179.0" onDragDetected="#strokeAction" />
+                  <Slider fx:id="strokeSlide" blockIncrement="1.0" layoutX="7.0" layoutY="180.0" majorTickUnit="1.0" max="50.0" min="1.0" minorTickCount="0" onDragDetected="#strokeAction" prefHeight="38.0" prefWidth="208.0" showTickMarks="true" snapToTicks="true" value="2.0" />
+                  <TextField fx:id="strokeTextBox" layoutX="79.0" layoutY="226.0" onAction="#strokeTextAction" onKeyPressed="#strokeTextBoxEnter" prefHeight="27.0" prefWidth="63.0" promptText="Stroke" />
           </children>
         </AnchorPane>
         <ScrollPane prefHeight="-1.0" prefWidth="-1.0">

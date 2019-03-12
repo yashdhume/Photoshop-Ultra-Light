@@ -1,11 +1,16 @@
 package Tools;
 
+import Main.EditingView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
-import static Main.EditingView.imageViewEditView;
+
 
 public class PaintDraw {
     private double initX, initY;
@@ -15,23 +20,24 @@ public class PaintDraw {
         this.color=color;
         this.stroke = stroke;
     }
-    public void draw(AnchorPane anchorPane){
-        if(imageViewEditView.getImage()!=null) {
-            System.out.println(imageViewEditView.getImage());
-            final double maxX = imageViewEditView.getImage().getWidth();
-            final double maxY = imageViewEditView.getImage().getHeight();
+    public void drawOnAnchor(AnchorPane anchorPane){
+        EditingView editingView = new EditingView();
+        if(editingView.imageViewEditView.getImage()!=null) {
+            System.out.println(editingView.imageViewEditView.getImage());
+            final double maxX = editingView.imageViewEditView.getImage().getWidth();
+            final double maxY = editingView.imageViewEditView.getImage().getHeight();
 
 
-            imageViewEditView.setOnMousePressed((MouseEvent e) -> {
+            editingView.imageViewEditView.setOnMousePressed((MouseEvent e) -> {
                 initX = e.getSceneX();
                 initY = e.getSceneY();
                 e.consume();
             });
-            imageViewEditView.setOnMouseDragged((MouseEvent e) -> {
+            editingView.imageViewEditView.setOnMouseDragged((MouseEvent e) -> {
                 if (e.getSceneX() < maxX && e.getSceneY() < maxY) {
                     Line line = new Line(initX, initY, e.getSceneX(), e.getSceneY());
-                    line.setFill(null);
                     line.setStroke(color);
+                    line.setSmooth(true);
                     line.setStrokeWidth(stroke);
                     anchorPane.getChildren().add(line);
                 }
@@ -41,4 +47,23 @@ public class PaintDraw {
             });
         }
     }
+    public void drawOnImage(ImageView imageView){
+        Image[] image={null};
+        image[0]=imageView.getImage();
+        imageView.setFitHeight(image[0].getHeight());
+        imageView.setFitWidth(image[0].getWidth());
+        imageView.setImage(image[0]);
+        EditingView editingView = new EditingView();
+        imageView.setOnMouseDragged(event -> {
+            double x=event.getX();
+            double y=event.getY();
+            WritableImage wi=new WritableImage(image[0].getPixelReader(),(int)image[0].getWidth(),(int)image[0].getHeight());
+            PixelWriter pw=wi.getPixelWriter();
+            pw.setColor((int)x,(int)y,color);
+            image[0]=wi;
+            editingView.imageViewEditView.setImage(image[0]);
+
+        });
+    }
+
 }

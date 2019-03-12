@@ -15,13 +15,14 @@ import java.util.ArrayList;
 public class DragandDrop {
     public  DragandDrop(){}
     public void visual(boolean start){
+        EditingView editingView = new EditingView();
         if(start)
-            EditingView.anchorPaneEditView.setStyle("-fx-border-color: red;"
+            editingView.anchorPaneEditView.setStyle("-fx-border-color: red;"
                     + "-fx-border-width: 5;"
                     + "-fx-background-color: gray;"
                     + "-fx-border-style: solid;");
         else
-            EditingView.anchorPaneEditView.setStyle("-fx-border-color: #C6C6C6");
+            editingView.anchorPaneEditView.setStyle("-fx-border-color: #C6C6C6");
 
     }
     public void external(AnchorPane stackPane, ImageView imageView){

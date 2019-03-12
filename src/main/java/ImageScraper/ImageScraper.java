@@ -30,14 +30,19 @@ public class ImageScraper {
                 }
                 if (element.childNodeSize() > 0) {
                     jsonObject = (JSONObject) new JSONParser().parse(element.childNode(0).toString());
-                    resultUrls.add((String) jsonObject.get("ou"));
+                    String tempURL = (String) jsonObject.get("ou");
+                    boolean urlAccepted= tempURL.endsWith(".png")
+                            || tempURL.endsWith(".jpeg")
+                            ||tempURL.endsWith(".jpg");
+                    if(urlAccepted)
+                        resultUrls.add(tempURL);
                 }
                 count++;
             }
 
             System.out.println("number of results: " + resultUrls.size());
 
-            //for (String imageUrl : resultUrls) System.out.println(imageUrl);
+            for (String imageUrl : resultUrls) System.out.println(imageUrl);
 
         } catch (ParseException | IOException e) {
             e.printStackTrace();

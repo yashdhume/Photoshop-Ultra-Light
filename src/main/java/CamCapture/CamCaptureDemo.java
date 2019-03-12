@@ -110,7 +110,8 @@ public class CamCaptureDemo{
                     Image imageToShow = mat2Image(frame);
                     updateImageView(cameraDisplay, imageToShow);
                     DragandDrop dragandDrop = new DragandDrop();
-                   dragandDrop.local(cameraDisplay, EditingView.imageViewEditView);
+                    EditingView editingView = new EditingView();
+                   dragandDrop.local(cameraDisplay, editingView.imageViewEditView);
                 };
 
                 timer = Executors.newSingleThreadScheduledExecutor();

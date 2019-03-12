@@ -9,11 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -50,6 +49,9 @@ public class Controller extends AnchorPane implements Initializable{
     private Slider strokeSlide;
     @FXML
     private ColorPicker colorPicker;
+    @FXML
+    private TextField strokeTextBox;
+    EditingView editingView = new EditingView();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,7 +68,6 @@ public class Controller extends AnchorPane implements Initializable{
     @FXML
     void newMI(ActionEvent event) {
         Stage stage = new Stage();
-        EditingView editingView = new EditingView();
         Scene scene = new Scene(editingView.EditView(),700,700);
         stage.getIcons().add(new Image("logo.png"));
         stage.setScene(scene);
@@ -114,7 +115,7 @@ public class Controller extends AnchorPane implements Initializable{
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
             try {
-                ImageIO.write(SwingFXUtils.fromFXImage(EditingView.imageViewEditView.getImage(), null), "jpg", file);
+                ImageIO.write(SwingFXUtils.fromFXImage(editingView.imageViewEditView.getImage(), null), "jpg", file);
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -167,32 +168,53 @@ public class Controller extends AnchorPane implements Initializable{
         stage.show();
 
     }
-    Color color;
+
     @FXML
     void bWEffectAction(ActionEvent event){
-        EditingView editingView = new EditingView();
+
         BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.imageViewEditView.getImage());
         editingView.imageViewEditView.setImage(blackWhiteEffect.getEffect());
 
     }
-    int stroke;
+    Color color = Color.WHITE;
+    int stroke=2;
+
+    private void drawUpdate(){
+        PaintDraw paintDraw = new PaintDraw(color, stroke);
+        paintDraw.drawOnAnchor(editingView.anchorPaneEditView);
+        //paintDraw.drawOnImage(editingView.imageViewEditView);
+    }
     @FXML
     void strokeAction(MouseEvent event){
        stroke = (int)strokeSlide.getValue();
-       drawAction();
+      //  System.out.println(stroke);
+        strokeTextAction();
+        drawUpdate();
     }
     @FXML
-    void drawAction(){
-        EditingView editingView = new EditingView();
-        PaintDraw paintDraw = new PaintDraw(color,stroke);
-        paintDraw.draw(editingView.anchorPaneEditView);
-
+    void drawAction(ActionEvent event){
+        strokeTextBox.setText(String.valueOf(stroke));
+        drawUpdate();
     }
     @FXML
     void colorPickerAction(ActionEvent event){
-
         color = colorPicker.getValue();
-        drawAction();
+        drawUpdate();
+    }
+
+    @FXML
+    void strokeTextAction(){
+        strokeTextBox.setText(String.valueOf(stroke));
+
+    }
+    @FXML
+    void strokeTextBoxEnter(KeyEvent event){
+        if(event.getCode()==KeyCode.ENTER){
+            stroke = Integer.parseInt(strokeTextBox.getText());
+            strokeSlide.setValue(stroke);
+            drawUpdate();
+
+        }
     }
 
 }

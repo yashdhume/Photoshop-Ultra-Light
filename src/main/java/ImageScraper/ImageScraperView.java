@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -63,10 +64,22 @@ public class ImageScraperView implements Runnable {
         }
         flowPane.getChildren().remove(flowPane.getChildren().get(1));
     }
-
+    private void btnPress(VBox vBox, TextField textField, String  extraText){
+        images.clear();
+        imageView.clear();
+        flowPane.getChildren().clear();
+        flowPane.getChildren().add(vBox);
+        this.text = textField.getText();
+        this.text = this.text+extraText;
+        ProgressBar progressBar = new ProgressBar();
+        flowPane.getChildren().add(progressBar);
+        new Thread(this).start();
+    }
     public ScrollPane googleImageView() {
         final TextField textField = new TextField();
-        Button btn = new Button("Search");
+        Button searchBtn = new Button("Search");
+        Button funnyBtn = new Button("Funny");
+        Button cuteBtn = new Button("Cute");
         ScrollPane scroll = new ScrollPane();
         VBox vBox = new VBox();
         flowPane.setPadding(new Insets(5, 5, 5, 5));
@@ -75,20 +88,15 @@ public class ImageScraperView implements Runnable {
         flowPane.setPrefWrapLength(5);
         flowPane.setAlignment(Pos.CENTER);
         vBox.getChildren().add(textField);
-        vBox.getChildren().add(btn);
+        HBox hBox = new HBox();
+        hBox.getChildren().addAll(searchBtn,funnyBtn, cuteBtn);
+        vBox.getChildren().add(hBox);
         vBox.setAlignment(Pos.CENTER);
         vBox.setPadding(new Insets(5,5,5,5));
         flowPane.getChildren().add(vBox);
-        btn.setOnAction(e -> {
-            images.clear();
-            imageView.clear();
-            flowPane.getChildren().clear();
-            flowPane.getChildren().add(vBox);
-            this.text = textField.getText();
-            ProgressBar progressBar = new ProgressBar();
-            flowPane.getChildren().add(progressBar);
-            new Thread(this).start();
-        });
+        searchBtn.setOnAction(e -> btnPress(vBox, textField, ""));
+        funnyBtn.setOnAction(e -> btnPress(vBox, textField, " funny"));
+        cuteBtn.setOnAction(e -> btnPress(vBox, textField, " cute"));
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scroll.setContent(flowPane);

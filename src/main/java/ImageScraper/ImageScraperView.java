@@ -1,3 +1,4 @@
+//Google Image Viewer
 package ImageScraper;
 
 import Global.DragandDrop;
@@ -17,7 +18,6 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
-
 public class ImageScraperView implements Runnable {
     private ArrayList<Image> images ;
     private ArrayList<ImageView> imageView;
@@ -30,15 +30,18 @@ public class ImageScraperView implements Runnable {
         imageView = new ArrayList<>();
         numOfPicturesDisplayed = 10;
     }
+    //Multi-threading Runs downloads and displays images
     public void run() {
         int numOfSearchResults = 100;
         ImageScraper imageScraper = new ImageScraper();
         ArrayList<String> googleImagesLinks = imageScraper.getImageArray(text, numOfSearchResults);
+        //adds images to imagesArray from URLs
         for (int i = 0; i < numOfPicturesDisplayed; i++) {
             images.add(new Image(googleImagesLinks.get(i)));
             System.out.println(images.get(i).errorProperty());
         }
         int numErrors = 0;
+        //set all images that were not able to load to different images
         for (int j = 0; j < images.size(); j++) {
             if (images.get(j).isError()) {
                 images.set(j, new Image(googleImagesLinks.get(j + images.size())));
@@ -46,9 +49,11 @@ public class ImageScraperView implements Runnable {
             }
         }
         System.out.println(numErrors + " Broken Pics");
+        //run loadImages after thread finishes running
         Platform.runLater(this::loadImages);
     }
     private void loadImages(){
+        //displays all the images
         for (int i = 0; i < images.size(); i++) {
             EditingView editingView = new EditingView();
             imageView.add(new ImageView(images.get(i)));
@@ -65,6 +70,7 @@ public class ImageScraperView implements Runnable {
         }
         flowPane.getChildren().remove(flowPane.getChildren().get(1));
     }
+    //Search Button for images
     private void btnPress(VBox vBox, TextField textField, String  extraText){
         images.clear();
         imageView.clear();
@@ -76,6 +82,7 @@ public class ImageScraperView implements Runnable {
         flowPane.getChildren().add(progressBar);
         new Thread(this).start();
     }
+    //Image View Scroll Pane
     public ScrollPane googleImageView() {
         final TextField textField = new TextField();
         Button searchBtn = new Button("Search");

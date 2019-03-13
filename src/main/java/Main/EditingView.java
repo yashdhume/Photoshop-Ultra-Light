@@ -8,6 +8,7 @@ public class EditingView {
     public static ImageView imageViewEditView = new ImageView();
     public static AnchorPane anchorPaneEditView = new AnchorPane();
     public EditingView(){}
+    //Edit View
     public AnchorPane EditView(){
         DragandDrop dragandDrop = new DragandDrop();
         dragandDrop.external(anchorPaneEditView,imageViewEditView);

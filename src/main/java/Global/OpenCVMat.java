@@ -1,3 +1,5 @@
+//This Class handles creating Matrix out a Image and visa versa for Open CV
+//This class can be used for any open cv code
 package Global;
 
 import javafx.scene.image.Image;
@@ -15,11 +17,12 @@ import java.nio.ByteBuffer;
 
 public class OpenCVMat {
     private Mat originalImage, effect;
+    // Constructor
     public OpenCVMat(){}
     //Get the Original Image before the Effect
     public Image getImageOriginal(){
         try{
-            return matToMatrix(originalImage);
+            return matToImage(originalImage);
         }catch (Exception e){
             return null;
         }
@@ -38,28 +41,30 @@ public class OpenCVMat {
     public Image getImagePost(){
         try {
            // getImageOriginal();
-            return matToMatrix(effect);
+            return matToImage(effect);
         }catch(Exception e){
             return  null;
         }
     }
+    //JavaFX image to a Matrix
     public Mat imageToMatrix(Image image) {
         int width = (int) image.getWidth();
         int height = (int) image.getHeight();
         byte[] buffer = new byte[width * height * 4];
-        System.out.println(image);
+        //Reads every pixel from image and converts to matrix
         PixelReader reader = image.getPixelReader();
         WritablePixelFormat<ByteBuffer> format = WritablePixelFormat.getByteBgraInstance();
         reader.getPixels(0, 0, width, height, format, buffer, 0, width * 4);
-
+        //CV 4 channel
         Mat mat = new Mat(height, width, CvType.CV_8UC4);
         mat.put(0, 0, buffer);
         return mat;
 
     }
-
-    public Image matToMatrix(Mat matrix){
+    //Matrix to JavaFX image
+    public Image matToImage(Mat matrix){
         try {
+            //converts to .bmp for fast conversion
             MatOfByte byteMat = new MatOfByte();
             Imgcodecs.imencode(".bmp", matrix, byteMat);
             return new Image(new ByteArrayInputStream(byteMat.toArray()));
@@ -69,6 +74,7 @@ public class OpenCVMat {
             return null;
         }
     }
+    //Matrix to Buffered Image
     public BufferedImage matToBufferedImage(Mat original) {
         java.awt.image.BufferedImage image = null;
         int width = original.width(); int height = original.height(); int channels = original.channels();
@@ -86,6 +92,7 @@ public class OpenCVMat {
         System.arraycopy(sourcePixels, 0, targetPixels, 0, sourcePixels.length);
         return image;
     }
+    //Buffered Image to Matrix
     private Mat bufferedImageToMat(BufferedImage bi) {
         Mat mat = new Mat(bi.getHeight(), bi.getWidth(), CvType.CV_8UC3);
         System.out.println(bi.getType());

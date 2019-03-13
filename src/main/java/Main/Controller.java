@@ -3,6 +3,7 @@ package Main;
 import CamCapture.CamCaptureDemo;
 import Effects.BlackWhiteEffect;
 import ImageScraper.ImageScraperView;
+import Layers.LayerView;
 import Tools.PaintDraw;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -43,6 +45,9 @@ public class Controller extends AnchorPane implements Initializable{
     private AnchorPane toolbar;
 
     @FXML
+    private AnchorPane layers;
+
+    @FXML
     private  Button drawBtn;
 
     @FXML
@@ -61,8 +66,8 @@ public class Controller extends AnchorPane implements Initializable{
         System.out.println(toolbar.getLayoutY());
         Button btn = new Button("df");
         toolbar.getChildren().add(btn);*/
-
-
+        //LayerView lv = new LayerView(layers);
+        editingView.InitializeLayers(layers);
     }
 
     @FXML
@@ -115,7 +120,7 @@ public class Controller extends AnchorPane implements Initializable{
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
             try {
-                ImageIO.write(SwingFXUtils.fromFXImage(editingView.imageViewEditView.getImage(), null), "jpg", file);
+                ImageIO.write(SwingFXUtils.fromFXImage(editingView.layerView.getCompositeImageView().getImage(), null), "jpg", file);
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -172,8 +177,8 @@ public class Controller extends AnchorPane implements Initializable{
     @FXML
     void bWEffectAction(ActionEvent event){
 
-        BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.imageViewEditView.getImage());
-        editingView.imageViewEditView.setImage(blackWhiteEffect.getEffect());
+        BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.layerView.getSelectedImageView().getImage());
+        editingView.layerView.updateSelectedImageView(blackWhiteEffect.getEffect());
 
     }
     Color color = Color.WHITE;

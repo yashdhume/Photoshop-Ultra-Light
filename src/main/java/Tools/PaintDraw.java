@@ -22,18 +22,18 @@ public class PaintDraw {
     }
     public void drawOnAnchor(AnchorPane anchorPane){
         EditingView editingView = new EditingView();
-        if(editingView.imageViewEditView.getImage()!=null) {
-            System.out.println(editingView.imageViewEditView.getImage());
-            final double maxX = editingView.imageViewEditView.getImage().getWidth();
-            final double maxY = editingView.imageViewEditView.getImage().getHeight();
+        if(editingView.layerView.getCompositeImageView().getImage()!=null) {
+            System.out.println(editingView.layerView.getCompositeImageView().getImage());
+            final double maxX = editingView.layerView.getCompositeImageView().getImage().getWidth();
+            final double maxY = editingView.layerView.getCompositeImageView().getImage().getHeight();
 
 
-            editingView.imageViewEditView.setOnMousePressed((MouseEvent e) -> {
+            editingView.layerView.getCompositeImageView().setOnMousePressed((MouseEvent e) -> {
                 initX = e.getSceneX();
                 initY = e.getSceneY();
                 e.consume();
             });
-            editingView.imageViewEditView.setOnMouseDragged((MouseEvent e) -> {
+            editingView.layerView.getCompositeImageView().setOnMouseDragged((MouseEvent e) -> {
                 if (e.getSceneX() < maxX && e.getSceneY() < maxY) {
                     Line line = new Line(initX, initY, e.getSceneX(), e.getSceneY());
                     line.setStroke(color);
@@ -61,7 +61,7 @@ public class PaintDraw {
             PixelWriter pw=wi.getPixelWriter();
             pw.setColor((int)x,(int)y,color);
             image[0]=wi;
-            editingView.imageViewEditView.setImage(image[0]);
+            editingView.layerView.getCompositeImageView().setImage(image[0]);
 
         });
     }

@@ -89,7 +89,7 @@ public class DragandDrop {
         imageViewArr.get(index).setOnDragDone((DragEvent e)-> {
             Dragboard db = e.getDragboard();
             if (db.hasImage()) {
-                imageView.setImage(db.getImage());
+                EditingView.layerView.addImage(db.getImage());
             }
             visual(false);
             e.consume();

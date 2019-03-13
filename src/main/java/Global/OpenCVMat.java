@@ -57,6 +57,18 @@ public class OpenCVMat {
         return mat;
 
     }
+    public Image mat2Image(Mat frame)
+    {
+        try
+        {
+            return matToMatrix(frame);
+        }
+        catch (Exception e)
+        {
+            System.err.println("Cannot convert the Mat object:" + e);
+            return null;
+        }
+    }
 
     public Image matToMatrix(Mat matrix){
         try {

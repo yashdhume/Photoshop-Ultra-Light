@@ -52,18 +52,6 @@ public class CamCaptureDemo{
 
 
 
-    private Image mat2Image(Mat frame)
-    {
-        try
-        {
-            return openCVMat.matToMatrix(frame);
-        }
-        catch (Exception e)
-        {
-            System.err.println("Cannot convert the Mat object:" + e);
-            return null;
-        }
-    }
 
     private void stopAcquisition(){
 
@@ -107,11 +95,11 @@ public class CamCaptureDemo{
                     Mat frame = grabFrame();
 
                     // convert and show the frame
-                    Image imageToShow = mat2Image(frame);
+                    Image imageToShow = openCVMat.mat2Image(frame);
                     updateImageView(cameraDisplay, imageToShow);
                     DragandDrop dragandDrop = new DragandDrop();
                     EditingView editingView = new EditingView();
-                   dragandDrop.local(cameraDisplay, editingView.imageViewEditView);
+                   dragandDrop.local(cameraDisplay, editingView.layerView.getCompositeImageView());
                 };
 
                 timer = Executors.newSingleThreadScheduledExecutor();

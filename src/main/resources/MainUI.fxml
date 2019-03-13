@@ -95,6 +95,11 @@
                   <Button fx:id="cameraBtn" layoutY="128.0" mnemonicParsing="false" onAction="#cameraBtnAction" text="Take Picture from your camera" />
           </children>
         </AnchorPane>
+        <ScrollPane>
+          <AnchorPane fx:id ="layers">
+            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Layers" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+          </AnchorPane>
+        </ScrollPane>
       </items>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">

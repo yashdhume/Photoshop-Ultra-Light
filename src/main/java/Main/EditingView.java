@@ -7,7 +7,18 @@ import javafx.scene.layout.AnchorPane;
 public class EditingView {
     public static ImageView imageViewEditView = new ImageView();
     public static AnchorPane anchorPaneEditView = new AnchorPane();
+    public ToolbarView toolbarView;
+    public PropertiesView propertiesView;
     public EditingView(){}
+
+    public void InitializeToolbar(AnchorPane pane) {
+    	toolbarView = new ToolbarView(pane);
+    }
+
+    public void InitializeProperties(AnchorPane pane) {
+        propertiesView = new PropertiesView(pane);
+    }
+
     //Edit View
     public AnchorPane EditView(){
         DragandDrop dragandDrop = new DragandDrop();

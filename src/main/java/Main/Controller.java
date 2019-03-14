@@ -55,19 +55,19 @@ public class Controller extends AnchorPane implements Initializable{
 
     @FXML
     private Slider strokeSlide;
-    
+
     @FXML
     private ColorPicker colorPicker;
     @FXML
     private TextField strokeTextBox;
     EditingView editingView = new EditingView();
-    
+
     Canvas canvas = new Canvas(1080, 790);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	editingView.InitializeToolbar(toolBar);
-    	editingView.InitializeProperties(properties);
+        editingView.InitializeToolbar(toolBar);
+        editingView.InitializeProperties(properties);
     }
 
     @FXML
@@ -152,7 +152,6 @@ public class Controller extends AnchorPane implements Initializable{
    /*
     Color color = Color.WHITE;
     int stroke=2;
-
     private void drawUpdate(){
         PaintDraw paintDraw = new PaintDraw(color, stroke);
         paintDraw.drawOnAnchor(editingView.anchorPaneEditView);
@@ -175,11 +174,9 @@ public class Controller extends AnchorPane implements Initializable{
         color = colorPicker.getValue();
         drawUpdate();
     }
-
     @FXML
     void strokeTextAction(){
         strokeTextBox.setText(String.valueOf(stroke));
-
     }
     @FXML
     void strokeTextBoxEnter(KeyEvent event){
@@ -187,7 +184,6 @@ public class Controller extends AnchorPane implements Initializable{
             stroke = Integer.parseInt(strokeTextBox.getText());
             strokeSlide.setValue(stroke);
             drawUpdate();
-
         }
     }*/
 

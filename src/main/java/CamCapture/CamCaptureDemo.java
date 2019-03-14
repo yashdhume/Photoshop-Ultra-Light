@@ -181,23 +181,7 @@ public class CamCaptureDemo{
         cameraDisplay.setFitHeight(500);
         cameraDisplay.setFitWidth(750);
         return borderPane;
-        // Scene scene = new Scene(borderPane, 800,600);
-        /*primaryStage.setScene(scene);
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            private void handle(WindowEvent event) {
-                setClosed();
-            }
-        });
-        primaryStage.show();*/
+
     }
 
-
-
-   /* private void main(String[] args){
-        // load the OpenCV library
-        nu.pattern.OpenCV.loadShared();
-
-        launch(args);
-    }*/
 }

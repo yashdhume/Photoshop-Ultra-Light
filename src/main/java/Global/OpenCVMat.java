@@ -61,6 +61,20 @@ public class OpenCVMat {
         return mat;
 
     }
+    public Mat imageToMatrix(Image image, int t) {
+        int width = (int) image.getWidth();
+        int height = (int) image.getHeight();
+        byte[] buffer = new byte[width * height * 4];
+        //Reads every pixel from image and converts to matrix
+        PixelReader reader = image.getPixelReader();
+        WritablePixelFormat<ByteBuffer> format = WritablePixelFormat.getByteBgraInstance();
+        reader.getPixels(0, 0, width, height, format, buffer, 0, width * 4);
+        //CV 4 channel
+        Mat mat = new Mat(height, width, t);
+        mat.put(0, 0, buffer);
+        return mat;
+
+    }
     //Matrix to JavaFX image
     public Image matToImage(Mat matrix){
         try {

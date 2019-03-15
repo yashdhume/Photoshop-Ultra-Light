@@ -97,7 +97,7 @@ public class ToolbarView {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         // Painting / Draw
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        ColorPicker colorPicker = new ColorPicker();
+        ColorPicker colorPicker = new ColorPicker(Color.HOTPINK);
         PaintDraw draw = new PaintDraw(colorPicker.getValue(), 5);
         Slider strokeSlider = new Slider(0, 100, 100);
         strokeSlider.setMin(0);

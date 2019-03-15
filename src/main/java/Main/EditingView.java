@@ -28,7 +28,6 @@ public class EditingView {
     //Edit View
     public AnchorPane EditView(){
         DragandDrop dragandDrop = new DragandDrop();
-        // When the drag drop completed / image updated, set the imageRest = true
         dragandDrop.external(anchorPaneEditView,imageViewEditView);
         imageViewEditView.setPreserveRatio(true);
         imageViewEditView.setFitWidth(700);

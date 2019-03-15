@@ -2,10 +2,12 @@ package UI;
 
 import Effects.BlackWhiteEffect;
 import Effects.GaussianBlurEffect;
+import Tools.PaintDraw;
 import Main.EditingView;
 import Tools.PaintDraw;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -92,16 +94,41 @@ public class ToolbarView {
         });
 
 
-        Button Draw = new Button("Draw");
-        Slider slider = new Slider(0, 100, 100);
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Painting / Draw
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////
+        PaintDraw draw = new PaintDraw(Color.HOTPINK, 5);
+
+        Slider strokeSlider = new Slider(0, 100, 100);
+        strokeSlider.setMin(0);
+        strokeSlider.setValue(10);
+        strokeSlider.setMax(100);
+        strokeSlider.setMajorTickUnit(5);
+        strokeSlider.setMinorTickCount(0);
+        strokeSlider.setShowTickMarks(true);
+        strokeSlider.setShowTickLabels(true);
+
         ColorPicker colorPicker = new ColorPicker();
+        Button Draw = new Button("Draw");
+
+        strokeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            draw.setStroke(newValue.intValue());
+        });
+        colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            draw.setColor(newValue);
+        });
+        Draw.setOnAction((event) -> {
+            draw.drawOnAnchor(editingView.anchorPaneEditView);
+        });
+
+
 
         gp.add(btnGaussianBlur, 0, 0);
         gp.add(sliderGaussian, 0, 1);
         gp.add(gaussianScale, 1, 1);
         gp.add(btnBlackAndWhite, 0, 2);
         gp.add(Draw, 0, 3);
-        gp.add(slider, 0, 4);
+        gp.add(strokeSlider, 0, 4);
         gp.add(colorPicker, 0, 5);
         toolbarPane.getChildren().addAll(gp);
     }

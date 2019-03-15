@@ -4,6 +4,7 @@ import CamCapture.CamCaptureDemo;
 import Effects.BlackWhiteEffect;
 import ImageScraper.ImageScraperView;
 import Tools.PaintDraw;
+import UI.UIInitializer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -66,8 +67,9 @@ public class Controller extends AnchorPane implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        editingView.InitializeToolbar(toolBar);
-        editingView.InitializeProperties(properties);
+        UIInitializer uiInitializer = new UIInitializer();
+        uiInitializer.InitializeToolbar(toolBar);
+        uiInitializer.InitializeProperties(properties);
     }
 
     @FXML

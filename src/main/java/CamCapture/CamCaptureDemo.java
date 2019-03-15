@@ -67,15 +67,12 @@ public class CamCaptureDemo{
 
     private void stopAcquisition(){
 
-        if (timer != null && !timer.isShutdown())
-        {
-            try
-            {
+        if (timer != null && !timer.isShutdown()) {
+            try {
                 timer.shutdown();
                 timer.awaitTermination(33, TimeUnit.MILLISECONDS);
             }
-            catch (InterruptedException e)
-            {
+            catch (InterruptedException e) {
                 System.err.println("Exception in stopping the frame capture, trying to release the camera now... " + e);
             }
         }

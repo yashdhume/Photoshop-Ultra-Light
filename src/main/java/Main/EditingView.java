@@ -1,6 +1,5 @@
 package Main;
 import Global.DragandDrop;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -10,20 +9,7 @@ public class EditingView {
     public static AnchorPane anchorPaneEditView = new AnchorPane();
     public static ImageView imgSetByNewDrag = new ImageView();
 
-
-    public ToolbarView toolbarView;
-    public PropertiesView propertiesView;
-
-
     public EditingView(){}
-
-    public void InitializeToolbar(AnchorPane pane) {
-    	toolbarView = new ToolbarView(pane);
-    }
-
-    public void InitializeProperties(AnchorPane pane) {
-        propertiesView = new PropertiesView(pane);
-    }
 
     //Edit View
     public AnchorPane EditView(){

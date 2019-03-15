@@ -13,9 +13,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import static Main.EditingView.imgSetByNewDrag;
+
+
 public class DragandDrop {
+
     //Contructor
     public  DragandDrop(){}
+
     //adding a red border for where to drag and drop
     public void visual(boolean start){
         EditingView editingView = new EditingView();
@@ -28,8 +33,11 @@ public class DragandDrop {
             editingView.anchorPaneEditView.setStyle("-fx-border-color: #C6C6C6");
 
     }
+
     //Drag and from an file on hard drive
     public void external(AnchorPane stackPane, ImageView imageView){
+
+
         //drag over event
         stackPane.setOnDragOver((DragEvent e)->{
             final Dragboard db = e.getDragboard();
@@ -45,7 +53,9 @@ public class DragandDrop {
                     visual(true);
                     e.acceptTransferModes(TransferMode.COPY);
                 }
-                else e.consume();
+                else {
+                    e.consume();
+                }
             }
 
         });
@@ -63,6 +73,7 @@ public class DragandDrop {
                         //if(!stackPane.getChildren().isEmpty()) stackPane.getChildren().remove(0);
                         Image img = new Image(new FileInputStream(file.getAbsolutePath()));
                         imageView.setImage(img);
+                        imgSetByNewDrag.setImage(imageView.getImage());
                     } catch (FileNotFoundException ex) {
                         System.out.println("error");
                     }
@@ -71,8 +82,12 @@ public class DragandDrop {
             visual(false);
             e.setDropCompleted(success);
             e.consume();
-        });
+      });
     }
+
+
+
+
     //drag and drop within a program that is using an array list
     public void localArray(ArrayList<ImageView> imageViewArr,int index, ImageView imageView){
         //Drag Detected event
@@ -101,12 +116,16 @@ public class DragandDrop {
             Dragboard db = e.getDragboard();
             if (db.hasImage()) {
                 imageView.setImage(db.getImage());
+                imgSetByNewDrag.setImage(imageView.getImage());
             }
             visual(false);
             e.consume();
+
         });
 
+
     }
+
     //drag and drop within a program that is using a single image
     public void local(ImageView imageView, ImageView imageView2){
         // Drag Detected event
@@ -132,10 +151,10 @@ public class DragandDrop {
 
             if (db.hasImage()) {
                 imageView2.setImage(db.getImage());
+                imgSetByNewDrag.setImage(imageView.getImage());
             }
             visual(false);
             e.consume();
-
 
         });
     }

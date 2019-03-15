@@ -1,5 +1,6 @@
 package Main;
 import Global.DragandDrop;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
@@ -7,8 +8,13 @@ import javafx.scene.layout.AnchorPane;
 public class EditingView {
     public static ImageView imageViewEditView = new ImageView();
     public static AnchorPane anchorPaneEditView = new AnchorPane();
+    public static ImageView imgSetByNewDrag = new ImageView();
+
+
     public ToolbarView toolbarView;
     public PropertiesView propertiesView;
+
+
     public EditingView(){}
 
     public void InitializeToolbar(AnchorPane pane) {
@@ -22,6 +28,7 @@ public class EditingView {
     //Edit View
     public AnchorPane EditView(){
         DragandDrop dragandDrop = new DragandDrop();
+        // When the drag drop completed / image updated, set the imageRest = true
         dragandDrop.external(anchorPaneEditView,imageViewEditView);
         imageViewEditView.setPreserveRatio(true);
         imageViewEditView.setFitWidth(700);

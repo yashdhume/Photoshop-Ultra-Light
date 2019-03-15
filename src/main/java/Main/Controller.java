@@ -3,6 +3,7 @@ package Main;
 import CamCapture.CamCaptureDemo;
 import Effects.BlackWhiteEffect;
 import ImageScraper.ImageScraperView;
+import Layers.ImageLayer;
 import Layers.LayerView;
 import Tools.PaintDraw;
 import javafx.event.ActionEvent;
@@ -176,9 +177,9 @@ public class Controller extends AnchorPane implements Initializable{
 
     @FXML
     void bWEffectAction(ActionEvent event){
-
-        BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.layerView.getSelectedImageView().getImage());
-        editingView.layerView.updateSelectedImageView(blackWhiteEffect.getEffect());
+    System.out.println("Running Black and White");
+        BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.layerView.getSelectedAsImage().getImage());
+        editingView.layerView.updateSelected(new ImageLayer("Black And White Layer", blackWhiteEffect.getEffect()));
 
     }
     Color color = Color.WHITE;

@@ -7,7 +7,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -23,23 +25,28 @@ public class LayerView {
     private ArrayList<Layer> layers = new ArrayList<>();
     private Integer indexofSelected;
     private ImageView composite;
-    private  StackPane editable;
+    private StackPane editable;
 
 
     public LayerView(AnchorPane pane){
-        layers.add(new Layer("background", new Image("file:/C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/logo.png")));
-        layers.add(new Layer("middle", new Image("file:/C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/googleIcon.png")));
-        layers.add(new Layer("forground", new Image("file:/C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/cameraIcon.png")));
+        layers.add(new SolidLayer("Background", 700, 700, Color.WHITE));
+        layers.add(new ImageLayer("middle", new Image("file:/C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/googleIcon.png")));
+        layers.add(new ImageLayer("forground", new Image("file:/C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/cameraIcon.png")));
         controlPane = pane;
         composite = new ImageView();
         indexofSelected = 1;
+        /*
         composite.setOnMouseDragged(e->{
             if (indexofSelected != null){
                 layers.get(indexofSelected).setLocation(new Point(e.getX(), e.getY()));
                 renderToImage();
             }
         });
+        */
         editable = new StackPane();
+        editable.setOnMouseDragged(e->{
+            layers.get(indexofSelected).setLocation(new Point(e.getSceneX(), e.getSceneY()));
+        });
         renderLayers();
     }
     public void renderLayers(){
@@ -59,9 +66,9 @@ public class LayerView {
         for (int i = layers.size()-1; i >= 0; i--){
             GridPane temp = layers.get(i).getLayerView();
             temp.setOnMouseClicked(e->{
-                int a = layerPane.getRowIndex(temp);
-                layers.get(a).isSelected = true;
-                layers.get(indexofSelected).isSelected =false;
+                int a = Math.abs(layers.size()-layerPane.getRowIndex(temp));
+                layers.get(a).selectLayer();
+                layers.get(indexofSelected).unselectLayer();
                 indexofSelected = a;
             });
             layerPane.add(temp, 0, Math.abs(i-layers.size()));
@@ -70,51 +77,79 @@ public class LayerView {
         layerPane.setLayoutX(20);
         layerPane.setLayoutY(300);
         controlPane.getChildren().add(layerPane);
-        renderToImage();
 
+        renderEditables();
+    }
+
+    private void renderEditables(){
+        for (int i = 0; i < layers.size(); i++){
+            editable.getChildren().add(layers.get(i).getLayer());
+        }
     }
     public void addLayer(){
         String name = "New Layer " + layers.size();
-        layers.add(new Layer(name));
+        //layers.add(new Layer(name));
         renderLayers();
     }
     public void addImage(Image image){
         String name = "New Layer " + layers.size();
-        layers.add(new Layer(name, image));
+        layers.add(new ImageLayer(name, image));
         renderLayers();
     }
-    public ImageView getSelectedImageView(){
-        if (indexofSelected == null) {
-            if (layers.size() == 0)
-                return new ImageView();
-            return layers.get(indexofSelected).getImageView();
-        }
-        return layers.get(indexofSelected).getImageView();
+    public  Layer getSelected(){
+        if (indexofSelected == null)
+            return null;
+        return layers.get(indexofSelected);
     }
-    public void updateSelectedImageView(Image img){
+    public ImageView getSelectedAsImage(){
+        if (layers.get(indexofSelected).getType() == LayerType.IMAGE){
+            return ((ImageLayer)layers.get(indexofSelected)).getImageView();
+        }
+        else if (layers.get(indexofSelected).getType() == LayerType.SOLID) {
+            return new ImageView();
+        }
+        else if (layers.get(indexofSelected).getType() == LayerType.ADJUST){
+            OpenCVMat mat = new OpenCVMat();
+            Mat core = new Mat();
+            for (int i = 0; i < indexofSelected; i++){
+                if (layers.get(i).getType() == LayerType.IMAGE && layers.get(i).isVisible)
+                    overlayImage(core, mat.imageToMatrix(((ImageLayer)layers.get(indexofSelected)).getImage()), core, layers.get(i).getLocation());
+            }
+            return new ImageView(mat.mat2Image(core));
+        }
+        return null;
+    }
+    public void updateSelected(Layer layer){
         if (indexofSelected == null)
             return;
-        layers.get(indexofSelected).setImageView(new ImageView(img));
-        renderToImage();
+        layers.set(indexofSelected, layer);
+        renderLayers();
     }
+
     public ImageView getCompositeImageView(){
         renderToImage();
         return composite;
     }
+
     public StackPane getEditableStack(){
+        if (editable == null){
+            editable = new StackPane();
+            renderEditables();
+        }
         return editable;
     }
 
     public Image renderToImage(){
         OpenCVMat mat = new OpenCVMat();
-        Mat core = mat.imageToMatrix(layers.get(0).getImage());
+        Mat core = mat.imageToMatrix(((ImageLayer)layers.get(indexofSelected)).getImage());
         for (int i = 1; i < layers.size(); i++){
-            if (layers.get(i).getType() == LayerType.OBJECT && layers.get(i).isVisible)
-            overlayImage(core, mat.imageToMatrix(layers.get(i).getImage()), core, layers.get(i).getLocation());
+            if (layers.get(i).getType() == LayerType.IMAGE && layers.get(i).isVisible)
+                overlayImage(core, mat.imageToMatrix(((ImageLayer)layers.get(indexofSelected)).getImage()), core, layers.get(i).getLocation());
         }
         composite.setImage(mat.mat2Image(core));
         return composite.getImage();
     }
+
     public void overlayImage(Mat background,Mat foreground,Mat output, Point location){
 
         background.copyTo(output);

@@ -22,18 +22,18 @@ public class PaintDraw {
     }
     public void drawOnAnchor(AnchorPane anchorPane){
         EditingView editingView = new EditingView();
-        if(editingView.layerView.getCompositeImageView().getImage()!=null) {
-            System.out.println(editingView.layerView.getCompositeImageView().getImage());
-            final double maxX = editingView.layerView.getCompositeImageView().getImage().getWidth();
-            final double maxY = editingView.layerView.getCompositeImageView().getImage().getHeight();
+        if(editingView.layerView.getSelectedAsImage().getImage()!=null) {
+            System.out.println(editingView.layerView.getSelectedAsImage().getImage());
+            final double maxX = editingView.layerView.getSelectedAsImage().getImage().getWidth();
+            final double maxY = editingView.layerView.getSelectedAsImage().getImage().getHeight();
 
 
-            editingView.layerView.getCompositeImageView().setOnMousePressed((MouseEvent e) -> {
+            editingView.layerView.getSelectedAsImage().setOnMousePressed((MouseEvent e) -> {
                 initX = e.getSceneX();
                 initY = e.getSceneY();
                 e.consume();
             });
-            editingView.layerView.getCompositeImageView().setOnMouseDragged((MouseEvent e) -> {
+            editingView.layerView.getSelectedAsImage().setOnMouseDragged((MouseEvent e) -> {
                 if (e.getSceneX() < maxX && e.getSceneY() < maxY) {
                     Line line = new Line(initX, initY, e.getSceneX(), e.getSceneY());
                     line.setStroke(color);
@@ -61,7 +61,7 @@ public class PaintDraw {
             PixelWriter pw=wi.getPixelWriter();
             pw.setColor((int)x,(int)y,color);
             image[0]=wi;
-            editingView.layerView.getCompositeImageView().setImage(image[0]);
+            editingView.layerView.getSelectedAsImage().setImage(image[0]);
 
         });
     }

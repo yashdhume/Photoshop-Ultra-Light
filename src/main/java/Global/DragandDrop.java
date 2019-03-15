@@ -1,11 +1,13 @@
 package Global;
 
+import Layers.ImageLayer;
 import Main.EditingView;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,7 +27,7 @@ public class DragandDrop {
             editingView.anchorPaneEditView.setStyle("-fx-border-color: #C6C6C6");
 
     }
-    public void external(AnchorPane stackPane, ImageView imageView){
+    public void external(AnchorPane stackPane){
 
         stackPane.setOnDragOver((DragEvent e)->{
             final Dragboard db = e.getDragboard();
@@ -56,7 +58,7 @@ public class DragandDrop {
                     try {
                         //if(!stackPane.getChildren().isEmpty()) stackPane.getChildren().remove(0);
                         Image img = new Image(new FileInputStream(file.getAbsolutePath()));
-                        imageView.setImage(img);
+                        EditingView.layerView.addImage(img);
                     } catch (FileNotFoundException ex) {
                         System.out.println("error");
                     }
@@ -67,7 +69,7 @@ public class DragandDrop {
             e.consume();
         });
     }
-    public void localArray(ArrayList<ImageView> imageViewArr,int index, ImageView imageView){
+    public void localArray(ArrayList<ImageView> imageViewArr,int index){
         imageViewArr.get(index).setOnDragDetected((MouseEvent e)->{
             Dragboard db = imageViewArr.get(index).startDragAndDrop(TransferMode.MOVE);
             db.setDragView(imageViewArr.get(index).snapshot(null,null));
@@ -96,7 +98,7 @@ public class DragandDrop {
         });
 
     }
-    public void local(ImageView imageView, ImageView imageView2){
+    public void local(ImageView imageView){
         imageView.setOnDragDetected((MouseEvent event) -> {
             Dragboard db = imageView.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
@@ -117,7 +119,7 @@ public class DragandDrop {
             Dragboard db = e.getDragboard();
 
             if (db.hasImage()) {
-                imageView2.setImage(db.getImage());
+                EditingView.layerView.addImage(db.getImage());
             }
             visual(false);
             e.consume();

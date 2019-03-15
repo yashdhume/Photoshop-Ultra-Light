@@ -9,35 +9,38 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import org.opencv.core.Point;
 
 public class Layer {
-    private ImageView image;
-    private String name;
-    public Boolean isVisible, isSelected;
-    private LayerType layerType;
-    private Point location;
-    public Layer(String name, Image img){
-        isVisible = true;
-        isSelected = false;
-        this.name = name;
-        this.image = new ImageView(img);
-        layerType = LayerType.OBJECT;
-        location = new Point(0,0);
 
-    }
+    // Layer Information
+    public String name;
+    protected Boolean isVisible, isSelected;
+    protected LayerType layerType;
+    private Point location;
+
+    //Layer Display in Layer Panel
+    GridPane pane;
+    Rectangle thumbnail, backgroundColour;
+    CheckBox visiblityCheckbox;
+    Label layerName;
+
+
     public Layer(String name){
         this.name = name;
         layerType = LayerType.ADJUST;
         location = new Point(0,0);
+        isSelected = false;
+        isVisible = true;
     }
 
-    public GridPane getLayerView(){
-        isVisible =true;
-        GridPane pane = new GridPane();
+    private void generateLayer(){
+        pane = new GridPane();
         pane.setPadding(new Insets(10));
-        Rectangle thumbnail = new Rectangle(20,20);
+        Rectangle thumbnail = getThumbnail();
         CheckBox checkBox = new CheckBox();
         checkBox.setSelected(true);
         checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -49,8 +52,28 @@ public class Layer {
         pane.add(checkBox, 0, 0);
         pane.add(thumbnail, 1, 0);
         pane.add(new Label(this.name), 2, 0);
-
+    }
+    private Rectangle getThumbnail(){
+        if (layerType == LayerType.SOLID) return new Rectangle(20, 20, Color.BLACK);
+        else if (layerType == LayerType.IMAGE) return new Rectangle(20, 20, Color.NAVY);
+        else{
+            Rectangle a= new Rectangle(20, 20);
+            a.setFill(Color.RED);
+            return a;
+        }
+    }
+    public GridPane getLayerView(){
+        generateLayer();
         return pane;
+    }
+    public Pane getLayer(){return null;}
+    public void selectLayer(){
+        isSelected = true;
+        pane.setStyle("-fx-background-color:#5AA4FF; -fx-opacity:1;");
+}
+    public void unselectLayer(){
+        isSelected = false;
+        pane.setStyle("-fx-background-color:#E8E5E8; -fx-opacity:1;");
     }
     public void setLocation(Point p){
         location = p;
@@ -61,17 +84,5 @@ public class Layer {
     public LayerType getType(){
         return layerType;
     }
-    public void setImage(Image img){
-        image.setImage(img);
-        layerType = LayerType.OBJECT;
-    }
-    public Image getImage(){
-        return image.getImage();
-    }
-    public ImageView getImageView(){
-        return image;
-    }
-    public void setImageView(ImageView iv){
-        image = iv;
-    }
+
 }

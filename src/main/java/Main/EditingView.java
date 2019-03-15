@@ -3,6 +3,8 @@ import Global.DragandDrop;
 import Layers.LayerView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 
 public class EditingView {
@@ -15,14 +17,11 @@ public class EditingView {
     }
     public AnchorPane EditView(){
         DragandDrop dragandDrop = new DragandDrop();
-        dragandDrop.external(anchorPaneEditView,layerView.getCompositeImageView());
-        layerView.getCompositeImageView().setPreserveRatio(true);
-        layerView.getCompositeImageView().setFitWidth(700);
-        layerView.getCompositeImageView().setFitHeight(700);
-        anchorPaneEditView.getChildren().add(layerView.getCompositeImageView());
-        ImageView app = (ImageView)  anchorPaneEditView.getChildren().get(0);
-        app.setX(anchorPaneEditView.getWidth()/2);
-        app.setY(anchorPaneEditView.getHeight()/2);
+        dragandDrop.external(anchorPaneEditView);
+        anchorPaneEditView.getChildren().add(layerView.getEditableStack());
+        StackPane app = (StackPane)anchorPaneEditView.getChildren().get(0);
+        app.setLayoutX(anchorPaneEditView.getWidth()/2);
+        app.setLayoutY(anchorPaneEditView.getHeight()/2);
         return anchorPaneEditView;
     }
 

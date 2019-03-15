@@ -1,6 +1,7 @@
 package Layers;
 
 public enum LayerType {
-    OBJECT,
+    IMAGE,
+    SOLID,
     ADJUST,
 }

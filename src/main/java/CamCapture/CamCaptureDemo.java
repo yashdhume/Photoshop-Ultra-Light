@@ -99,7 +99,7 @@ public class CamCaptureDemo{
                     updateImageView(cameraDisplay, imageToShow);
                     DragandDrop dragandDrop = new DragandDrop();
                     EditingView editingView = new EditingView();
-                   dragandDrop.local(cameraDisplay, editingView.layerView.getCompositeImageView());
+                   dragandDrop.local(cameraDisplay);
                 };
 
                 timer = Executors.newSingleThreadScheduledExecutor();

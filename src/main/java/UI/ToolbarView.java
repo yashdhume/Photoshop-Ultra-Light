@@ -97,8 +97,8 @@ public class ToolbarView {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         // Painting / Draw
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        PaintDraw draw = new PaintDraw(Color.HOTPINK, 5);
-
+        ColorPicker colorPicker = new ColorPicker();
+        PaintDraw draw = new PaintDraw(colorPicker.getValue(), 5);
         Slider strokeSlider = new Slider(0, 100, 100);
         strokeSlider.setMin(0);
         strokeSlider.setValue(10);
@@ -108,11 +108,12 @@ public class ToolbarView {
         strokeSlider.setShowTickMarks(true);
         strokeSlider.setShowTickLabels(true);
 
-        ColorPicker colorPicker = new ColorPicker();
+        TextField textFieldStroke = new TextField();
         Button Draw = new Button("Draw");
 
         strokeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             draw.setStroke(newValue.intValue());
+            textFieldStroke.setText(newValue.toString());
         });
         colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             draw.setColor(newValue);
@@ -120,6 +121,14 @@ public class ToolbarView {
         Draw.setOnAction((event) -> {
             draw.drawOnAnchor(editingView.anchorPaneEditView);
         });
+        textFieldStroke.setOnKeyPressed((KeyEvent event)->{
+            if(event.getCode()==KeyCode.ENTER){
+                draw.setStroke(Integer.parseInt(textFieldStroke.getText()));
+                strokeSlider.setValue(Integer.parseInt(textFieldStroke.getText()));
+            }
+        });
+
+
 
 
 
@@ -129,7 +138,8 @@ public class ToolbarView {
         gp.add(btnBlackAndWhite, 0, 2);
         gp.add(Draw, 0, 3);
         gp.add(strokeSlider, 0, 4);
-        gp.add(colorPicker, 0, 5);
+        gp.add(textFieldStroke,0,5);
+        gp.add(colorPicker, 0, 6);
         toolbarPane.getChildren().addAll(gp);
     }
 

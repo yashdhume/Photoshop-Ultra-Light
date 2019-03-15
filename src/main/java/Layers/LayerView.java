@@ -81,9 +81,16 @@ public class LayerView {
         renderEditables();
     }
 
-    private void renderEditables(){
+    public void renderEditables(){
         for (int i = 0; i < layers.size(); i++){
-            editable.getChildren().add(layers.get(i).getLayer());
+            if (layers.get(i).getType() == LayerType.IMAGE){
+                ImageView imageView = ((ImageLayer)layers.get(i)).getImageView();
+                imageView.setPreserveRatio(true);
+                imageView.setFitWidth(700);
+                imageView.setFitHeight(700);
+                editable.getChildren().add(new Pane(imageView));
+            }
+            else editable.getChildren().add(layers.get(i).getLayer());
         }
     }
     public void addLayer(){

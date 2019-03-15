@@ -44,6 +44,9 @@ public class PaintDraw {
 
                 initX = e.getSceneX() > maxX ? maxX : e.getSceneX();
                 initY = e.getSceneY() > maxY ? maxY : e.getSceneY();
+                editingView.layerView.renderEditables();
+
+
             });
         }
     }

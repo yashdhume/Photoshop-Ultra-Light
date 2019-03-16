@@ -10,12 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
-
-
 public class PaintDraw {
     private double initX, initY;
     private Color color;
     private int stroke;
+
     public PaintDraw(Color color, int stroke){
         this.color=color;
         this.stroke = stroke;
@@ -63,7 +62,6 @@ public class PaintDraw {
             pw.setColor((int)x,(int)y,color);
             image[0]=wi;
             editingView.imageViewEditView.setImage(image[0]);
-
         });
     }
 

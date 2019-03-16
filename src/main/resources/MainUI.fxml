@@ -21,14 +21,13 @@
                 <Menu mnemonicParsing="false" text="File">
                     <items>
                         <MenuItem fx:id="newMI" mnemonicParsing="false" onAction="#newMI" text="New"/>
-                        <MenuItem mnemonicParsing="false" onAction="#open" text="Open�"/>
-                        <Menu mnemonicParsing="false" onAction="#openRecent" text="Open Recent"/>
+                        <MenuItem mnemonicParsing="false" onAction="#open" text="Open"/>
+                        <Menu fx:id="openRecentMenu" mnemonicParsing="false" onAction="#openRecent" text="Open Recent"/>
                         <SeparatorMenuItem mnemonicParsing="false"/>
                         <MenuItem mnemonicParsing="false" onAction="#save" text="Save"/>
-                        <MenuItem mnemonicParsing="false" onAction="#saveAs" text="Save As�"/>
-                        <MenuItem mnemonicParsing="false" onAction="#revert" text="Revert"/>
+                        <MenuItem mnemonicParsing="false" onAction="#saveAs" text="Save As"/>
                         <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" onAction="#preference" text="Preferences�"/>
+                        <MenuItem mnemonicParsing="false" onAction="#preference" text="Preferences"/>
                         <SeparatorMenuItem mnemonicParsing="false"/>
                         <MenuItem mnemonicParsing="false" onAction="#quit" text="Quit"/>
                     </items>
@@ -42,14 +41,11 @@
                         <MenuItem mnemonicParsing="false" text="Copy"/>
                         <MenuItem mnemonicParsing="false" text="Paste"/>
                         <MenuItem mnemonicParsing="false" text="Delete"/>
-                        <SeparatorMenuItem mnemonicParsing="false"/>
-                        <MenuItem mnemonicParsing="false" text="Select All"/>
-                        <MenuItem mnemonicParsing="false" text="Unselect All"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About"/>
+                        <MenuItem mnemonicParsing="false" text="About" onAction="#about"/>
                     </items>
                 </Menu>
             </menus>

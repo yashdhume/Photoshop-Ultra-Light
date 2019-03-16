@@ -3,9 +3,14 @@ package UI;
 import javafx.scene.layout.AnchorPane;
 
 public class UIInitializer {
-    public UIInitializer(){}
     public ToolbarView toolbarView;
     public PropertiesView propertiesView;
+
+    public UIInitializer(AnchorPane toolbar, AnchorPane properties){
+        InitializeToolbar(toolbar);
+        InitializeProperties(properties);
+    }
+
     public void InitializeToolbar(AnchorPane pane) {
         toolbarView = new ToolbarView(pane);
     }

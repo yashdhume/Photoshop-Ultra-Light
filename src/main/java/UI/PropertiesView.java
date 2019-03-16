@@ -3,10 +3,13 @@ package UI;
 import CamCapture.CamCaptureDemo;
 import ImageScraper.ImageScraperView;
 import Main.EditingView;
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Screen;
@@ -24,10 +27,13 @@ public class PropertiesView {
 
     public void GetPropertiesView() {
         GridPane gp = new GridPane();
+        gp.setPadding(new Insets(30, 30, 30, 30));
         gp.setHgap(10);
         gp.setVgap(10);
 
-        Button picGoogleBtn = new Button("Get Picture from Google");
+        Button picGoogleBtn = new Button();
+        picGoogleBtn.setGraphic(new ImageView(new Image("googleIcon.png", 25, 25, false, false)));
+        picGoogleBtn.setTooltip(new Tooltip("Get Picture from Google"));
         picGoogleBtn.setOnAction((event) -> {
             Stage stage = new Stage();
             ImageScraperView imageScraperView = new ImageScraperView("");
@@ -41,7 +47,9 @@ public class PropertiesView {
             stage.show();
         });
 
-        Button cameraBtn = new Button("Take Picture from your Camera");
+        Button cameraBtn = new Button();
+        cameraBtn.setGraphic(new ImageView(new Image("cameraIcon.png", 25, 25, false, false)));
+        cameraBtn.setTooltip(new Tooltip("Take Picture from your Camera"));
         cameraBtn.setOnAction((event) -> {
             Stage stage = new Stage();
             CamCaptureDemo camCaptureDemo = new CamCaptureDemo();
@@ -55,8 +63,6 @@ public class PropertiesView {
             stage.setOnCloseRequest((WindowEvent e) -> camCaptureDemo.setClosed());
             stage.show();
         });
-
-
 
         gp.add(picGoogleBtn, 0, 0);
         gp.add(cameraBtn, 0, 1);

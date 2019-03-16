@@ -23,7 +23,6 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {
         nu.pattern.OpenCV.loadShared();
         Application.launch(args);

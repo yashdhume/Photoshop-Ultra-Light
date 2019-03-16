@@ -1,17 +1,24 @@
 package Main;
 import Global.DragandDrop;
+import Global.MouseState;
+import Layers.LayerView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 
 public class EditingView {
+
+    public static LayerView layerView;
+
     public static ImageView imageViewEditView = new ImageView();
     public static AnchorPane anchorPaneEditView = new AnchorPane();
     public static ImageView imgSetByNewDrag = new ImageView();
-
+    public static MouseState mouseState;
     public EditingView(){}
-
-
+    public void Initialize(AnchorPane layerPane){
+        mouseState = MouseState.NONE;
+        layerView = new LayerView(layerPane);
+    }
 
     //Edit View
     public AnchorPane EditView(){

@@ -32,9 +32,10 @@ public class ImageLayer extends Layer{
 
     @Override
     public void setLocation(Point p) {
-        super.setLocation(p);
-        imageView.setTranslateX(p.x);
-        imageView.setTranslateY(p.y);
+        location.x = p.x - imageView.getImage().getWidth()/2;
+        location.y = p.y - imageView.getImage().getHeight()/2;
+        imageView.setTranslateX(location.x);
+        imageView.setTranslateY(location.y);
     }
 
     public Image getImage(){

@@ -1,6 +1,8 @@
 package Layers;
 
+import Global.MouseState;
 import Global.OpenCVMat;
+import Main.EditingView;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -27,11 +29,10 @@ public class LayerView {
     private ImageView composite;
     private StackPane editable;
 
-
     public LayerView(AnchorPane pane){
-        layers.add(new SolidLayer("Background", 700, 700, Color.WHITE));
-        layers.add(new ImageLayer("middle", new Image("file:/C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/googleIcon.png")));
-        layers.add(new ImageLayer("forground", new Image("file:/C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/cameraIcon.png")));
+        layers.add(new SolidLayer("Background", 700, 700, Color.BLUE));
+        //layers.add(new ImageLayer("middle", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/googleIcon.png")));
+        //layers.add(new ImageLayer("foreground", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/cameraIcon.png")));
         controlPane = pane;
         composite = new ImageView();
         indexofSelected = 1;
@@ -45,7 +46,9 @@ public class LayerView {
         */
         editable = new StackPane();
         editable.setOnMouseDragged(e->{
-            layers.get(indexofSelected).setLocation(new Point(e.getSceneX(), e.getSceneY()));
+            if (EditingView.mouseState == MouseState.MOVE) {
+                layers.get(indexofSelected).setLocation(new Point(e.getSceneX(), e.getSceneY()));
+            }
         });
         renderLayers();
     }
@@ -53,7 +56,6 @@ public class LayerView {
         controlPane.getChildren().remove(layerPane);
         Button button = new Button("Create new Layer");
         button.setOnAction(e->{
-            addLayer();
             renderLayers();
         });
         button.setLayoutX(20);
@@ -83,7 +85,7 @@ public class LayerView {
 
     public void renderEditables(){
         for (int i = 0; i < layers.size(); i++){
-            if (layers.get(i).getType() == LayerType.IMAGE){
+            if (layers.get(i).getType() == LayerType.IMAGE && layers.get(i).isVisible){
                 ImageView imageView = ((ImageLayer)layers.get(i)).getImageView();
                 imageView.setPreserveRatio(true);
                 imageView.setFitWidth(700);
@@ -95,13 +97,13 @@ public class LayerView {
     }
     public void addLayer(){
         String name = "New Layer " + layers.size();
-        //layers.add(new Layer(name));
-        renderLayers();
+        layers.add(new Layer(name));
+        renderEditables();
     }
     public void addImage(Image image){
         String name = "New Layer " + layers.size();
         layers.add(new ImageLayer(name, image));
-        renderLayers();
+        renderEditables();
     }
     public  Layer getSelected(){
         if (indexofSelected == null)

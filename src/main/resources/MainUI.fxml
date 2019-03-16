@@ -70,10 +70,15 @@
                     </AnchorPane>
                 </ScrollPane>
                 <ScrollPane>
-                    <AnchorPane fx:id="properties">
+                    <AnchorPane fx:id="properties" minHeight="400">
                         <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" textAlignment="CENTER"
                                wrapText="false"/>
+                        <AnchorPane fx:id="layers" layoutY="400">
+                            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" textAlignment="CENTER"
+                                   wrapText="false" text="Layers"/>
+                        </AnchorPane>
                     </AnchorPane>
+
                 </ScrollPane>
                 <!--
               <ScrollPane>

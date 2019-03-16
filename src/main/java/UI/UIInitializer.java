@@ -9,7 +9,6 @@ public class UIInitializer {
     public void InitializeToolbar(AnchorPane pane) {
         toolbarView = new ToolbarView(pane);
     }
-
     public void InitializeProperties(AnchorPane pane) {
         propertiesView = new PropertiesView(pane);
     }

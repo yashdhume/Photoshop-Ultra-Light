@@ -49,7 +49,8 @@ public class Controller extends AnchorPane implements Initializable{
     @FXML
     private AnchorPane view;
     @FXML
-    private AnchorPane properties;
+    private AnchorPane properties, layers;
+
 
     @FXML
     private  Button drawBtn;
@@ -70,6 +71,7 @@ public class Controller extends AnchorPane implements Initializable{
         UIInitializer uiInitializer = new UIInitializer();
         uiInitializer.InitializeToolbar(toolBar);
         uiInitializer.InitializeProperties(properties);
+        editingView.Initialize(layers);
     }
 
     @FXML

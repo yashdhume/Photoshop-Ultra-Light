@@ -20,7 +20,7 @@ public class Layer {
     public String name;
     protected Boolean isVisible, isSelected;
     protected LayerType layerType;
-    private Point location;
+    protected Point location;
 
     //Layer Display in Layer Panel
     GridPane pane;

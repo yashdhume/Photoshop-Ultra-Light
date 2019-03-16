@@ -46,9 +46,9 @@ public class LayerView {
         */
         editable = new StackPane();
         editable.setOnMouseDragged(e->{
-            if (EditingView.mouseState == MouseState.MOVE) {
+            /*if (EditingView.mouseState == MouseState.MOVE) {
                 layers.get(indexofSelected).setLocation(new Point(e.getSceneX(), e.getSceneY()));
-            }
+            }*/
         });
         renderLayers();
     }

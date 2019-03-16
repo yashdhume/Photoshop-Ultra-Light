@@ -11,8 +11,6 @@ public class EditingView {
 
     public EditingView(){}
 
-
-
     //Edit View
     public AnchorPane EditView(){
         DragandDrop dragandDrop = new DragandDrop();

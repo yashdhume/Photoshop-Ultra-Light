@@ -3,9 +3,8 @@ package Main;
 import CamCapture.CamCaptureDemo;
 import Effects.BlackWhiteEffect;
 import ImageScraper.ImageScraperView;
-import Layers.ImageLayer;
-import Layers.LayerView;
 import Tools.PaintDraw;
+import UI.UIInitializer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,12 +17,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.stage.FileChooser;
-
+import javafx.scene.canvas.Canvas;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.awt.image.WritableRenderedImage;
+import javafx.scene.image.WritableImage;
 import java.io.File;
 import javafx.embed.swing.SwingFXUtils;
 import javax.imageio.ImageIO;
@@ -43,32 +45,31 @@ public class Controller extends AnchorPane implements Initializable{
     private MenuItem newMI;
 
     @FXML
-    private AnchorPane toolbar;
-
+    private AnchorPane toolBar;
     @FXML
-    private AnchorPane layers;
+    private AnchorPane view;
+    @FXML
+    private AnchorPane properties;
 
     @FXML
     private  Button drawBtn;
 
     @FXML
     private Slider strokeSlide;
+
     @FXML
     private ColorPicker colorPicker;
     @FXML
     private TextField strokeTextBox;
     EditingView editingView = new EditingView();
 
+    Canvas canvas = new Canvas(1080, 790);
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        /*toolbar = new AnchorPane();
-        toolbar.getChildren().add(new Label("Hello"));
-        System.out.println(toolbar.getLayoutX());
-        System.out.println(toolbar.getLayoutY());
-        Button btn = new Button("df");
-        toolbar.getChildren().add(btn);*/
-        //LayerView lv = new LayerView(layers);
-        editingView.InitializeLayers(layers);
+        UIInitializer uiInitializer = new UIInitializer();
+        uiInitializer.InitializeToolbar(toolBar);
+        uiInitializer.InitializeProperties(properties);
     }
 
     @FXML
@@ -102,28 +103,36 @@ public class Controller extends AnchorPane implements Initializable{
 
     @FXML
     void save(ActionEvent event) {
-        /*try {
-            ImageIO.write(SwingFXUtils.fromFXImage(EditingView.imageViewEditView.getImage(), null), "jpg", file);
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }*/
+        Stage stage = new Stage();
+        FileChooser savefile = new FileChooser();
+        savefile.setTitle("Save File");
+        File file = savefile.showSaveDialog(stage);
+        if (file != null) {
+            try {
+                WritableImage writableImage = new WritableImage(1080, 790);
+                EditingView.anchorPaneEditView.snapshot(null, writableImage);
+                RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+                ImageIO.write(renderedImage, "png", file);
+            } catch (IOException ex) {
+                System.out.println("Error!");
+            }
+        }
     }
 
     @FXML
     void saveAs(ActionEvent event) {
         Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save As");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All Images", "*.*"),
-                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-                new FileChooser.ExtensionFilter("PNG", "*.png"));
-        File file = fileChooser.showSaveDialog(stage);
+        FileChooser savefile = new FileChooser();
+        savefile.setTitle("Save File");
+        File file = savefile.showSaveDialog(stage);
         if (file != null) {
             try {
-                ImageIO.write(SwingFXUtils.fromFXImage(editingView.layerView.getCompositeImageView().getImage(), null), "jpg", file);
+                WritableImage writableImage = new WritableImage(1080, 790);
+                EditingView.anchorPaneEditView.snapshot(null, writableImage);
+                RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+                ImageIO.write(renderedImage, "png", file);
             } catch (IOException ex) {
-                System.out.println(ex.getMessage());
+                System.out.println("Error!");
             }
         }
     }
@@ -142,49 +151,9 @@ public class Controller extends AnchorPane implements Initializable{
         System.exit(0);
     }
 
-    @FXML
-    void picGoogleBtnAction(ActionEvent event){
-
-        Stage stage = new Stage();
-        ImageScraperView imageScraperView = new ImageScraperView("");
-        Scene scene = new Scene(imageScraperView.googleImageView(), 500, 500);
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX(screenBounds.getWidth()-scene.getWidth());
-        stage.setY(screenBounds.getHeight()/2-scene.getHeight()/2);
-        stage.getIcons().add(new Image("googleIcon.png"));
-        stage.setScene(scene);
-        stage.setAlwaysOnTop(true);
-        stage.show();
-
-
-    }
-
-    @FXML
-    void cameraBtnAction(ActionEvent event) {
-        Stage stage = new Stage();
-        CamCaptureDemo camCaptureDemo = new CamCaptureDemo();
-        Scene scene = new Scene(camCaptureDemo.start(), 800, 600);
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX(screenBounds.getWidth()-scene.getWidth());
-        stage.setY(screenBounds.getHeight()/2-scene.getHeight()/2);
-        stage.getIcons().add(new Image("cameraIcon.png"));
-        stage.setAlwaysOnTop(true);
-        stage.setScene(scene);
-        stage.setOnCloseRequest((WindowEvent e) -> camCaptureDemo.setClosed());
-        stage.show();
-
-    }
-
-    @FXML
-    void bWEffectAction(ActionEvent event){
-    System.out.println("Running Black and White");
-        BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.layerView.getSelectedAsImage().getImage());
-        editingView.layerView.updateSelected(new ImageLayer("Black And White Layer", blackWhiteEffect.getEffect()));
-
-    }
+   /*
     Color color = Color.WHITE;
     int stroke=2;
-
     private void drawUpdate(){
         PaintDraw paintDraw = new PaintDraw(color, stroke);
         paintDraw.drawOnAnchor(editingView.anchorPaneEditView);
@@ -207,11 +176,9 @@ public class Controller extends AnchorPane implements Initializable{
         color = colorPicker.getValue();
         drawUpdate();
     }
-
     @FXML
     void strokeTextAction(){
         strokeTextBox.setText(String.valueOf(stroke));
-
     }
     @FXML
     void strokeTextBoxEnter(KeyEvent event){
@@ -219,8 +186,7 @@ public class Controller extends AnchorPane implements Initializable{
             stroke = Integer.parseInt(strokeTextBox.getText());
             strokeSlide.setValue(stroke);
             drawUpdate();
-
         }
-    }
+    }*/
 
 }

@@ -52,18 +52,27 @@ public class CamCaptureDemo{
 
 
 
+    private Image mat2Image(Mat frame)
+    {
+        try
+        {
+            return openCVMat.matToImage(frame);
+        }
+        catch (Exception e)
+        {
+            System.err.println("Cannot convert the Mat object:" + e);
+            return null;
+        }
+    }
 
     private void stopAcquisition(){
 
-        if (timer != null && !timer.isShutdown())
-        {
-            try
-            {
+        if (timer != null && !timer.isShutdown()) {
+            try {
                 timer.shutdown();
                 timer.awaitTermination(33, TimeUnit.MILLISECONDS);
             }
-            catch (InterruptedException e)
-            {
+            catch (InterruptedException e) {
                 System.err.println("Exception in stopping the frame capture, trying to release the camera now... " + e);
             }
         }
@@ -95,11 +104,11 @@ public class CamCaptureDemo{
                     Mat frame = grabFrame();
 
                     // convert and show the frame
-                    Image imageToShow = openCVMat.mat2Image(frame);
+                    Image imageToShow = mat2Image(frame);
                     updateImageView(cameraDisplay, imageToShow);
                     DragandDrop dragandDrop = new DragandDrop();
                     EditingView editingView = new EditingView();
-                   dragandDrop.local(cameraDisplay);
+                   dragandDrop.local(cameraDisplay, editingView.imageViewEditView);
                 };
 
                 timer = Executors.newSingleThreadScheduledExecutor();
@@ -169,23 +178,7 @@ public class CamCaptureDemo{
         cameraDisplay.setFitHeight(500);
         cameraDisplay.setFitWidth(750);
         return borderPane;
-        // Scene scene = new Scene(borderPane, 800,600);
-        /*primaryStage.setScene(scene);
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            private void handle(WindowEvent event) {
-                setClosed();
-            }
-        });
-        primaryStage.show();*/
+
     }
 
-
-
-   /* private void main(String[] args){
-        // load the OpenCV library
-        nu.pattern.OpenCV.loadShared();
-
-        launch(args);
-    }*/
 }

@@ -60,6 +60,7 @@ public class PaintDraw {
         imageView.setOnMouseDragged(event -> {
             double x=event.getX();
             double y=event.getY();
+
             WritableImage wi=new WritableImage(image[0].getPixelReader(),(int)image[0].getWidth(),(int)image[0].getHeight());
             PixelWriter pw=wi.getPixelWriter();
             pw.setColor((int)x,(int)y,color);
@@ -67,6 +68,14 @@ public class PaintDraw {
             editingView.layerView.getSelectedAsImage().setImage(image[0]);
 
         });
+    }
+
+    public void setColor(Color color){
+        this.color = color;
+    }
+
+    public void setStroke(int stroke){
+        this.stroke = stroke;
     }
 
 }

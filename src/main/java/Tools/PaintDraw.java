@@ -1,5 +1,6 @@
 package Tools;
 
+import Global.MouseState;
 import Main.EditingView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,18 +22,18 @@ public class PaintDraw {
     }
     public void drawOnAnchor(AnchorPane anchorPane){
         EditingView editingView = new EditingView();
-        if(EditingView.imageViewEditView.getImage()!=null) {
-            System.out.println(EditingView.imageViewEditView.getImage());
-            final double maxX = EditingView.imageViewEditView.getImage().getWidth();
-            final double maxY = EditingView.imageViewEditView.getImage().getHeight();
+        if(EditingView.layerView.getSelectedAsImage().getImage()!=null && EditingView.mouseState == MouseState.DRAW) {
+            System.out.println(EditingView.layerView.getSelectedAsImage().getImage());
+            final double maxX = EditingView.layerView.getSelectedAsImage().getImage().getWidth();
+            final double maxY = EditingView.layerView.getSelectedAsImage().getImage().getHeight();
 
 
-            EditingView.imageViewEditView.setOnMousePressed((MouseEvent e) -> {
+            EditingView.layerView.getSelectedAsImage().setOnMousePressed((MouseEvent e) -> {
                 initX = e.getSceneX();
                 initY = e.getSceneY();
                 e.consume();
             });
-            EditingView.imageViewEditView.setOnMouseDragged((MouseEvent e) -> {
+            EditingView.layerView.getSelectedAsImage().setOnMouseDragged((MouseEvent e) -> {
                 if (e.getSceneX() < maxX && e.getSceneY() < maxY) {
                     Line line = new Line(initX, initY, e.getSceneX(), e.getSceneY());
                     line.setStroke(color);
@@ -62,7 +63,7 @@ public class PaintDraw {
             PixelWriter pw=wi.getPixelWriter();
             pw.setColor((int)x,(int)y,color);
             image[0]=wi;
-            editingView.imageViewEditView.setImage(image[0]);
+            editingView.layerView.getSelectedAsImage().setImage(image[0]);
         });
     }
 

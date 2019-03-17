@@ -63,7 +63,7 @@ public class ImageScraperView implements Runnable {
             imageView.get(i).setCache(true);
             final int index = i;
             DragandDrop dragandDrop = new DragandDrop();
-            dragandDrop.localArray(imageView, index, editingView.imageViewEditView);
+            dragandDrop.localArray(imageView, index);
         }
         for (int i = 0; i < imageView.size(); i++) {
             flowPane.getChildren().add(imageView.get(i));

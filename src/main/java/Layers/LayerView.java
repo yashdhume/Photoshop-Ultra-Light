@@ -20,46 +20,75 @@ import org.opencv.core.Point;
 import java.util.ArrayList;
 
 
-public class LayerView {
+/*
+       Welcome to the Layer View I hope you enjoy your stay:
 
+       This Class Contains 3 Key Components:
+
+       1. Layer Pane : The section of the program where you can see the order of your layers. RenderLayers
+       will not only update layers in this section, but also rerender the Editable View
+
+       2. Editable View: Rendering the Layers for editing purposes. All layers have a ".getLayer()" method
+       which will return a pane estimating the look of the image. This is all compiled in renderEditables.
+       This function is called when RenderLayers is called so there is no need to call this function with
+       very few exceptions.
+
+       3. Composite View: Renders the layers into a single ImageView for exporting. This should rarely be used
+       and usually for the final copy. We may implement Adjustment Layers and merging layers in the future
+       using this feature.
+
+ */
+
+public class LayerView {
+    // Housing Pane of the Layer Blocks
     private AnchorPane controlPane;
-    private GridPane layerPane;
+    // Layout of the Layers
+    private GridPane layerPane; //Note: Must be updated to table view
+
+    // List of the Layers in the Scene
     private ArrayList<Layer> layers = new ArrayList<>();
+
+    //Keeps track of the index of the selected layer
     private Integer indexofSelected;
+
+    //Composite Image View of the layers
     private ImageView composite;
+
+    //Editable view of the Layers
     private StackPane editable;
 
     public LayerView(AnchorPane pane){
-        layers.add(new SolidLayer("Background", 700, 700, Color.BLUE));
+        //Recommended to Initialize with a solid layer
+        layers.add(new SolidLayer("Background", 700, 700, Color.WHITE));
+
+        //For testing I recommend adding some files by default
         //layers.add(new ImageLayer("middle", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/googleIcon.png")));
         //layers.add(new ImageLayer("foreground", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/cameraIcon.png")));
+
+
         controlPane = pane;
         composite = new ImageView();
         indexofSelected = 1;
-        /*
-        composite.setOnMouseDragged(e->{
-            if (indexofSelected != null){
-                layers.get(indexofSelected).setLocation(new Point(e.getX(), e.getY()));
-                renderToImage();
-            }
-        });
-        */
         editable = new StackPane();
         editable.setOnMouseDragged(e->{
-            /*if (EditingView.mouseState == MouseState.MOVE) {
+            if (EditingView.mouseState == MouseState.MOVE) {
                 layers.get(indexofSelected).setLocation(new Point(e.getSceneX(), e.getSceneY()));
-            }*/
-        });
+
+        }});
         renderLayers();
     }
+
+    //Renders Layers in the Layer pane and the Editable View
+    //Use this when there are any major changes.
     public void renderLayers(){
-        controlPane.getChildren().remove(layerPane);
+        if (controlPane.getChildren().contains(layerPane))
+            controlPane.getChildren().remove(layerPane);
         Button button = new Button("Create new Layer");
         button.setOnAction(e->{
             renderLayers();
         });
         button.setLayoutX(20);
-        button.setLayoutY(200);
+        button.setLayoutY(80);
         controlPane.getChildren().add(button);
         if (layers.size() == 0){
             return;
@@ -77,12 +106,12 @@ public class LayerView {
 
         }
         layerPane.setLayoutX(20);
-        layerPane.setLayoutY(300);
+        layerPane.setLayoutY(200);
         controlPane.getChildren().add(layerPane);
 
         renderEditables();
     }
-
+    //Compiles the Editable View
     public void renderEditables(){
         for (int i = 0; i < layers.size(); i++){
             if (layers.get(i).getType() == LayerType.IMAGE && layers.get(i).isVisible){
@@ -90,9 +119,11 @@ public class LayerView {
                 imageView.setPreserveRatio(true);
                 imageView.setFitWidth(700);
                 imageView.setFitHeight(700);
+                //Set bounds on images to try to meet the requirements.
                 editable.getChildren().add(new Pane(imageView));
             }
-            else editable.getChildren().add(layers.get(i).getLayer());
+            else if (layers.get(i).isVisible)
+                editable.getChildren().add(layers.get(i).getLayer());
         }
     }
     public void addLayer(){
@@ -100,16 +131,19 @@ public class LayerView {
         layers.add(new Layer(name));
         renderEditables();
     }
+    //add an Image to the layer Stack
     public void addImage(Image image){
         String name = "New Layer " + layers.size();
         layers.add(new ImageLayer(name, image));
-        renderEditables();
+        renderLayers();
     }
+    //get the Layer object of the currently selected layer.
     public  Layer getSelected(){
         if (indexofSelected == null)
             return null;
         return layers.get(indexofSelected);
     }
+    //Get an Imageview Interpretation of the Selected Layer
     public ImageView getSelectedAsImage(){
         if (layers.get(indexofSelected).getType() == LayerType.IMAGE){
             return ((ImageLayer)layers.get(indexofSelected)).getImageView();
@@ -128,18 +162,28 @@ public class LayerView {
         }
         return null;
     }
+    //Use this for applying effects. This will allow the layer to keep a history of the changes
+    // allowing you to revert back to the original Image.
+    public void applyEffectToSelected(Image image){
+        ImageLayer layer = (ImageLayer)this.getSelected();
+        ImageView iv = layer.getImageView();
+        iv.setImage(image);
+        layer.applyEffect(iv);
+        this.updateSelected(layer);
+    }
+    //Use this if you plan on replacing the layer with another one.
     public void updateSelected(Layer layer){
         if (indexofSelected == null)
             return;
         layers.set(indexofSelected, layer);
         renderLayers();
     }
-
+    //Return the Composiite Imageview.
     public ImageView getCompositeImageView(){
         renderToImage();
         return composite;
     }
-
+    //Return the Editable View
     public StackPane getEditableStack(){
         if (editable == null){
             editable = new StackPane();
@@ -147,7 +191,7 @@ public class LayerView {
         }
         return editable;
     }
-
+    //Compiles all the Layers into an Image for use.
     public Image renderToImage(){
         OpenCVMat mat = new OpenCVMat();
         Mat core = mat.imageToMatrix(((ImageLayer)layers.get(indexofSelected)).getImage());
@@ -159,6 +203,7 @@ public class LayerView {
         return composite.getImage();
     }
 
+    //OpenCV Algorithm for burning images onto each other.
     public void overlayImage(Mat background,Mat foreground,Mat output, Point location){
 
         background.copyTo(output);

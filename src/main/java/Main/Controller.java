@@ -36,7 +36,7 @@ public class Controller extends AnchorPane implements Initializable{
     @FXML
     private AnchorPane view;
     @FXML
-    private AnchorPane properties;
+    private AnchorPane properties, layers;
     @FXML
     private  Button drawBtn;
     @FXML
@@ -52,6 +52,7 @@ public class Controller extends AnchorPane implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         new UIInitializer(toolBar, properties);
+        editingView.Initialize(layers);
     }
     // File
     @FXML
@@ -77,7 +78,7 @@ public class Controller extends AnchorPane implements Initializable{
 
         if (file != null) {
             Image image = new Image(file.toURI().toString());
-            editingView.imageViewEditView.setImage(image);
+            editingView.layerView.addImage(image);
             //recents.add(file.toURI().toString());
         }
     }

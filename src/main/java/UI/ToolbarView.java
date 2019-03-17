@@ -2,6 +2,9 @@ package UI;
 
 import Effects.BlackWhiteEffect;
 import Effects.GaussianBlurEffect;
+import Global.MouseState;
+import Layers.ImageLayer;
+import Layers.Layer;
 import Tools.PaintDraw;
 import Main.EditingView;
 import javafx.animation.PauseTransition;
@@ -37,8 +40,10 @@ public class ToolbarView {
         btnGaussianBlur.setGraphic(new ImageView(new Image("gaussianBlurIcon.png", 25, 25, false, false)));
         btnGaussianBlur.setTooltip(new Tooltip("Gaussian Blur"));
         btnGaussianBlur.setOnAction((event) -> {
-            GaussianBlurEffect gaussianBlurEffect = new GaussianBlurEffect(editingView.imageViewEditView.getImage(), 45, 0);
-            editingView.imageViewEditView.setImage(gaussianBlurEffect.getEffect());
+            GaussianBlurEffect gaussianBlurEffect = new GaussianBlurEffect(editingView.layerView.getSelectedAsImage().getImage(), 45, 0);
+            ImageLayer layer = (ImageLayer)editingView.layerView.getSelected();
+            layer.setImage(gaussianBlurEffect.getEffect());
+            EditingView.layerView.updateSelected(layer);
         });
 
         Slider sliderGaussian = new Slider(0, 100, 100);
@@ -63,8 +68,8 @@ public class ToolbarView {
                         kernel += 1;
                     }
 
-                    GaussianBlurEffect gaussianBlurEffect = new GaussianBlurEffect(editingView.imgSetByNewDrag.getImage(), kernel, 0);
-                    editingView.imageViewEditView.setImage(gaussianBlurEffect.getEffect());
+                    GaussianBlurEffect gaussianBlurEffect = new GaussianBlurEffect(((ImageLayer)editingView.layerView.getSelected()).getOriginalImage().getImage(), kernel, 0);
+                    editingView.layerView.applyEffectToSelected(gaussianBlurEffect.getEffect());
                 };
                 new Thread(runGaussian).start();
             });
@@ -77,15 +82,15 @@ public class ToolbarView {
             if (kernel % 2 == 0) {
                 kernel += 1;
             }
-            GaussianBlurEffect gaussianBlurEffect = new GaussianBlurEffect(editingView.imgSetByNewDrag.getImage(), kernel, 0);
+            GaussianBlurEffect gaussianBlurEffect = new GaussianBlurEffect(((ImageLayer)editingView.layerView.getSelected()).getOriginalImage().getImage(), kernel, 0);
             gaussianBlurEffect.setGaussianEffect(kernel);
-            editingView.imageViewEditView.setImage(gaussianBlurEffect.getEffect());
+            EditingView.layerView.applyEffectToSelected(gaussianBlurEffect.getEffect());
         });
 
         Button btnBlackAndWhite = new Button();
         btnBlackAndWhite.setOnAction((event) -> {
-            BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.imageViewEditView.getImage());
-            editingView.imageViewEditView.setImage(blackWhiteEffect.getEffect());
+            BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.layerView.getSelectedAsImage().getImage());
+            editingView.layerView.applyEffectToSelected(blackWhiteEffect.getEffect());
         });
         btnBlackAndWhite.setGraphic(new ImageView(new Image("blackAndWhiteIcon.png", 25, 25, false, false)));
         btnBlackAndWhite.setTooltip(new Tooltip("Black and White"));
@@ -155,7 +160,8 @@ public class ToolbarView {
         Pencil.setGraphic(new ImageView(new Image("pencilIcon.png", 25, 25, false, false)));
         Pencil.setTooltip(new Tooltip("Pencil"));
         Pencil.setOnAction((event) -> {
-            draw.drawOnImage(editingView.imageViewEditView);
+            editingView.mouseState = MouseState.DRAW;
+            draw.drawOnImage(editingView.layerView.getSelectedAsImage());
         });
 
         Button Circle = new Button();
@@ -165,6 +171,9 @@ public class ToolbarView {
         Button Rectangle = new Button();
         Rectangle.setGraphic(new ImageView(new Image("rectangleIcon.png", 25, 25, false, false)));
         Rectangle.setTooltip(new Tooltip("Draw Rectangle"));
+        Rectangle.setOnAction(e->{
+            editingView.mouseState = MouseState.MOVE;
+        });
 
         Button Triangle = new Button();
         Triangle.setGraphic(new ImageView(new Image("triangleIcon.png", 25, 25, false, false)));

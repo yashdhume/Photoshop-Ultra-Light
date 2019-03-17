@@ -5,16 +5,23 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.opencv.core.Point;
 
+import java.util.ArrayList;
+
 public class ImageLayer extends Layer{
-    ImageView imageView;
+    ImageView imageView, originalImage;
+    ArrayList<ImageView> versions;
     public ImageLayer(String name, Image image){
         super(name);
         imageView = new ImageView(image);
+        originalImage = new ImageView(image);
         layerType = LayerType.IMAGE;
+        versions = new ArrayList<>();
     }
     public void setImage(Image img){
         imageView.setImage(img);
+        originalImage = new ImageView(img);
         layerType = LayerType.IMAGE;
+        versions = new ArrayList<>();
     }
 
     @Override
@@ -29,7 +36,10 @@ public class ImageLayer extends Layer{
         pane.getChildren().add(imageView);
         return pane;
     }
-
+    public void applyEffect(ImageView image){
+        versions.add(imageView);
+        imageView = image;
+    }
     @Override
     public void setLocation(Point p) {
         location.x = p.x - imageView.getImage().getWidth()/2;
@@ -37,7 +47,7 @@ public class ImageLayer extends Layer{
         imageView.setTranslateX(location.x);
         imageView.setTranslateY(location.y);
     }
-
+    public ImageView getOriginalImage(){return originalImage;}
     public Image getImage(){
         return imageView.getImage();
     }

@@ -1,6 +1,7 @@
 //This Class handles all drag and drop events
 package Global;
 
+import Layers.LayerView;
 import Main.EditingView;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
@@ -35,7 +36,7 @@ public class DragandDrop {
     }
 
     //Drag and from an file on hard drive
-    public void external(AnchorPane stackPane, ImageView imageView){
+    public void external(AnchorPane stackPane, LayerView layerView){
 
 
         //drag over event
@@ -72,8 +73,8 @@ public class DragandDrop {
                     try {
                         //if(!stackPane.getChildren().isEmpty()) stackPane.getChildren().remove(0);
                         Image img = new Image(new FileInputStream(file.getAbsolutePath()));
-                        imageView.setImage(img);
-                        imgSetByNewDrag.setImage(imageView.getImage());
+                        layerView.addImage(img);
+                        imgSetByNewDrag.setImage(img);
                     } catch (FileNotFoundException ex) {
                         System.out.println("error");
                     }
@@ -89,7 +90,7 @@ public class DragandDrop {
 
 
     //drag and drop within a program that is using an array list
-    public void localArray(ArrayList<ImageView> imageViewArr,int index, ImageView imageView){
+    public void localArray(ArrayList<ImageView> imageViewArr,int index){
         //Drag Detected event
         imageViewArr.get(index).setOnDragDetected((MouseEvent e)->{
             Dragboard db = imageViewArr.get(index).startDragAndDrop(TransferMode.MOVE);
@@ -115,8 +116,8 @@ public class DragandDrop {
         imageViewArr.get(index).setOnDragDone((DragEvent e)-> {
             Dragboard db = e.getDragboard();
             if (db.hasImage()) {
-                imageView.setImage(db.getImage());
-                imgSetByNewDrag.setImage(imageView.getImage());
+                EditingView.layerView.addImage(db.getImage());
+                imgSetByNewDrag.setImage(db.getImage());
             }
             visual(false);
             e.consume();
@@ -127,7 +128,7 @@ public class DragandDrop {
     }
 
     //drag and drop within a program that is using a single image
-    public void local(ImageView imageView, ImageView imageView2){
+    public void local(ImageView imageView){
         // Drag Detected event
         imageView.setOnDragDetected((MouseEvent event) -> {
             Dragboard db = imageView.startDragAndDrop(TransferMode.ANY);
@@ -150,8 +151,8 @@ public class DragandDrop {
             Dragboard db = e.getDragboard();
 
             if (db.hasImage()) {
-                imageView2.setImage(db.getImage());
-                imgSetByNewDrag.setImage(imageView.getImage());
+                EditingView.layerView.addImage(db.getImage());
+                imgSetByNewDrag.setImage(db.getImage());
             }
             visual(false);
             e.consume();

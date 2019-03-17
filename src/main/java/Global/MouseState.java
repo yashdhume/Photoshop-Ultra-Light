@@ -1,7 +1,7 @@
 package Global;
 
 public enum  MouseState {
-    NONE,
+    STROKE,
     MOVE,
     DRAW,
 }

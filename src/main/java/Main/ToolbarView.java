@@ -1,6 +1,8 @@
 package Main;
 import Effects.BlackWhiteEffect;
 import Effects.GaussianBlurEffect;
+import Layers.ImageLayer;
+import Layers.Layer;
 import Tools.PaintDraw;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.AnchorPane;
@@ -29,8 +31,10 @@ public class ToolbarView {
 		});
 
 		btnBlackAndWhite.setOnAction((event) -> {
-			BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.imageViewEditView.getImage());
-			editingView.imageViewEditView.setImage(blackWhiteEffect.getEffect());
+			BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.layerView.getSelectedAsImage().getImage());
+			ImageLayer layer = (ImageLayer)editingView.layerView.getSelected();
+			layer.setImage(blackWhiteEffect.getEffect());
+			editingView.layerView.updateSelected(layer);
 		});
 
 

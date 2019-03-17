@@ -36,22 +36,23 @@ public class Layer {
         isSelected = false;
         isVisible = true;
     }
-
+    //Create the Layer Box objects to be rendered in the Layers panel.
     private void generateLayer(){
         pane = new GridPane();
         pane.setPadding(new Insets(10));
-        Rectangle thumbnail = getThumbnail();
-        CheckBox checkBox = new CheckBox();
-        checkBox.setSelected(true);
-        checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+        thumbnail = getThumbnail();
+        visiblityCheckbox = new CheckBox();
+        visiblityCheckbox.setSelected(true);
+        visiblityCheckbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 isVisible = newValue;
             }
         });
-        pane.add(checkBox, 0, 0);
+        pane.add(visiblityCheckbox, 0, 0);
         pane.add(thumbnail, 1, 0);
         pane.add(new Label(this.name), 2, 0);
+        pane.setStyle("-fx-background-color:#E8E5E8; -fx-opacity:1;");
     }
     private Rectangle getThumbnail(){
         if (layerType == LayerType.SOLID) return new Rectangle(20, 20, Color.BLACK);
@@ -62,15 +63,20 @@ public class Layer {
             return a;
         }
     }
+    //Get the LayerBox needed for the Layers Panel
     public GridPane getLayerView(){
-        generateLayer();
+        if (pane == null)
+            generateLayer();
         return pane;
     }
+    //Get the pane of the layer. Used primarily
     public Pane getLayer(){return null;}
+
+    //Handle when the layer is selected or not
     public void selectLayer(){
         isSelected = true;
         pane.setStyle("-fx-background-color:#5AA4FF; -fx-opacity:1;");
-}
+    }
     public void unselectLayer(){
         isSelected = false;
         pane.setStyle("-fx-background-color:#E8E5E8; -fx-opacity:1;");

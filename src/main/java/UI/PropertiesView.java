@@ -2,7 +2,6 @@ package UI;
 
 import CamCapture.CamCaptureDemo;
 import ImageScraper.ImageScraperView;
-import Main.EditingView;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -18,7 +17,6 @@ import javafx.stage.WindowEvent;
 
 public class PropertiesView {
     AnchorPane propertiesPane;
-    EditingView editingView = new EditingView();
 
     public PropertiesView(AnchorPane pane) {
         propertiesPane = pane;
@@ -31,6 +29,7 @@ public class PropertiesView {
         gp.setHgap(10);
         gp.setVgap(10);
 
+        // Google Image Search Button
         Button picGoogleBtn = new Button();
         picGoogleBtn.setGraphic(new ImageView(new Image("googleIcon.png", 25, 25, false, false)));
         picGoogleBtn.setTooltip(new Tooltip("Get Picture from Google"));
@@ -47,6 +46,7 @@ public class PropertiesView {
             stage.show();
         });
 
+        // Webcam Button
         Button cameraBtn = new Button();
         cameraBtn.setGraphic(new ImageView(new Image("cameraIcon.png", 25, 25, false, false)));
         cameraBtn.setTooltip(new Tooltip("Take Picture from your Camera"));
@@ -64,6 +64,7 @@ public class PropertiesView {
             stage.show();
         });
 
+        // Add Buttons to the pane
         gp.add(picGoogleBtn, 0, 0);
         gp.add(cameraBtn, 0, 1);
         propertiesPane.getChildren().addAll(gp);

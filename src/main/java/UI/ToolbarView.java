@@ -87,19 +87,20 @@ public class ToolbarView {
             EditingView.layerView.applyEffectToSelected(gaussianBlurEffect.getEffect());
         });
 
+        // Black and White Effect
         Button btnBlackAndWhite = new Button();
         btnBlackAndWhite.setOnAction((event) -> {
             BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.layerView.getSelectedAsImage().getImage());
-            editingView.layerView.applyEffectToSelected(blackWhiteEffect.getEffect());
+            ImageLayer layer = (ImageLayer)editingView.layerView.getSelected();
+            layer.setImage(blackWhiteEffect.getEffect());
+            editingView.layerView.updateSelected(layer);
         });
         btnBlackAndWhite.setGraphic(new ImageView(new Image("blackAndWhiteIcon.png", 25, 25, false, false)));
         btnBlackAndWhite.setTooltip(new Tooltip("Black and White"));
 
+        /* Paint/Draw properties */
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Painting / Draw
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
+        // Colorpicker label and Button
         Label lblColorPicker = new Label();
         lblColorPicker.setGraphic(new ImageView(new Image("colorPaletteIcon.png", 25, 25, false, false)));
         lblColorPicker.setTooltip(new Tooltip("Color Picker"));
@@ -111,7 +112,7 @@ public class ToolbarView {
             draw.setColor(newValue);
         });
 
-
+        // Stroke Textfield and Slider
         TextField textFieldStroke = new TextField();
         textFieldStroke.setPrefColumnCount(3);
         Slider strokeSlider = new Slider(0, 100, 100);
@@ -123,7 +124,6 @@ public class ToolbarView {
         strokeSlider.setShowTickMarks(true);
         strokeSlider.setShowTickLabels(true);
 
-
         strokeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             draw.setStroke(newValue.intValue());
             textFieldStroke.setText(newValue.toString());
@@ -136,10 +136,6 @@ public class ToolbarView {
             }
         });
 
-        Button Brush = new Button();
-        Brush.setGraphic(new ImageView(new Image("brushIcon.png", 25, 25, false, false)));
-        Brush.setTooltip(new Tooltip("Brush"));
-
         strokeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             draw.setStroke(newValue.intValue());
             textFieldStroke.setText(newValue.toString());
@@ -147,6 +143,12 @@ public class ToolbarView {
         colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             draw.setColor(newValue);
         });
+
+        // Brush Button
+        Button Brush = new Button();
+        Brush.setGraphic(new ImageView(new Image("brushIcon.png", 25, 25, false, false)));
+        Brush.setTooltip(new Tooltip("Brush"));
+
         Brush.setOnAction((event) -> {
             draw.drawOnAnchor(editingView.anchorPaneEditView);
         });
@@ -156,6 +158,8 @@ public class ToolbarView {
                 strokeSlider.setValue(Integer.parseInt(textFieldStroke.getText()));
             }
         });
+
+        // Pencil Button
         Button Pencil = new Button();
         Pencil.setGraphic(new ImageView(new Image("pencilIcon.png", 25, 25, false, false)));
         Pencil.setTooltip(new Tooltip("Pencil"));
@@ -164,25 +168,30 @@ public class ToolbarView {
             draw.drawOnImage(editingView.layerView.getSelectedAsImage());
         });
 
+        // Draw Circle Button
         Button Circle = new Button();
         Circle.setGraphic(new ImageView(new Image("circleIcon.png", 25, 25, false, false)));
         Circle.setTooltip(new Tooltip("Draw Circle"));
 
+        // Draw Rectangle Button
         Button Rectangle = new Button();
         Rectangle.setGraphic(new ImageView(new Image("rectangleIcon.png", 25, 25, false, false)));
         Rectangle.setTooltip(new Tooltip("Draw Rectangle"));
-        Rectangle.setOnAction(e->{
-            editingView.mouseState = MouseState.MOVE;
-        });
 
+        // Draw Triangle Button
         Button Triangle = new Button();
         Triangle.setGraphic(new ImageView(new Image("triangleIcon.png", 25, 25, false, false)));
         Triangle.setTooltip(new Tooltip("Draw Triangle"));
 
-        Button Layer = new Button();
-        Layer.setGraphic(new ImageView(new Image("layersIcon.png", 25, 25, false, false)));
-        Layer.setTooltip(new Tooltip("Add Layer"));
+        // Move Button
+        Button Move = new Button();
+        Move.setGraphic(new ImageView(new Image("moveIcon.png", 25, 25, false, false)));
+        Move.setTooltip(new Tooltip("Move"));
+        Move.setOnAction(e->{
+            editingView.mouseState = MouseState.MOVE;
+        });
 
+        // Add Buttons to the grid pane
         gp.add(btnGaussianBlur, 1, 0);
         gp.add(sliderGaussian, 2, 0);
         gp.add(gaussianScale, 3, 0);
@@ -190,13 +199,13 @@ public class ToolbarView {
         gp.add(Circle, 0, 1);
         gp.add(Rectangle, 1, 1);
         gp.add(Triangle, 0, 2);
+        gp.add(Move, 1, 2);
         gp.add(Pencil, 0, 3);
         gp.add(Brush, 1, 3);
         gp.add(strokeSlider, 2, 3);
         gp.add(textFieldStroke,3,3);
         gp.add(lblColorPicker, 0, 4);
         gp.add(colorPicker, 1, 4);
-        gp.add(Layer, 0, 5);
 
         toolbarPane.getChildren().addAll(gp);
     }

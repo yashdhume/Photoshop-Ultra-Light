@@ -10,16 +10,19 @@ import javafx.scene.layout.StackPane;
 public class EditingView {
     public static LayerView layerView;
     public  static MouseState mouseState;
+
     //public static ImageView imageViewEditView = new ImageView();
     public static AnchorPane anchorPaneEditView = new AnchorPane();
     public static ImageView imgSetByNewDrag = new ImageView();
 
+    // Constructor
     public EditingView(){}
-    public void Initialize(AnchorPane layerPane){
 
+    public void Initialize(AnchorPane layerPane){
         layerView = new LayerView(layerPane);
         mouseState = MouseState.MOVE;
     }
+
     //Edit View
     public AnchorPane EditView(){
         DragandDrop dragandDrop = new DragandDrop();
@@ -30,5 +33,4 @@ public class EditingView {
         app.setLayoutY(anchorPaneEditView.getHeight()/2);
         return anchorPaneEditView;
     }
-
 }

@@ -49,8 +49,9 @@ public class PaintDraw {
     public void drawOnImage(ImageView imageView){
         Image[] image={null};
         image[0]=imageView.getImage();
-        imageView.setFitHeight(image[0].getHeight());
-        imageView.setFitWidth(image[0].getWidth());
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(700);
+        imageView.setFitHeight(700);
         imageView.setImage(image[0]);
         EditingView editingView = new EditingView();
         imageView.setOnMouseDragged(event -> {

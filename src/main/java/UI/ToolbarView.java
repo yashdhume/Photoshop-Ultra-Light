@@ -94,20 +94,18 @@ public class ToolbarView {
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
         // Painting / Draw
         ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        Color color = Color.BLACK;
-        int stroke = 5;
 
         Label lblColorPicker = new Label();
         lblColorPicker.setGraphic(new ImageView(new Image("colorPaletteIcon.png", 25, 25, false, false)));
         lblColorPicker.setTooltip(new Tooltip("Color Picker"));
 
-        ColorPicker colorPicker = new ColorPicker(color);
+        ColorPicker colorPicker = new ColorPicker(Color.HOTPINK);
+        PaintDraw draw = new PaintDraw(colorPicker.getValue(), 5);
         colorPicker.setMaxSize(45, 35);
-        colorPicker.setOnAction((event) -> {
-            drawUpdate(colorPicker.getValue(), stroke);
+        colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            draw.setColor(newValue);
         });
 
-        PaintDraw draw = new PaintDraw(colorPicker.getValue(), stroke);
 
         TextField textFieldStroke = new TextField();
         textFieldStroke.setPrefColumnCount(3);
@@ -120,9 +118,10 @@ public class ToolbarView {
         strokeSlider.setShowTickMarks(true);
         strokeSlider.setShowTickLabels(true);
 
-        strokeSlider.setOnMouseMoved((event) -> {
-            textFieldStroke.setText("" + (int)strokeSlider.getValue() + "");
-            drawUpdate(color, (int)strokeSlider.getValue());
+
+        strokeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            draw.setStroke(newValue.intValue());
+            textFieldStroke.setText(newValue.toString());
         });
 
         textFieldStroke.setOnKeyPressed((KeyEvent event)->{
@@ -135,16 +134,28 @@ public class ToolbarView {
         Button Brush = new Button();
         Brush.setGraphic(new ImageView(new Image("brushIcon.png", 25, 25, false, false)));
         Brush.setTooltip(new Tooltip("Brush"));
-        Brush.setOnAction((event) -> {
-            drawUpdate(color, stroke);
-        });
 
+        strokeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            draw.setStroke(newValue.intValue());
+            textFieldStroke.setText(newValue.toString());
+        });
+        colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            draw.setColor(newValue);
+        });
+        Brush.setOnAction((event) -> {
+            draw.drawOnAnchor(editingView.anchorPaneEditView);
+        });
+        textFieldStroke.setOnKeyPressed((KeyEvent event)->{
+            if(event.getCode()==KeyCode.ENTER){
+                draw.setStroke(Integer.parseInt(textFieldStroke.getText()));
+                strokeSlider.setValue(Integer.parseInt(textFieldStroke.getText()));
+            }
+        });
         Button Pencil = new Button();
         Pencil.setGraphic(new ImageView(new Image("pencilIcon.png", 25, 25, false, false)));
         Pencil.setTooltip(new Tooltip("Pencil"));
         Pencil.setOnAction((event) -> {
-            PaintDraw paintDraw = new PaintDraw(color, stroke);
-            paintDraw.drawOnImage(editingView.imageViewEditView);
+            draw.drawOnImage(editingView.imageViewEditView);
         });
 
         Button Circle = new Button();
@@ -179,10 +190,5 @@ public class ToolbarView {
         gp.add(Layer, 0, 5);
 
         toolbarPane.getChildren().addAll(gp);
-    }
-
-    private void drawUpdate(Color color, int stroke){
-        PaintDraw paintDraw = new PaintDraw(color, stroke);
-        paintDraw.drawOnAnchor(editingView.anchorPaneEditView);
     }
 }

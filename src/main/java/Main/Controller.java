@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import java.awt.image.RenderedImage;
@@ -18,6 +20,8 @@ import javafx.embed.swing.SwingFXUtils;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller extends AnchorPane implements Initializable{
@@ -26,7 +30,7 @@ public class Controller extends AnchorPane implements Initializable{
     @FXML
     private Button cameraBtn;
     @FXML
-    private  Button bWEffectBtn;
+    private Button bWEffectBtn;
     @FXML
     private MenuItem newMI;
     @FXML
@@ -47,6 +51,7 @@ public class Controller extends AnchorPane implements Initializable{
     private TextField strokeTextBox;
 
     EditingView editingView = new EditingView();
+    List<String> recents = new ArrayList<String>();
     File file;
 
     @Override
@@ -54,6 +59,7 @@ public class Controller extends AnchorPane implements Initializable{
         new UIInitializer(toolBar, properties);
         editingView.Initialize(layers);
     }
+
     // File
     @FXML
     void newMI(ActionEvent event) {
@@ -79,13 +85,21 @@ public class Controller extends AnchorPane implements Initializable{
         if (file != null) {
             Image image = new Image(file.toURI().toString());
             editingView.layerView.addImage(image);
-            //recents.add(file.toURI().toString());
+            recents.add(file.toURI().toString());
         }
     }
 
     @FXML
     void openRecent(ActionEvent event) {
-        // To be Implemented
+        openRecentMenu.getItems().clear();
+        for(String s : recents) {
+            MenuItem mi = new MenuItem(s);
+            mi.setOnAction((e) -> {
+                Image image = new Image(s);
+                editingView.layerView.addImage(image);
+            });
+            openRecentMenu.getItems().add(mi);
+        }
     }
 
     @FXML
@@ -124,12 +138,35 @@ public class Controller extends AnchorPane implements Initializable{
     }
 
     @FXML
-    void preference(ActionEvent event) {
-    }
-
-    @FXML
     void quit(ActionEvent event) {
-        System.exit(0);
+        Stage stage = new Stage();
+        stage.setTitle("Quit");
+
+        // Declare VBox and Hbox
+        VBox vbox = new VBox();
+        vbox.setSpacing(20);
+        vbox.setPadding(new Insets(30));
+        HBox hbox = new HBox();
+        hbox.setSpacing(20);
+        hbox.setPadding(new Insets(10, 30, 10, 50));
+
+        // Set up label and buttons
+        Label prompt = new Label("Are you sure you want to quit?");
+        Button yes = new Button("Yes");
+        yes.setOnAction((e) -> { System.exit(0); });
+        Button no = new Button("No");
+        no.setOnAction((e) -> {stage.close();});
+
+        // Add all buttons and label
+        hbox.getChildren().addAll(yes, no);
+        vbox.getChildren().addAll(prompt, hbox);
+
+
+        Scene scene = new Scene(vbox,300,150);
+        stage.getIcons().add(new Image("logo.png"));
+        stage.setScene(scene);
+        stage.setAlwaysOnTop(true);
+        stage.show();
     }
 
     // Help

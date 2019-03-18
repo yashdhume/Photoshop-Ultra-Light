@@ -24,10 +24,11 @@ import org.w3c.dom.css.Rect;
 public class ToolbarView {
     AnchorPane toolbarPane;
     EditingView editingView = new EditingView();
-
+    public static Color GlobalColor;
     public ToolbarView(AnchorPane pane) {
         toolbarPane = pane;
         GetToolbarView();
+        GlobalColor = Color.HOTPINK;
     }
 
     public void GetToolbarView() {
@@ -104,11 +105,12 @@ public class ToolbarView {
         lblColorPicker.setGraphic(new ImageView(new Image("colorPaletteIcon.png", 25, 25, false, false)));
         lblColorPicker.setTooltip(new Tooltip("Color Picker"));
 
-        ColorPicker colorPicker = new ColorPicker(Color.HOTPINK);
+        ColorPicker colorPicker = new ColorPicker(GlobalColor);
         PaintDraw draw = new PaintDraw(colorPicker.getValue(), 5);
         colorPicker.setMaxSize(45, 35);
         colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             draw.setColor(newValue);
+            GlobalColor = newValue;
         });
 
 
@@ -161,7 +163,7 @@ public class ToolbarView {
         Pencil.setTooltip(new Tooltip("Pencil"));
         Pencil.setOnAction((event) -> {
             editingView.mouseState = MouseState.DRAW;
-            draw.drawOnImage(editingView.layerView.getSelectedAsImage());
+            draw.drawOnImage(editingView.anchorPaneEditView, editingView.layerView.getSelectedAsImage());
         });
 
         Button Circle = new Button();

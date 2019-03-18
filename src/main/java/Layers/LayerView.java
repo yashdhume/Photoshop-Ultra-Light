@@ -3,6 +3,7 @@ package Layers;
 import Global.MouseState;
 import Global.OpenCVMat;
 import Main.EditingView;
+import UI.ToolbarView;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -49,7 +50,7 @@ public class LayerView {
     private ArrayList<Layer> layers = new ArrayList<>();
 
     //Keeps track of the index of the selected layer
-    private Integer indexofSelected;
+    private Integer indexofSelected, layerPaneIndex;
 
     //Composite Image View of the layers
     private ImageView composite;
@@ -62,8 +63,8 @@ public class LayerView {
         layers.add(new SolidLayer("Background", 700, 700, Color.WHITE));
 
         //For testing I recommend adding some files by default
-        //layers.add(new ImageLayer("middle", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/googleIcon.png")));
-        //layers.add(new ImageLayer("foreground", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/cameraIcon.png")));
+        layers.add(new ImageLayer("middle", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/googleIcon.png")));
+        layers.add(new ImageLayer("foreground", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/cameraIcon.png")));
 
 
         controlPane = pane;
@@ -75,21 +76,25 @@ public class LayerView {
                 layers.get(indexofSelected).setLocation(new Point(e.getSceneX(), e.getSceneY()));
 
         }});
+        InitializeButtons();
         renderLayers();
+    }
+
+    private void InitializeButtons(){
+
+        Button solidButoon = new Button("Create new Solid");
+        solidButoon.setOnAction(e->{
+            this.addSolid(700, 700, ToolbarView.GlobalColor);
+        });
+        solidButoon.setLayoutX(20);
+        solidButoon.setLayoutY(80);
+        controlPane.getChildren().addAll(solidButoon);
     }
 
     //Renders Layers in the Layer pane and the Editable View
     //Use this when there are any major changes.
     public void renderLayers(){
-        if (controlPane.getChildren().contains(layerPane))
-            controlPane.getChildren().remove(layerPane);
-        Button button = new Button("Create new Layer");
-        button.setOnAction(e->{
-            renderLayers();
-        });
-        button.setLayoutX(20);
-        button.setLayoutY(80);
-        controlPane.getChildren().add(button);
+
         if (layers.size() == 0){
             return;
         }
@@ -107,7 +112,11 @@ public class LayerView {
         }
         layerPane.setLayoutX(20);
         layerPane.setLayoutY(200);
-        controlPane.getChildren().add(layerPane);
+        if (layerPaneIndex == null) {
+            controlPane.getChildren().add(layerPane);
+            controlPane.getChildren().indexOf(layerPane);
+        }
+        else controlPane.getChildren().set(layerPaneIndex, layerPane);
 
         renderEditables();
     }
@@ -130,6 +139,16 @@ public class LayerView {
         String name = "New Layer " + layers.size();
         layers.add(new Layer(name));
         renderEditables();
+    }
+    public void addPaint(){
+        String name = "New Layer " + layers.size();
+        layers.add(new PaintLayer(name, 700, 700));
+        renderLayers();
+    }
+    public void addSolid(double width, double height, Color color){
+        String name = "New Layer " + layers.size();
+        layers.add(new SolidLayer(name, width, height, color));
+        renderLayers();
     }
     //add an Image to the layer Stack
     public void addImage(Image image){
@@ -169,7 +188,7 @@ public class LayerView {
         ImageView iv = layer.getImageView();
         iv.setImage(image);
         layer.applyEffect(iv);
-        this.updateSelected(layer);
+        renderLayers();
     }
     //Use this if you plan on replacing the layer with another one.
     public void updateSelected(Layer layer){

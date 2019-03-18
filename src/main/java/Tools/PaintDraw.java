@@ -1,6 +1,7 @@
 package Tools;
 
 import Global.MouseState;
+import Layers.PaintLayer;
 import Main.EditingView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,6 +10,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 
 public class PaintDraw {
@@ -21,7 +23,6 @@ public class PaintDraw {
         this.stroke = stroke;
     }
     public void drawOnAnchor(AnchorPane anchorPane){
-        EditingView editingView = new EditingView();
         if(EditingView.layerView.getSelectedAsImage().getImage()!=null && EditingView.mouseState == MouseState.DRAW) {
             System.out.println(EditingView.layerView.getSelectedAsImage().getImage());
             final double maxX = EditingView.layerView.getSelectedAsImage().getImage().getWidth();
@@ -47,7 +48,7 @@ public class PaintDraw {
             });
         }
     }
-    public void drawOnImage(ImageView imageView){
+    public void drawOnImage(AnchorPane anchorPane, ImageView imageView){
         Image[] image={null};
         image[0]=imageView.getImage();
         imageView.setPreserveRatio(true);
@@ -55,7 +56,7 @@ public class PaintDraw {
         imageView.setFitHeight(700);
         imageView.setImage(image[0]);
         EditingView editingView = new EditingView();
-        imageView.setOnMouseDragged(event -> {
+        anchorPane.setOnMouseDragged(event -> {
             double x=event.getX();
             double y=event.getY();
 

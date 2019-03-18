@@ -13,7 +13,9 @@ public class EditingView {
     //public static ImageView imageViewEditView = new ImageView();
     public static AnchorPane anchorPaneEditView = new AnchorPane();
     public static ImageView imgSetByNewDrag = new ImageView();
-
+    public static void Render(){
+        layerView.renderLayers();
+    }
     public EditingView(){}
     public void Initialize(AnchorPane layerPane){
 

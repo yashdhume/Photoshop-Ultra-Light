@@ -1,5 +1,8 @@
 package Main;
 
+import Layers.ImageLayer;
+import Layers.Layer;
+import Layers.LayerType;
 import UI.UIInitializer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +11,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
@@ -59,6 +63,13 @@ public class Controller extends AnchorPane implements Initializable{
     void newMI(ActionEvent event) {
         Stage stage = new Stage();
         Scene scene = new Scene(editingView.EditView(),700,700);
+        scene.setOnKeyPressed(e->{
+            System.out.println("PRESSED");
+            if(e.getCode() == KeyCode.Z && e.isControlDown()){
+                editingView.layerView.getSelected().undo();
+
+            }
+        });
         stage.getIcons().add(new Image("logo.png"));
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
@@ -152,5 +163,6 @@ public class Controller extends AnchorPane implements Initializable{
         stage.setAlwaysOnTop(true);
         stage.show();
     }
+
 
 }

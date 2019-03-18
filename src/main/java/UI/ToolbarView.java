@@ -1,15 +1,13 @@
 package UI;
 
-import Effects.BlackWhiteEffect;
+import Effects.ColorEffect;
 import Effects.GaussianBlurEffect;
 import Global.MouseState;
 import Layers.ImageLayer;
-import Layers.Layer;
 import Tools.PaintDraw;
 import Main.EditingView;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -19,7 +17,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import org.w3c.dom.css.Rect;
+
+import java.util.Random;
 
 public class ToolbarView {
     AnchorPane toolbarPane;
@@ -90,13 +89,25 @@ public class ToolbarView {
         // Black and White Effect
         Button btnBlackAndWhite = new Button();
         btnBlackAndWhite.setOnAction((event) -> {
-            BlackWhiteEffect blackWhiteEffect = new BlackWhiteEffect(editingView.layerView.getSelectedAsImage().getImage());
+            ColorEffect colorEffect = new ColorEffect(editingView.layerView.getSelectedAsImage().getImage(),6);
             ImageLayer layer = (ImageLayer)editingView.layerView.getSelected();
-            layer.setImage(blackWhiteEffect.getEffect());
+            layer.setImage(colorEffect.getEffect());
             editingView.layerView.updateSelected(layer);
         });
-        btnBlackAndWhite.setGraphic(new ImageView(new Image("blackAndWhiteIcon.png", 25, 25, false, false)));
+        btnBlackAndWhite.setGraphic(new ImageView(new Image("/blackAndWhiteIcon.png", 25, 25, false, false)));
         btnBlackAndWhite.setTooltip(new Tooltip("Black and White"));
+
+        // Black and White Effect
+        Button btnRandomEffect = new Button();
+        btnRandomEffect.setOnAction((event) -> {
+            Random rnd = new Random();
+            ColorEffect colorEffect = new ColorEffect(editingView.layerView.getSelectedAsImage().getImage(),rnd.nextInt(125));
+            ImageLayer layer = (ImageLayer)editingView.layerView.getSelected();
+            layer.setImage(colorEffect.getEffect());
+            editingView.layerView.updateSelected(layer);
+        });
+        btnRandomEffect.setGraphic(new ImageView(new Image("/blackAndWhiteIcon.png", 25, 25, false, false)));
+        btnRandomEffect.setTooltip(new Tooltip("Random Effect"));
 
         /* Paint/Draw properties */
 
@@ -196,6 +207,7 @@ public class ToolbarView {
         gp.add(sliderGaussian, 2, 0);
         gp.add(gaussianScale, 3, 0);
         gp.add(btnBlackAndWhite, 0, 0);
+        gp.add(btnRandomEffect, 0, 10);
         gp.add(Circle, 0, 1);
         gp.add(Rectangle, 1, 1);
         gp.add(Triangle, 0, 2);

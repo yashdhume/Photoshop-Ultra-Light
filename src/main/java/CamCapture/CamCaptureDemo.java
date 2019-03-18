@@ -1,5 +1,6 @@
 package CamCapture;
 
+import Global.AlertDialogue;
 import Global.DragandDrop;
 import Global.OpenCVMat;
 import Main.EditingView;
@@ -61,6 +62,8 @@ public class CamCaptureDemo{
         catch (Exception e)
         {
             System.err.println("Cannot convert the Mat object:" + e);
+            AlertDialogue alertDialogue = new AlertDialogue();
+            alertDialogue.getAlert(e);
             return null;
         }
     }
@@ -73,6 +76,8 @@ public class CamCaptureDemo{
                 timer.awaitTermination(33, TimeUnit.MILLISECONDS);
             }
             catch (InterruptedException e) {
+                AlertDialogue alertDialogue = new AlertDialogue();
+                alertDialogue.getAlert(e);
                 System.err.println("Exception in stopping the frame capture, trying to release the camera now... " + e);
             }
         }
@@ -155,6 +160,9 @@ public class CamCaptureDemo{
             catch (Exception e)
             {
                 System.err.println("Exception during the image elaboration: " + e);
+                AlertDialogue alertDialogue = new AlertDialogue();
+                alertDialogue.getAlert(e);
+
             }
         }
         return frame;

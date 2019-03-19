@@ -16,15 +16,26 @@ public class EditingView {
     public static ImageView imgSetByNewDrag = new ImageView();
 
     // Constructor
-    public EditingView(){}
+    public EditingView(){ }
 
-    public void Initialize(AnchorPane layerPane){
-        layerView = new LayerView(layerPane);
+    public void Initialize(AnchorPane layerPane, double width, double height){
+        layerView = new LayerView(layerPane, width, height);
         mouseState = MouseState.MOVE;
     }
 
     //Edit View
     public AnchorPane EditView(){
+        DragandDrop dragandDrop = new DragandDrop();
+        dragandDrop.external(anchorPaneEditView,layerView);
+        anchorPaneEditView.getChildren().add(layerView.getEditableStack());
+        StackPane app = (StackPane)  anchorPaneEditView.getChildren().get(0);
+        app.setLayoutX(anchorPaneEditView.getWidth()/2);
+        app.setLayoutY(anchorPaneEditView.getHeight()/2);
+        return anchorPaneEditView;
+    }
+
+    public AnchorPane EditView(double width, double height){
+        anchorPaneEditView.setMaxSize(width, height);
         DragandDrop dragandDrop = new DragandDrop();
         dragandDrop.external(anchorPaneEditView,layerView);
         anchorPaneEditView.getChildren().add(layerView.getEditableStack());

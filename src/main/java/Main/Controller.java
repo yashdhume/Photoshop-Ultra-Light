@@ -8,7 +8,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -50,21 +52,55 @@ public class Controller extends AnchorPane implements Initializable{
     @FXML
     private TextField strokeTextBox;
 
+    File file;
+    double width, height;
     EditingView editingView = new EditingView();
     List<String> recents = new ArrayList<String>();
-    File file;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         new UIInitializer(toolBar, properties);
-        editingView.Initialize(layers);
     }
 
     // File
     @FXML
     void newMI(ActionEvent event) {
+        Stage layout_stage = new Stage();
+        layout_stage.setTitle("Set Layout");
+        GridPane pane = new GridPane();
+        pane.setPadding(new Insets(30));
+        pane.setHgap(20);
+        pane.setVgap(20);
+
+        TextField widthTextField = new TextField("700");
+        TextField heightTextField = new TextField("700");
+        Button apply = new Button("Apply");
+
+        apply.setOnAction((e) -> {
+            width = Double.parseDouble(widthTextField.getText());
+            height = Double.parseDouble(heightTextField.getText());
+            layout_stage.close();
+            openNew(width, height);
+        });
+
+        pane.add(new Label("Set Layout Size"), 0,0);
+        pane.add(new Label("Width: "), 0, 1);
+        pane.add(widthTextField, 1, 1);
+        pane.add(new Label("Height: "), 0, 2);
+        pane.add(heightTextField, 1, 2);
+        pane.add(apply, 1, 3);
+
+        Scene layout_scene = new Scene(pane, 500, 500);
+        layout_stage.getIcons().add(new Image("logo.png"));
+        layout_stage.setScene(layout_scene);
+        layout_stage.setAlwaysOnTop(true);
+        layout_stage.show();
+    }
+
+    void openNew(double width, double height) {
         Stage stage = new Stage();
-        Scene scene = new Scene(editingView.EditView(),700,700);
+        editingView.Initialize(layers, width, height);
+        Scene scene = new Scene(editingView.EditView(width, height), width, height);
         stage.getIcons().add(new Image("logo.png"));
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
@@ -108,7 +144,7 @@ public class Controller extends AnchorPane implements Initializable{
         savefile.setTitle("Save");
         if (file != null) {
             try {
-                WritableImage writableImage = new WritableImage(1080, 790);
+                WritableImage writableImage = new WritableImage((int)width, (int)height);
                 EditingView.anchorPaneEditView.snapshot(null, writableImage);
                 RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
                 ImageIO.write(renderedImage, "png", file);
@@ -128,7 +164,7 @@ public class Controller extends AnchorPane implements Initializable{
         savefile.setTitle("Save As");
         file = savefile.showSaveDialog(stage);
         try {
-            WritableImage writableImage = new WritableImage(1080, 790);
+            WritableImage writableImage = new WritableImage((int)width, (int)height);
             EditingView.anchorPaneEditView.snapshot(null, writableImage);
             RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
             ImageIO.write(renderedImage, "png", file);

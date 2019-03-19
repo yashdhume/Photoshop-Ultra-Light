@@ -27,6 +27,11 @@ public class SolidLayer extends Layer {
     }
 
     @Override
+    public void rotate(double degrees) {
+        rectangle.setRotate(rectangle.getRotate()+degrees);
+    }
+
+    @Override
     public Pane getLayer() {
         Pane pane = new Pane();
         pane.getChildren().add(rectangle);

@@ -46,7 +46,7 @@ public class Layer {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 isVisible = newValue;
-                //EditingView.Render();
+                EditingView.Render();
             }
         });
         pane.add(visiblityCheckbox, 0, 0);

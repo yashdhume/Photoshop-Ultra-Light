@@ -163,6 +163,7 @@ public class ToolbarView {
         Brush.setTooltip(new Tooltip("Brush"));
 
         Brush.setOnAction((event) -> {
+            editingView.mouseState = MouseState.DRAW;
             draw.drawOnAnchor(editingView.anchorPaneEditView);
         });
         textFieldStroke.setOnKeyPressed((KeyEvent event)->{

@@ -2,7 +2,8 @@ package Effects;
 
 import Global.AlertDialogue;
 import Global.OpenCVMat;
-import javafx.scene.control.Alert;
+import Layers.ImageLayer;
+import Main.EditingView;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 import javafx.scene.image.Image;
@@ -24,7 +25,6 @@ public class ColorEffect {
             }catch (Exception e){
                 AlertDialogue alertDialogue = new AlertDialogue();
                 alertDialogue.getAlert(e);
-
             }
         }
     }

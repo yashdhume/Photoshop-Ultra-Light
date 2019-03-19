@@ -6,5 +6,6 @@ public enum  MouseState {
     ROTATE,
     MOVE,
     DRAW,
+    RESIZE,
 }
 

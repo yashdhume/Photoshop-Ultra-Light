@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.*;
@@ -231,13 +232,17 @@ public class ToolbarView {
         Crop.setOnAction(e->{
             editingView.mouseState = MouseState.CROP;
         });
-
+        Button btnResize = new Button("Resize");
+        btnResize.setOnAction(e->{
+            editingView.mouseState = MouseState.RESIZE;
+        });
         // Add Buttons to the grid pane
         gp.add(btnGaussianBlur, 1, 0);
         gp.add(sliderGaussian, 2, 0);
         gp.add(gaussianScale, 3, 0);
         gp.add(btnBlackAndWhite, 0, 0);
         gp.add(btnEffects, 0, 10);
+        gp.add(btnResize, 0, 5);
         gp.add(sliderContarst, 0, 6);
         gp.add(sliderHue, 0, 7);
         gp.add(sliderBrightness, 0, 8);

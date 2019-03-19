@@ -59,6 +59,10 @@ public class ImageLayer extends Layer{
     public void rotate(double degrees) {
         imageView.setRotate(imageView.getRotate()+degrees);
     }
+    public void resize(double size) {
+        imageView.setFitWidth(size);
+        imageView.setFitHeight(size);
+    }
 
     @Override
     public void crop(Point start, Point end) {

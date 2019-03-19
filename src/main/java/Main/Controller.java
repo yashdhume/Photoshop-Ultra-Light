@@ -56,6 +56,7 @@ public class Controller extends AnchorPane implements Initializable{
     double width, height;
     EditingView editingView = new EditingView();
     List<String> recents = new ArrayList<String>();
+    Stage layout_stage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -65,7 +66,8 @@ public class Controller extends AnchorPane implements Initializable{
     // File
     @FXML
     void newMI(ActionEvent event) {
-        Stage layout_stage = new Stage();
+
+        layout_stage = new Stage();
         layout_stage.setTitle("Set Layout");
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(30));

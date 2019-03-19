@@ -88,7 +88,9 @@ public class Layer {
         isSelected = false;
         pane.setStyle("-fx-background-color:#E8E5E8; -fx-opacity:1;");
     }
-
+    public void rotate(double degrees){
+        return;
+    }
     public void setLocation(Point p){
         location = p;
     }

@@ -204,6 +204,12 @@ public class ToolbarView {
             editingView.mouseState = MouseState.MOVE;
         });
 
+        //Rotate Button
+        Button Rotate = new Button("Rotate");
+        Rotate.setOnAction(e->{
+            editingView.mouseState = MouseState.ROTATE;
+        });
+
         // Add Buttons to the grid pane
         gp.add(btnGaussianBlur, 1, 0);
         gp.add(sliderGaussian, 2, 0);
@@ -214,6 +220,7 @@ public class ToolbarView {
         gp.add(Rectangle, 1, 1);
         gp.add(Triangle, 0, 2);
         gp.add(Move, 1, 2);
+        gp.add(Rotate, 2, 2);
         gp.add(Pencil, 0, 3);
         gp.add(Brush, 1, 3);
         gp.add(strokeSlider, 2, 3);

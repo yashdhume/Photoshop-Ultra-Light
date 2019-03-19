@@ -52,6 +52,12 @@ public class ImageLayer extends Layer{
         imageView.setTranslateY(location.y);
 
     }
+
+    @Override
+    public void rotate(double degrees) {
+        imageView.setRotate(imageView.getRotate()+degrees);
+    }
+
     public ImageView getOriginalImage(){return originalImage;}
     public Image getImage(){
         return imageView.getImage();

@@ -1,6 +1,7 @@
 package Main;
 import Global.DragandDrop;
 import Global.MouseState;
+import Layers.LayerManipulation;
 import Layers.LayerView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +22,7 @@ public class EditingView {
 
         layerView = new LayerView(layerPane);
         mouseState = MouseState.MOVE;
+        LayerManipulation lm = new LayerManipulation();
     }
     //Edit View
     public AnchorPane EditView(){

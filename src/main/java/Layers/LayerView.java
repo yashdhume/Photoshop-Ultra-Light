@@ -59,26 +59,33 @@ public class LayerView {
     //Editable view of the Layers
     private StackPane editable;
 
+
     public LayerView(AnchorPane pane){
         //Recommended to Initialize with a solid layer
         layers.add(new SolidLayer("Background", 700, 700, Color.WHITE));
 
         //For testing I recommend adding some files by default
-        //layers.add(new ImageLayer("middle", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/googleIcon.png")));
-        //layers.add(new ImageLayer("foreground", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/cameraIcon.png")));
+        layers.add(new ImageLayer("middle", new Image("file:c:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/googleIcon.png")));
+        layers.add(new ImageLayer("foreground", new Image("file:c:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/cameraIcon.png")));
 
 
         controlPane = pane;
         composite = new ImageView();
         indexofSelected = 1;
         editable = new StackPane();
+        /*
         editable.setOnMouseDragged(e->{
             if (EditingView.mouseState == MouseState.MOVE) {
                 layers.get(indexofSelected).setLocation(new Point(e.getSceneX(), e.getSceneY()));
+            }
+            else if (EditingView.mouseState == MouseState.ROTATE){
 
-        }});
+            }
+        });
+        */
         InitializeButtons();
         renderLayers();
+
     }
 
     private void InitializeButtons(){

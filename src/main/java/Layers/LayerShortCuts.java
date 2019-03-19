@@ -4,7 +4,6 @@ import Main.EditingView;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 
-import java.security.Key;
 
 public class LayerShortCuts {
     public LayerShortCuts(Scene scene){

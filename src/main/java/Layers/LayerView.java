@@ -5,7 +5,9 @@ import Global.OpenCVMat;
 import Main.EditingView;
 import UI.ToolbarView;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -85,13 +88,38 @@ public class LayerView {
 
     private void InitializeButtons(){
 
-        Button solidButoon = new Button("Create new Solid");
-        solidButoon.setOnAction(e->{
+        Button solidButton = new Button("Create new Solid");
+        solidButton.setOnAction(e->{
             this.addSolid(700, 700, ToolbarView.GlobalColor);
         });
-        solidButoon.setLayoutX(20);
-        solidButoon.setLayoutY(80);
-        controlPane.getChildren().addAll(solidButoon);
+        solidButton.setLayoutX(20);
+        solidButton.setLayoutY(80);
+
+        Button textButton = new Button("Create new Text");
+        textButton.setOnAction(e->{
+            Stage stage = new Stage();
+            GridPane gp = new GridPane();
+            TextField name = new TextField();
+            Button submit = new Button("Done");
+            submit.setOnAction(event->{
+                if (name.getText().length() >0){
+                    addText(name.getText());
+                    stage.close();
+                }
+            });
+            gp.add(name, 0, 0);
+            gp.add(submit, 0, 1);
+            Scene scene = new Scene(gp);
+            stage.getIcons().add(new Image("logo.png"));
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            stage.show();
+        });
+        textButton.setLayoutX(20);
+        textButton.setLayoutY(100);
+        controlPane.getChildren().addAll(solidButton, textButton);
+
+
     }
 
     //Renders Layers in the Layer pane and the Editable View
@@ -157,6 +185,10 @@ public class LayerView {
     public void addImage(Image image){
         String name = "New Layer " + layers.size();
         layers.add(new ImageLayer(name, image));
+        renderLayers();
+    }
+    public void addText(String text){
+        layers.add(new TextLayer(text, text));
         renderLayers();
     }
     public void removeSelectedLayer(){

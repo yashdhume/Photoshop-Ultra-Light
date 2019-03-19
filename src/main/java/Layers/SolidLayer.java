@@ -32,6 +32,14 @@ public class SolidLayer extends Layer {
     }
 
     @Override
+    public void crop(Point start, Point end) {
+        rectangle.setX(start.x);
+        rectangle.setY(start.y);
+        rectangle.setWidth(end.x - start.x);
+        rectangle.setHeight(end.y - start.y);
+    }
+
+    @Override
     public Pane getLayer() {
         Pane pane = new Pane();
         pane.getChildren().add(rectangle);

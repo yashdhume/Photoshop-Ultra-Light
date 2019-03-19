@@ -79,11 +79,6 @@ public class LayerView {
         composite = new ImageView();
         indexofSelected = 1;
         editable = new StackPane();
-        editable.setOnMouseDragged(e->{
-            if (EditingView.mouseState == MouseState.MOVE) {
-                layers.get(indexofSelected).setLocation(new Point(e.getSceneX(), e.getSceneY()));
-
-        }});
         InitializeButtons();
         renderLayers();
     }

@@ -27,8 +27,8 @@ public class ImageLayer extends Layer{
 
     @Override
     public void undo() {
+        System.out.println(versions.size());
         if (versions.size() > 0){
-            System.out.println("Undoing");
             imageView.setImage(versions.get(versions.size()-1).getImage());
             versions.remove(versions.size()- 1);
         }
@@ -41,9 +41,10 @@ public class ImageLayer extends Layer{
         pane.getChildren().add(imageView);
         return pane;
     }
-    public void applyEffect(ImageView image){
-        versions.add(imageView);
-        imageView = image;
+    public void applyEffect(Image image){
+        System.out.println("EFFECT APPLIED");;
+        versions.add(new ImageView(imageView.getImage()));
+        imageView.setImage(image);
     }
     @Override
     public void setLocation(Point p) {

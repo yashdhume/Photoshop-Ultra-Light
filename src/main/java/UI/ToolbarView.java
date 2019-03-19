@@ -92,9 +92,7 @@ public class ToolbarView {
         Button btnBlackAndWhite = new Button();
         btnBlackAndWhite.setOnAction((event) -> {
             ColorEffect colorEffect = new ColorEffect(editingView.layerView.getSelectedAsImage().getImage(),6);
-            ImageLayer layer = (ImageLayer)editingView.layerView.getSelected();
-            layer.setImage(colorEffect.getEffect());
-            editingView.layerView.updateSelected(layer);
+            editingView.layerView.applyEffectToSelected(colorEffect.getEffect());
         });
         btnBlackAndWhite.setGraphic(new ImageView(new Image("/blackAndWhiteIcon.png", 25, 25, false, false)));
         btnBlackAndWhite.setTooltip(new Tooltip("Black and White"));

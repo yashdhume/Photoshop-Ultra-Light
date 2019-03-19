@@ -187,10 +187,7 @@ public class LayerView {
     //Use this for applying effects. This will allow the layer to keep a history of the changes
     // allowing you to revert back to the original Image.
     public void applyEffectToSelected(Image image){
-        ImageLayer layer = (ImageLayer)this.getSelected();
-        ImageView iv = layer.getImageView();
-        iv.setImage(image);
-        layer.applyEffect(iv);
+        ((ImageLayer) this.getSelected()).applyEffect(image);
         renderLayers();
     }
     //Use this if you plan on replacing the layer with another one.

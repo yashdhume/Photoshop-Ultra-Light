@@ -102,7 +102,6 @@ public class Controller extends AnchorPane implements Initializable{
         editingView.Initialize(layers, width, height);
         Scene scene = new Scene(editingView.EditView(width, height), width, height);
         scene.setOnKeyPressed(e->{
-            System.out.println("PRESSED");
             if(e.getCode() == KeyCode.Z && e.isControlDown()){
                 editingView.layerView.getSelected().undo();
             }

@@ -1,7 +1,6 @@
 package Tools;
 
 import Global.MouseState;
-import Layers.PaintLayer;
 import Main.EditingView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,7 +9,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 
 public class PaintDraw {

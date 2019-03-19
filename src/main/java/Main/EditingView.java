@@ -27,6 +27,8 @@ public class EditingView {
     public static void Render(){
         layerView.renderLayers();
     }
+
+
     //Edit View
     public AnchorPane EditView(){
         DragandDrop dragandDrop = new DragandDrop();

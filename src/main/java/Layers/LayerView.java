@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -73,7 +74,6 @@ public class LayerView {
         //For testing I recommend adding some files by default
         layers.add(new ImageLayer("middle", new Image("file:C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/cameraIcon.png")));
         layers.add(new ImageLayer("foreground", new Image("file:C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/googleIcon.png")));
-
 
         controlPane = pane;
         composite = new ImageView();
@@ -159,6 +159,12 @@ public class LayerView {
         layers.add(new ImageLayer(name, image));
         renderLayers();
     }
+    public void removeSelectedLayer(){
+        layers.remove(indexofSelected.intValue());
+        indexofSelected = layers.size()-1;
+        layers.get(indexofSelected).selectLayer();
+        renderLayers();
+    }
     //get the Layer object of the currently selected layer.
     public  Layer getSelected(){
         if (indexofSelected == null)
@@ -201,6 +207,25 @@ public class LayerView {
     public ImageView getCompositeImageView(){
         renderToImage();
         return composite;
+    }
+    public void moveSelect(boolean isUp){
+        System.out.println("ENTERS");
+        if (isUp){
+            if (indexofSelected + 1 < layers.size()){
+                System.out.println(indexofSelected);
+                layers.get(indexofSelected.intValue()).unselectLayer();
+                indexofSelected++;
+                layers.get(indexofSelected.intValue()).selectLayer();
+                System.out.println(indexofSelected);
+            }
+        }
+        else{
+            if (indexofSelected -1 >= 0){
+                layers.get(indexofSelected).unselectLayer();
+                indexofSelected = indexofSelected-1;
+                layers.get(indexofSelected).selectLayer();
+            }
+        }
     }
     //Return the Editable View
     public StackPane getEditableStack(){

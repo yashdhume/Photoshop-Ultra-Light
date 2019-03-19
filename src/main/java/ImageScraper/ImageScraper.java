@@ -1,6 +1,7 @@
 //This Class creates an array list of Urls of images from google images depending on what user searches
 package ImageScraper;
 
+import Global.AlertDialogue;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -54,6 +55,8 @@ public class ImageScraper {
 
         } catch (ParseException | IOException e) {
             e.printStackTrace();
+            AlertDialogue alertDialogue = new AlertDialogue();
+            alertDialogue.getAlert(e);
         }
         return resultUrls;
     }

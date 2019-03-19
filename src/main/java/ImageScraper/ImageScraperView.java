@@ -12,6 +12,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -102,6 +103,7 @@ public class ImageScraperView implements Runnable {
         vBox.setAlignment(Pos.CENTER);
         vBox.setPadding(new Insets(5,5,5,5));
         flowPane.getChildren().add(vBox);
+        textField.setOnKeyReleased(event -> { if (event.getCode() == KeyCode.ENTER) btnPress(vBox, textField, ""); });
         searchBtn.setOnAction(e -> btnPress(vBox, textField, ""));
         funnyBtn.setOnAction(e -> btnPress(vBox, textField, " funny"));
         cuteBtn.setOnAction(e -> btnPress(vBox, textField, " cute"));
@@ -109,7 +111,5 @@ public class ImageScraperView implements Runnable {
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scroll.setContent(flowPane);
         return scroll;
-
-
     }
 }

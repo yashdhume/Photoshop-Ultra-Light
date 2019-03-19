@@ -1,5 +1,6 @@
 package Effects;
 
+import Global.AlertDialogue;
 import Global.OpenCVMat;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -29,7 +30,8 @@ public class GaussianBlurEffect {
 
                 openCVMat.setEffect(gaussianEffect);
                 openCVMat.setOriginalImage(originalImage);
-            }catch (Exception e){System.out.println(e);}
+            }catch (Exception e){System.out.println(e); AlertDialogue alertDialogue = new AlertDialogue();
+                alertDialogue.getAlert(e);}
         }
     }
 
@@ -48,7 +50,8 @@ public class GaussianBlurEffect {
                 openCVMat.setEffect(gaussianEffect);
                 openCVMat.setOriginalImage(originalImage);
             }
-            catch (Exception e) {System.out.println(e);}
+            catch (Exception e) {System.out.println(e); AlertDialogue alertDialogue = new AlertDialogue();
+                alertDialogue.getAlert(e);}
         }
     }
 

@@ -6,9 +6,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -37,6 +34,7 @@ public class Layer {
         isSelected = false;
         isVisible = true;
     }
+
     //Create the Layer Box objects to be rendered in the Layers panel.
     private void generateLayer(){
         pane = new GridPane();
@@ -56,6 +54,7 @@ public class Layer {
         pane.add(new Label(this.name), 2, 0);
         pane.setStyle("-fx-background-color:#E8E5E8; -fx-opacity:1;");
     }
+
     private Rectangle getThumbnail(){
         if (layerType == LayerType.SOLID) return new Rectangle(20, 20, Color.BLACK);
         else if (layerType == LayerType.IMAGE) return new Rectangle(20, 20, Color.NAVY);
@@ -65,12 +64,14 @@ public class Layer {
             return a;
         }
     }
+
     //Get the LayerBox needed for the Layers Panel
     public GridPane getLayerView(){
         if (pane == null)
             generateLayer();
         return pane;
     }
+
     //Get the pane of the layer. Used primarily
     public Pane getLayer(){return null;}
     public void undo(){
@@ -82,10 +83,12 @@ public class Layer {
         isSelected = true;
         pane.setStyle("-fx-background-color:#5AA4FF; -fx-opacity:1;");
     }
+
     public void unselectLayer(){
         isSelected = false;
         pane.setStyle("-fx-background-color:#E8E5E8; -fx-opacity:1;");
     }
+
     public void setLocation(Point p){
         location = p;
     }
@@ -95,5 +98,4 @@ public class Layer {
     public LayerType getType(){
         return layerType;
     }
-
 }

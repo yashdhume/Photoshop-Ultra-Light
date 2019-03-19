@@ -6,6 +6,7 @@ import Main.EditingView;
 import UI.ToolbarView;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -63,8 +64,8 @@ public class LayerView {
         layers.add(new SolidLayer("Background", 700, 700, Color.WHITE));
 
         //For testing I recommend adding some files by default
-        layers.add(new ImageLayer("middle", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/googleIcon.png")));
-        layers.add(new ImageLayer("foreground", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/cameraIcon.png")));
+        //layers.add(new ImageLayer("middle", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/googleIcon.png")));
+        //layers.add(new ImageLayer("foreground", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/cameraIcon.png")));
 
 
         controlPane = pane;

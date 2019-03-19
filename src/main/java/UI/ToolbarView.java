@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.security.CryptoPrimitive;
 import java.util.Random;
 
 public class ToolbarView {
@@ -211,6 +212,11 @@ public class ToolbarView {
             editingView.mouseState = MouseState.ROTATE;
         });
 
+        Button Crop = new Button("Crop");
+        Crop.setOnAction(e->{
+            editingView.mouseState = MouseState.CROP;
+        });
+
         // Add Buttons to the grid pane
         gp.add(btnGaussianBlur, 1, 0);
         gp.add(sliderGaussian, 2, 0);
@@ -219,6 +225,7 @@ public class ToolbarView {
         gp.add(btnRandomEffect, 0, 10);
         gp.add(Circle, 0, 1);
         gp.add(Rectangle, 1, 1);
+        gp.add(Crop, 2, 1);
         gp.add(Triangle, 0, 2);
         gp.add(Move, 1, 2);
         gp.add(Rotate, 2, 2);

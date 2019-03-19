@@ -46,7 +46,7 @@ public class Layer {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 isVisible = newValue;
-                //EditingView.Render();
+                EditingView.Render();
             }
         });
         pane.add(visiblityCheckbox, 0, 0);
@@ -89,6 +89,9 @@ public class Layer {
         pane.setStyle("-fx-background-color:#E8E5E8; -fx-opacity:1;");
     }
     public void rotate(double degrees){
+        return;
+    }
+    public void crop(Point start, Point end){
         return;
     }
     public void setLocation(Point p){

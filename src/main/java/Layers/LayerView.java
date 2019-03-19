@@ -71,8 +71,8 @@ public class LayerView {
         this.height = height;
 
         //For testing I recommend adding some files by default
-        //layers.add(new ImageLayer("middle", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/googleIcon.png")));
-        //layers.add(new ImageLayer("foreground", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/cameraIcon.png")));
+        layers.add(new ImageLayer("middle", new Image("file:C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/cameraIcon.png")));
+        layers.add(new ImageLayer("foreground", new Image("file:C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/googleIcon.png")));
 
 
         controlPane = pane;

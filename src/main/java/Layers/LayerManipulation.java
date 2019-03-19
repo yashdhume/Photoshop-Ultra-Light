@@ -21,6 +21,9 @@ public class LayerManipulation {
             }
         });
         EditingView.layerView.getEditableStack().setOnMouseReleased(e->{
+            if (EditingView.mouseState == MouseState.CROP){
+                EditingView.layerView.getSelected().crop(previousLocation, new Point(e.getSceneX(), e.getSceneY()));
+            }
             previousLocation = new Point(0,0);
         });
     }

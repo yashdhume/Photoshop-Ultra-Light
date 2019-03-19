@@ -1,13 +1,17 @@
 package UI;
 
+import Effects.BasicEffects;
 import Effects.ColorEffect;
 import Effects.GaussianBlurEffect;
+import Effects.MutipleEffects;
 import Global.MouseState;
 import Layers.ImageLayer;
 import Tools.PaintDraw;
 import Main.EditingView;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -16,6 +20,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.security.CryptoPrimitive;
@@ -23,6 +29,7 @@ import java.util.Random;
 
 public class ToolbarView {
     AnchorPane toolbarPane;
+    private double[] basicEffectDoubles = new double[4];
     EditingView editingView = new EditingView();
     public static Color GlobalColor;
     public ToolbarView(AnchorPane pane) {
@@ -98,16 +105,26 @@ public class ToolbarView {
         btnBlackAndWhite.setTooltip(new Tooltip("Black and White"));
 
         // Black and White Effect
-        Button btnRandomEffect = new Button();
-        btnRandomEffect.setOnAction((event) -> {
-            Random rnd = new Random();
-            ColorEffect colorEffect = new ColorEffect(editingView.layerView.getSelectedAsImage().getImage(),rnd.nextInt(125));
-            ImageLayer layer = (ImageLayer)editingView.layerView.getSelected();
-            layer.setImage(colorEffect.getEffect());
-            editingView.layerView.updateSelected(layer);
+        Button btnEffects = new Button();
+        btnEffects.setOnAction((event) -> {
+            Stage stage = new Stage();
+            MutipleEffects mutipleEffects = new MutipleEffects();
+            Scene scene = new Scene(mutipleEffects.getMutipleEffects(), 150, 200);
+            Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+            stage.setX(0);
+            stage.setY(screenBounds.getHeight());
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            stage.show();
         });
-        btnRandomEffect.setGraphic(new ImageView(new Image("/blackAndWhiteIcon.png", 25, 25, false, false)));
-        btnRandomEffect.setTooltip(new Tooltip("Random Effect"));
+        btnEffects.setGraphic(new ImageView(new Image("/blackAndWhiteIcon.png", 25, 25, false, false)));
+        btnEffects.setTooltip(new Tooltip("Random Effect"));
+
+        //contrast, hue, brighness, saturation
+        Slider sliderContarst = slider(0);
+        Slider sliderHue = slider(1);
+        Slider sliderBrightness = slider(2);
+        Slider sliderSaturation = slider(3);
 
         /* Paint/Draw properties */
 
@@ -148,10 +165,10 @@ public class ToolbarView {
             }
         });
 
-        strokeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+        /*strokeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             draw.setStroke(newValue.intValue());
             textFieldStroke.setText(newValue.toString());
-        });
+        });*/
         colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             draw.setColor(newValue);
         });
@@ -220,7 +237,11 @@ public class ToolbarView {
         gp.add(sliderGaussian, 2, 0);
         gp.add(gaussianScale, 3, 0);
         gp.add(btnBlackAndWhite, 0, 0);
-        gp.add(btnRandomEffect, 0, 10);
+        gp.add(btnEffects, 0, 10);
+        gp.add(sliderContarst, 0, 6);
+        gp.add(sliderHue, 0, 7);
+        gp.add(sliderBrightness, 0, 8);
+        gp.add(sliderSaturation, 0, 9);
         gp.add(Circle, 0, 1);
         gp.add(Rectangle, 1, 1);
         gp.add(Crop, 2, 1);
@@ -235,5 +256,23 @@ public class ToolbarView {
         gp.add(colorPicker, 1, 4);
 
         toolbarPane.getChildren().addAll(gp);
+    }
+
+    private Slider slider(int which){
+        Slider slider = new Slider();
+        slider.setValue(0);
+        slider.setMax(1);
+        slider.setMin(-1);
+        slider.setMajorTickUnit(0.01);
+       // slider.setMinorTickCount(0.01);
+        slider.setShowTickMarks(true);
+        slider.setShowTickLabels(true);
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            basicEffectDoubles[which] =newValue.doubleValue();
+            BasicEffects basicEffects = new BasicEffects(basicEffectDoubles[0],basicEffectDoubles[1],basicEffectDoubles[2],basicEffectDoubles[3]);
+            basicEffects.changeEffect();
+        });
+
+        return slider;
     }
 }

@@ -29,7 +29,7 @@ public class PropertiesView {
         gp.setHgap(10);
         gp.setVgap(10);
 
-        // Google Image Search Button
+        // Google Image Search EffectButtons
         Button picGoogleBtn = new Button();
         picGoogleBtn.setGraphic(new ImageView(new Image("googleIcon.png", 25, 25, false, false)));
         picGoogleBtn.setTooltip(new Tooltip("Get Picture from Google"));
@@ -46,7 +46,7 @@ public class PropertiesView {
             stage.show();
         });
 
-        // Webcam Button
+        // Webcam EffectButtons
         Button cameraBtn = new Button();
         cameraBtn.setGraphic(new ImageView(new Image("cameraIcon.png", 25, 25, false, false)));
         cameraBtn.setTooltip(new Tooltip("Take Picture from your Camera"));

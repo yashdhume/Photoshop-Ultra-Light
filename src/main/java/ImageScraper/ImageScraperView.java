@@ -71,7 +71,7 @@ public class ImageScraperView implements Runnable {
         }
         flowPane.getChildren().remove(flowPane.getChildren().get(1));
     }
-    //Search Button for images
+    //Search EffectButtons for images
     private void btnPress(VBox vBox, TextField textField, String  extraText){
         images.clear();
         imageView.clear();

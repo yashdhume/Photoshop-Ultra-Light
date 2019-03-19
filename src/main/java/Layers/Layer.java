@@ -1,5 +1,6 @@
 package Layers;
 
+import Main.EditingView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -28,7 +29,7 @@ public class Layer {
 
     public Layer(String name){
         this.name = name;
-        layerType = LayerType.ADJUST;
+        layerType = LayerType.EMPTY;
         location = new Point(0,0);
         isSelected = false;
         isVisible = true;
@@ -45,6 +46,7 @@ public class Layer {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 isVisible = newValue;
+                EditingView.Render();
             }
         });
         pane.add(visiblityCheckbox, 0, 0);
@@ -72,7 +74,10 @@ public class Layer {
 
     //Get the pane of the layer. Used primarily
     public Pane getLayer(){return null;}
-
+    public void undo(){
+        System.out.println("FAILED TO UNDO");
+        return;
+    }
     //Handle when the layer is selected or not
     public void selectLayer(){
         isSelected = true;

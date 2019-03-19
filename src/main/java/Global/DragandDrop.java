@@ -77,6 +77,8 @@ public class DragandDrop {
                         imgSetByNewDrag.setImage(img);
                     } catch (FileNotFoundException ex) {
                         System.out.println("error");
+                        AlertDialogue alertDialogue = new AlertDialogue();
+                        alertDialogue.getAlert(ex);
                     }
                 });
             }

@@ -25,14 +25,18 @@ public class ImageLayer extends Layer{
     }
 
     @Override
+    public void undo() {
+        if (versions.size() > 0){
+            System.out.println("Undoing");
+            imageView.setImage(versions.get(versions.size()-1).getImage());
+            versions.remove(versions.size()- 1);
+        }
+        else super.undo();
+    }
+
+    @Override
     public Pane getLayer() {
         Pane pane = new Pane();
-        pane.setOnMouseDragged(e->{
-            if (this.isSelected) {
-                pane.setLayoutX(e.getX());
-                pane.setLayoutY(e.getY());
-            }
-        });
         pane.getChildren().add(imageView);
         return pane;
     }
@@ -46,6 +50,7 @@ public class ImageLayer extends Layer{
         location.y = p.y - imageView.getImage().getHeight()/2;
         imageView.setTranslateX(location.x);
         imageView.setTranslateY(location.y);
+
     }
     public ImageView getOriginalImage(){return originalImage;}
     public Image getImage(){

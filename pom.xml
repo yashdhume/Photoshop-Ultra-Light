@@ -4,12 +4,27 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>GNDnotDevelopers</groupId>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.8.3</version>
+                <configuration>
+                    <vendor>GNDNotDevelopers</vendor>
+                    <mainClass>Main.Main</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <groupId>GNDNotDevelopers</groupId>
     <artifactId>PhotoshopUltraLight</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -31,9 +46,26 @@
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.openpnp</groupId>
+            <artifactId>opencv</artifactId>
+            <version>3.4.2-1</version>
+        </dependency>
 
 
     </dependencies>
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>plugins-releases</name>
+            <url>http://serverip:8081/artifactory/plugins-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>plugins-snapshot</name>
+            <url>http://serverip:8081/artifactory/plugins-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 
 </project>

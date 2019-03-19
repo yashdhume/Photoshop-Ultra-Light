@@ -59,9 +59,16 @@ public class LayerView {
     //Editable view of the Layers
     private StackPane editable;
 
-    public LayerView(AnchorPane pane){
+    // Customized width and height
+    double height, width;
+
+    public LayerView(AnchorPane pane, double width, double height){
         //Recommended to Initialize with a solid layer
-        layers.add(new SolidLayer("Background", 700, 700, Color.WHITE));
+        layers.add(new SolidLayer("Background", width, height, Color.WHITE));
+
+        // Assign customized height and width for layers
+        this.width = width;
+        this.height = height;
 
         //For testing I recommend adding some files by default
         //layers.add(new ImageLayer("middle", new Image("file:/C:/Users/kashi/Documents/csci2020u/project/src/main/resources/googleIcon.png")));
@@ -72,11 +79,6 @@ public class LayerView {
         composite = new ImageView();
         indexofSelected = 1;
         editable = new StackPane();
-        editable.setOnMouseDragged(e->{
-            if (EditingView.mouseState == MouseState.MOVE) {
-                layers.get(indexofSelected).setLocation(new Point(e.getSceneX(), e.getSceneY()));
-
-        }});
         InitializeButtons();
         renderLayers();
     }
@@ -127,12 +129,12 @@ public class LayerView {
             if (layers.get(i).getType() == LayerType.IMAGE && layers.get(i).isVisible){
                 ImageView imageView = ((ImageLayer)layers.get(i)).getImageView();
                 imageView.setPreserveRatio(true);
-                imageView.setFitWidth(700);
-                imageView.setFitHeight(700);
+                imageView.setFitWidth(width);
+                imageView.setFitHeight(height);
+
                 //Set bounds on images to try to meet the requirements.
                 editable.getChildren().add(new Pane(imageView));
-            }
-            else if (layers.get(i).isVisible)
+            } else if (layers.get(i).isVisible)
                 editable.getChildren().add(layers.get(i).getLayer());
         }
     }

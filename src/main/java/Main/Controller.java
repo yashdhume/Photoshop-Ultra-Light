@@ -1,6 +1,8 @@
 package Main;
 
 import UI.UIInitializer;
+import VIPLogin.Client;
+import VIPLogin.Server;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,6 +37,10 @@ public class Controller extends AnchorPane implements Initializable{
     private Button bWEffectBtn;
     @FXML
     private MenuItem newMI;
+    @FXML
+    private  MenuItem loginMI;
+    @FXML
+    MenuItem startServerMI;
     @FXML
     private Menu openRecentMenu;
     @FXML
@@ -97,6 +103,27 @@ public class Controller extends AnchorPane implements Initializable{
         layout_stage.setScene(layout_scene);
         layout_stage.setAlwaysOnTop(true);
         layout_stage.show();
+    }
+    @FXML
+    void startServerAction(){
+        Stage stage = new Stage();
+        stage.setTitle("Authertication Server");
+
+        Server server = new Server();
+        Scene scene = new Scene(server.start(), 450, 200);
+        stage.setScene(scene);
+        stage.setAlwaysOnTop(true);
+        stage.show();
+    }
+    @FXML
+    void loginAction(){
+        Stage stage = new Stage();
+        stage.setTitle("Login/Register");
+        Client client = new Client();
+        Scene scene = new Scene(client.start(), 450, 200);
+        stage.setScene(scene);
+        stage.setAlwaysOnTop(true);
+        stage.show();
     }
 
     void openNew(double width, double height) {

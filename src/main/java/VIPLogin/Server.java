@@ -95,16 +95,18 @@ public class Server  {
          }
          else return true;
     }
-    private final String PATH = "/Users/yashdhume/Google Drive/IntelliJ IDEA/Photoshop-Ultra-Light/src/main/resources/userPasswordData.txt";
+
+    private final String PATH = "src/main/resources/userPasswordData.txt";
     private void saveFile(HashMap<String, String> users) {
-        try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(PATH))) {
+        try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(new File(PATH).getAbsoluteFile()))) {
             os.writeObject(users);
         }catch (Exception e){
             System.out.println(e);
         }
     }
     private HashMap<String, String> readFile() {
-        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(PATH))) {
+
+        try (ObjectInputStream is = new ObjectInputStream(new  FileInputStream(new File(PATH).getAbsoluteFile()))) {
             return (HashMap<String, String>) is.readObject();
         }catch (Exception e){
             System.out.println(e);

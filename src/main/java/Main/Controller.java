@@ -11,10 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import java.awt.image.RenderedImage;
@@ -127,19 +124,27 @@ public class Controller extends AnchorPane implements Initializable{
     }
 
     void openNew(double width, double height) {
+
         Stage stage = new Stage();
-        editingView.Initialize(layers, width, height);
-        Scene scene = new Scene(editingView.EditView(width, height), width, height);
+        Pane pane = new Pane();
+
+        editingView.Initialize(layers, width, height);;
+        pane.getChildren().add(editingView.EditView(width, height));
+
+        Scene scene = new Scene(pane, width, height);
+
         scene.setOnKeyPressed(e->{
             if(e.getCode() == KeyCode.Z && e.isControlDown()){
                 editingView.layerView.getSelected().undo();
             }
         });
+
         stage.getIcons().add(new Image("logo.png"));
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
         stage.show();
     }
+
 
     @FXML
     void open(ActionEvent event) {

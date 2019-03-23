@@ -10,11 +10,19 @@ import javafx.scene.text.Text;
 public class Client {
     public Client(){}
     // IO streams
-    DataOutputStream toServer = null;
+    private ObjectOutputStream toServer = null;
     // DataInputStream fromServer = null;
-    DataInputStream fromServer = null;
-    TextArea ta = new TextArea();
+    private ObjectInputStream fromServer = null;
+
+    private TextArea ta = new TextArea();
     public BorderPane start() {
+        initalize();
+        try {
+            String a = "1";
+            toServer.writeUTF(a);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         GridPane gridPane = new GridPane();
         Text txtUserName = new Text("Username");
         TextField txtFieldUserName = new TextField();
@@ -44,21 +52,25 @@ public class Client {
         btn.setOnAction(e -> btnAction(txtFieldUserName,passwordFieldPassword,false));
         btnRegister.setOnAction(e -> btnAction(txtFieldUserName,passwordFieldPassword,true));
 
+
+        return mainPane;
+    }
+    private void initalize(){
         try {
             // 3. Create a socket to connect to the server
             Socket socket = new Socket("localhost", 8000);
 
             // 4. Create an input stream to receive data from the server
             // fromServer = new DataInputStream(socket.getInputStream());
-            fromServer = new DataInputStream(socket.getInputStream());
+            toServer = new ObjectOutputStream(socket.getOutputStream());
+            fromServer = new ObjectInputStream(socket.getInputStream());
             // 5. Create an output stream to send data to the server
-            toServer = new DataOutputStream(socket.getOutputStream());
+
 
         }
         catch (IOException ex) {
             ta.appendText(ex.toString() + '\n');
         }
-        return mainPane;
     }
     private  void btnAction(TextField textField, PasswordField passwordField, boolean isRegistering){
         try {

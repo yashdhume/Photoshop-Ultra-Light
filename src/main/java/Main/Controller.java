@@ -1,8 +1,7 @@
 package Main;
 
 import UI.UIInitializer;
-import VIPLogin.Client;
-import VIPLogin.Server;
+import VIPLogin.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,7 +18,9 @@ import javafx.scene.image.WritableImage;
 import java.io.File;
 import javafx.embed.swing.SwingFXUtils;
 import javax.imageio.ImageIO;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,9 @@ public class Controller extends AnchorPane implements Initializable{
     @FXML
     private  MenuItem loginMI;
     @FXML
-    MenuItem startServerMI;
+    private MenuItem startServerMI;
+    @FXML
+    private MenuItem adminMI;
     @FXML
     private Menu openRecentMenu;
     @FXML
@@ -55,11 +58,11 @@ public class Controller extends AnchorPane implements Initializable{
     @FXML
     private TextField strokeTextBox;
 
-    File file;
-    double width, height;
-    EditingView editingView = new EditingView();
-    List<String> recents = new ArrayList<String>();
-    Stage layout_stage;
+    private File file;
+    private double width, height;
+    private EditingView editingView = new EditingView();
+    private List<String> recents = new ArrayList<String>();
+    private Stage layout_stage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -107,7 +110,12 @@ public class Controller extends AnchorPane implements Initializable{
         stage.setTitle("Authertication Server");
 
         Server server = new Server();
-        Scene scene = new Scene(server.start(), 450, 200);
+        Scene scene = null;
+        try {
+            scene = new Scene(server.start(), 450, 200);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
         stage.show();
@@ -122,13 +130,23 @@ public class Controller extends AnchorPane implements Initializable{
         stage.setAlwaysOnTop(true);
         stage.show();
     }
+    @FXML
+    void adminMIAction(){
+       Stage stage = new Stage();
+        stage.setTitle("Admin");
+        Admin admin = new Admin();
+        Scene scene = new Scene(admin.start(), 450, 200);
+        stage.setScene(scene);
+        stage.setAlwaysOnTop(true);
+        stage.show();
+    }
 
     void openNew(double width, double height) {
 
         Stage stage = new Stage();
         Pane pane = new Pane();
 
-        editingView.Initialize(layers, width, height);;
+        editingView.Initialize(layers, width, height);
         pane.getChildren().add(editingView.EditView(width, height));
 
         Scene scene = new Scene(pane, width, height);

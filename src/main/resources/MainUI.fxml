@@ -30,6 +30,7 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="startServerMI" mnemonicParsing="false" onAction="#startServerAction" text="Start Authertication Server" />
                   <MenuItem fx:id="loginMI" mnemonicParsing="false" onAction="#loginAction" text="Login" />
+                  <MenuItem fx:id="adminMI" mnemonicParsing="false" onAction="#adminMIAction" text="Admin" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#quit" text="Quit" />
                     </items>

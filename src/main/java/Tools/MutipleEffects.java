@@ -1,6 +1,5 @@
 package Tools;
 
-import Main.EditingView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,10 +10,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class MutipleEffects {
-    private double[] basicEffectDoubles;
-    public MutipleEffects(){
-        basicEffectDoubles = new double[4];
-    }
+    public MutipleEffects(){ }
     public Button getButton(){
         Button btnEffects = new Button();
         btnEffects.setOnAction((event) -> {

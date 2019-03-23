@@ -15,9 +15,10 @@ import javafx.scene.text.Text;
 
 public class Admin {
 
-    public Admin(){ }
+    public Admin() {
+    }
+
     // IO streams
-    private SimpleBooleanProperty switchButtonState;
     private ArrayList<Account> accounts;
     // IO streams
     private ObjectOutputStream toServer = null;
@@ -25,7 +26,9 @@ public class Admin {
     private ObjectInputStream fromServer = null;
 
     private TextArea ta = new TextArea();
+
     public BorderPane start() {
+
         initalize();
         try {
             String a = "2";
@@ -38,34 +41,39 @@ public class Admin {
 
         BorderPane mainPane = new BorderPane();
         // Text area to display contents
+
         try {
-            accounts = (ArrayList<Account>)fromServer.readObject();
+            accounts = (ArrayList<Account>) fromServer.readObject();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ArrayList<SwitchButton> switchButtons= new ArrayList<>();
-        int count =0;
+        System.out.println(accounts.size());
+        ArrayList<SwitchButton> switchButtons = new ArrayList<>();
+        int count = 0;
         ArrayList<Text> userNames = new ArrayList<>();
-        for(Account account : accounts){
+        for (Account account : accounts) {
             userNames.add(new Text(account.getUsername()));
-            gridPane.add(userNames.get(count),0, count);
-            switchButtons.add(new SwitchButton());
-            gridPane.add(switchButtons.get(count),1, count);
+            gridPane.add(userNames.get(count), 0, count);
+            SwitchButton button = new SwitchButton(account);
+            switchButtons.add(button);
+            gridPane.add(switchButtons.get(count), 1, count);
+            count++;
         }
 
-
-       // mainPane.setCenter(new ScrollPane(ta));
+        // mainPane.setCenter(new ScrollPane(ta));
         mainPane.setTop(gridPane);
 
         return mainPane;
+
+
     }
-    private void initalize(){
+
+    private void initalize() {
         try {
             Socket socket = new Socket("localhost", 8000);
             toServer = new ObjectOutputStream(socket.getOutputStream());
             fromServer = new ObjectInputStream(socket.getInputStream());
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             AlertDialogue alertDialogue = new AlertDialogue();
             alertDialogue.getAlert(ex);
         }

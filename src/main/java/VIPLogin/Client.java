@@ -16,44 +16,44 @@ public class Client {
 
     private TextArea ta = new TextArea();
     public BorderPane start() {
-        initalize();
-        try {
-            String a = "1";
-            toServer.writeUTF(a);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        GridPane gridPane = new GridPane();
-        Text txtUserName = new Text("Username");
-        TextField txtFieldUserName = new TextField();
-        Text txtPassword = new Text("Password");
-        PasswordField passwordFieldPassword = new PasswordField();
-        Button btn = new Button("Login");
-        Button btnRegister = new Button("Register");
-        gridPane.add(txtUserName,0,0);
-        gridPane.add(txtFieldUserName,1,0);
-        gridPane.add(txtPassword,0,1);
-        gridPane.add(passwordFieldPassword,1,1);
-        gridPane.add(btn, 2,0);
-        gridPane.add(btnRegister, 2,1);
-        BorderPane mainPane = new BorderPane();
-        // Text area to display contents
 
-        mainPane.setCenter(new ScrollPane(ta));
-        mainPane.setTop(gridPane);
+            initalize();
+            try {
+                String a = "1";
+                toServer.writeUTF(a);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            GridPane gridPane = new GridPane();
+            Text txtUserName = new Text("Username");
+            TextField txtFieldUserName = new TextField();
+            Text txtPassword = new Text("Password");
+            PasswordField passwordFieldPassword = new PasswordField();
+            Button btn = new Button("Login");
+            Button btnRegister = new Button("Register");
+            gridPane.add(txtUserName, 0, 0);
+            gridPane.add(txtFieldUserName, 1, 0);
+            gridPane.add(txtPassword, 0, 1);
+            gridPane.add(passwordFieldPassword, 1, 1);
+            gridPane.add(btn, 2, 0);
+            gridPane.add(btnRegister, 2, 1);
+            BorderPane mainPane = new BorderPane();
+            // Text area to display contents
 
-        // Create a scene and place it in the stage
+            mainPane.setCenter(new ScrollPane(ta));
+            mainPane.setTop(gridPane);
+
+            // Create a scene and place it in the stage
        /* Scene scene = new Scene(mainPane, 450, 200);
         primaryStage.setTitle("Client"); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage
         primaryStage.show(); // Display the stage*/
 
-        // handle action event
-        btn.setOnAction(e -> btnAction(txtFieldUserName,passwordFieldPassword,false));
-        btnRegister.setOnAction(e -> btnAction(txtFieldUserName,passwordFieldPassword,true));
+            // handle action event
+            btn.setOnAction(e -> btnAction(txtFieldUserName, passwordFieldPassword, false));
+            btnRegister.setOnAction(e -> btnAction(txtFieldUserName, passwordFieldPassword, true));
 
-
-        return mainPane;
+            return mainPane;
     }
     private void initalize(){
         try {

@@ -19,7 +19,7 @@ public  class BlackandWhiteEffect {
             ColorEffect colorEffect = new ColorEffect(editingView.layerView.getSelectedAsImage().getImage(), 6);
             editingView.layerView.applyEffectToSelected(colorEffect.getEffect());
         });
-        btnBlackAndWhite.setGraphic(new ImageView(new Image("/blackAndWhiteIcon.png", 25, 25, false, false)));
+        btnBlackAndWhite.setGraphic(new ImageView(new Image("blackAndWhiteIcon.png", 25, 25, false, false)));
         btnBlackAndWhite.setTooltip(new Tooltip("Black and White"));
         return btnBlackAndWhite;
 

@@ -24,6 +24,7 @@ public class EditingView {
         mouseState = MouseState.MOVE;
         LayerManipulation lm = new LayerManipulation();
     }
+
     public static void Render(){
         layerView.renderLayers();
     }

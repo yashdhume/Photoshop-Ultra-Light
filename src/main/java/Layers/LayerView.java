@@ -5,6 +5,7 @@ import Global.OpenCVMat;
 import Main.EditingView;
 import UI.ToolbarView;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -12,10 +13,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -87,7 +85,6 @@ public class LayerView {
     }
 
     private void InitializeButtons(){
-
         Button solidButton = new Button("Create new Solid");
         solidButton.setOnAction(e->{
             this.addSolid(700, 700, ToolbarView.GlobalColor);
@@ -117,18 +114,19 @@ public class LayerView {
         });
         textButton.setLayoutX(20);
         textButton.setLayoutY(100);
-        controlPane.getChildren().addAll(solidButton, textButton);
-
-
+        HBox hbox = new HBox(20);
+        hbox.setPadding(new Insets(50));
+        hbox.getChildren().addAll(solidButton, textButton);
+        controlPane.getChildren().add(hbox);
     }
 
     //Renders Layers in the Layer pane and the Editable View
     //Use this when there are any major changes.
     public void renderLayers(){
-
         if (layers.size() == 0){
             return;
         }
+
         layerPane = new GridPane();
         for (int i = layers.size()-1; i >= 0; i--){
             GridPane temp = layers.get(i).getLayerView();
@@ -151,6 +149,7 @@ public class LayerView {
 
         renderEditables();
     }
+
     //Compiles the Editable View
     public void renderEditables(){
         for (int i = 0; i < layers.size(); i++){

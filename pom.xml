@@ -51,8 +51,6 @@
             <artifactId>opencv</artifactId>
             <version>3.4.2-1</version>
         </dependency>
-
-
     </dependencies>
     <distributionManagement>
         <repository>
@@ -66,6 +64,4 @@
             <url>http://serverip:8081/artifactory/plugins-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
-
-
 </project>

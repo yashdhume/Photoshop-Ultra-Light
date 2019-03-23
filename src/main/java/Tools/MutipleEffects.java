@@ -28,7 +28,7 @@ public class MutipleEffects {
             stage.setAlwaysOnTop(true);
             stage.show();
         });
-        btnEffects.setGraphic(new ImageView(new Image("/blackAndWhiteIcon.png", 25, 25, false, false)));
+        btnEffects.setGraphic(new ImageView(new Image("randomIcon.png", 25, 25, false, false)));
         btnEffects.setTooltip(new Tooltip("Random Effect"));
         return btnEffects;
     }

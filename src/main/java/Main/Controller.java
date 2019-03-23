@@ -72,7 +72,6 @@ public class Controller extends AnchorPane implements Initializable{
     // File
     @FXML
     void newMI(ActionEvent event) {
-
         layout_stage = new Stage();
         layout_stage.setTitle("Set Layout");
         GridPane pane = new GridPane();

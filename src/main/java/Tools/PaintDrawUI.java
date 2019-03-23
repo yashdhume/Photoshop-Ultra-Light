@@ -2,6 +2,7 @@ package Tools;
 
 import Global.MouseState;
 import Main.EditingView;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,8 +10,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import jdk.nashorn.internal.objects.Global;
-import sun.management.snmp.util.SnmpLoadedClassData;
 
 
 public class PaintDrawUI {
@@ -19,7 +18,6 @@ public class PaintDrawUI {
     private PaintDraw draw;
     private TextField textFieldStroke;
     private Slider strokeSlider;
-    private ColorPicker colorPicker;
 
     public PaintDrawUI(EditingView editingView) {
         this.editingView = editingView;
@@ -47,7 +45,7 @@ public class PaintDrawUI {
         return Brush;
     }
 
-    private ColorPicker getColorPickerButton() {
+    public ColorPicker getColorPickerButton() {
         ColorPicker colorPicker = new ColorPicker(GlobalColor);
 
         colorPicker.setMaxSize(45, 35);
@@ -82,7 +80,6 @@ public class PaintDrawUI {
         TextField textFieldStroke = new TextField();
         textFieldStroke.setPrefColumnCount(3);
 
-
         textFieldStroke.setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode() == KeyCode.ENTER) {
                 draw.setStroke(Integer.parseInt(textFieldStroke.getText()));
@@ -94,11 +91,10 @@ public class PaintDrawUI {
 
     public GridPane getPaintDrawUI() {
         GridPane gp = new GridPane();
-        gp.add(getButtonButton(), 1, 3);
-        gp.add(getStrokeSlider(), 2, 3);
-        gp.add(getTextFieldStroke(), 3, 3);
-        // gp.add(lblColorPicker, 0, 4);
-        gp.add(getColorPickerButton(), 1, 4);
+        gp.setHgap(10);
+        gp.add(getButtonButton(), 1, 0);
+        gp.add(getStrokeSlider(), 2, 0);
+        gp.add(getTextFieldStroke(), 3, 0);
         return gp;
     }
 }

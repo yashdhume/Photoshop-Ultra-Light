@@ -7,13 +7,11 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
 public class Main extends Application {
-
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/MainUI.fxml"));
@@ -21,8 +19,8 @@ public class Main extends Application {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setMaximized(true);
         Scene scene = new Scene(root,((primaryScreenBounds.getWidth() - primaryStage.getWidth()) / 2),((primaryScreenBounds.getHeight() - primaryStage.getHeight()) / 4));
+        scene.getStylesheets().add("style.css");
         new LayerShortCuts(scene);
-
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image("logo.png"));
         primaryStage.show();

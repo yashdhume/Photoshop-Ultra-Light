@@ -28,7 +28,7 @@ public class Account implements Serializable {
             Account ptr =(Account) obj;
             retVal= ptr.getUsername().equals(this.getUsername());
         }
-       return retVal;
+        return retVal;
     }
 
     public String getPassword() {

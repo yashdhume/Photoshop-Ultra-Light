@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,9 +15,7 @@ import java.util.ArrayList;
 
 import static Main.EditingView.imgSetByNewDrag;
 
-
 public class DragandDrop {
-
     //Contructor
     public  DragandDrop(){}
 
@@ -37,8 +34,6 @@ public class DragandDrop {
 
     //Drag and from an file on hard drive
     public void external(AnchorPane stackPane, LayerView layerView){
-
-
         //drag over event
         stackPane.setOnDragOver((DragEvent e)->{
             final Dragboard db = e.getDragboard();
@@ -60,6 +55,7 @@ public class DragandDrop {
             }
 
         });
+
         //drag dropped event
         stackPane.setOnDragDropped((DragEvent e)->{
             final Dragboard db = e.getDragboard();
@@ -85,11 +81,8 @@ public class DragandDrop {
             visual(false);
             e.setDropCompleted(success);
             e.consume();
-      });
+        });
     }
-
-
-
 
     //drag and drop within a program that is using an array list
     public void localArray(ArrayList<ImageView> imageViewArr,int index){
@@ -125,8 +118,6 @@ public class DragandDrop {
             e.consume();
 
         });
-
-
     }
 
     //drag and drop within a program that is using a single image
@@ -139,6 +130,7 @@ public class DragandDrop {
             db.setContent(content);
             event.consume();
         });
+
         //Drag over event
         imageView.setOnDragOver((DragEvent e)-> {
             if (e.getGestureSource() != imageView &&
@@ -148,6 +140,7 @@ public class DragandDrop {
             visual(true);
             e.consume();
         });
+
         //Drag Done event
         imageView.setOnDragDone((DragEvent e)-> {
             Dragboard db = e.getDragboard();

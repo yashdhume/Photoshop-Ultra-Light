@@ -1,6 +1,5 @@
 package Layers;
 
-
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -10,6 +9,7 @@ public class TextLayer extends Layer{
     String text;
     Label label;
     double fontSize;
+
     public TextLayer(String name, String text){
         super(name);
         this.text = text;

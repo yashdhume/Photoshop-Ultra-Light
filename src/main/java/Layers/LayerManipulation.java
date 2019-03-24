@@ -2,7 +2,6 @@ package Layers;
 
 import Global.MouseState;
 import Main.EditingView;
-import javafx.scene.layout.StackPane;
 import org.opencv.core.Point;
 
 public class LayerManipulation {
@@ -30,5 +29,4 @@ public class LayerManipulation {
             previousLocation = new Point(0,0);
         });
     }
-
 }

@@ -1,26 +1,18 @@
 package Layers;
 
-import Global.MouseState;
 import Global.OpenCVMat;
-import Main.EditingView;
 import UI.ToolbarView;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
-
 import java.util.ArrayList;
 
 
@@ -284,7 +276,6 @@ public class LayerView {
         background.copyTo(output);
 
         for(int y = (int) Math.max(location.y , 0); y < background.rows(); ++y){
-
             int fY = (int) (y - location.y);
 
             if(fY >= foreground.rows())

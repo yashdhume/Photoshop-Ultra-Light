@@ -2,7 +2,6 @@ package Tools;
 
 import Global.MouseState;
 import Main.EditingView;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.opencv.core.Point;
-
 import java.util.ArrayList;
 
 public class ImageLayer extends Layer{
@@ -52,7 +51,6 @@ public class ImageLayer extends Layer{
         location.y = p.y - imageView.getImage().getHeight()/2;
         imageView.setTranslateX(location.x);
         imageView.setTranslateY(location.y);
-
     }
 
     @Override
@@ -68,19 +66,15 @@ public class ImageLayer extends Layer{
     public void crop(Point start, Point end) {
         double width = end.x- start.x;
         double height = end.y - start.y;
+
         start.x-= location.x;
         end.x -= location.x;
         start.y-= location.y;
         end.y -= location.y;
-        //System.out.println(start.toString() + " " + end.toString());
+
         imageView.setViewport(new Rectangle2D(start.x, start.y, width, height));
         imageView.setFitHeight(height);
         imageView.setFitWidth(width);
-        //imageView.setSmooth(true);
-
-
-
-
     }
 
     public ImageView getOriginalImage(){return originalImage;}
@@ -89,8 +83,5 @@ public class ImageLayer extends Layer{
     }
     public ImageView getImageView(){
         return imageView;
-    }
-    public void setImageView(ImageView iv){
-        imageView = iv;
     }
 }

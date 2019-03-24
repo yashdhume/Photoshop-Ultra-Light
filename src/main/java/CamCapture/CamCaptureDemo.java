@@ -6,7 +6,6 @@ import Global.OpenCVMat;
 import Main.EditingView;
 import org.opencv.core.Mat;
 import org.opencv.videoio.VideoCapture;
-
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
@@ -17,7 +16,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -35,14 +33,9 @@ public class CamCaptureDemo{
     private HBox btCameraBox = new HBox();
     OpenCVMat openCVMat = new OpenCVMat();
     public CamCaptureDemo(){
-       // start();
     }
 
-
-
-
-    private <T> void onFXThread(final ObjectProperty<T> property, final T value)
-    {
+    private <T> void onFXThread(final ObjectProperty<T> property, final T value) {
         Platform.runLater(()->{property.set(value);});
     }
 
@@ -51,10 +44,7 @@ public class CamCaptureDemo{
         onFXThread(view.imageProperty(), image);
     }
 
-
-
-    private Image mat2Image(Mat frame)
-    {
+    private Image mat2Image(Mat frame){
         try
         {
             return openCVMat.matToImage(frame);
@@ -69,7 +59,6 @@ public class CamCaptureDemo{
     }
 
     private void stopAcquisition(){
-
         if (timer != null && !timer.isShutdown()) {
             try {
                 timer.shutdown();
@@ -81,8 +70,7 @@ public class CamCaptureDemo{
                 System.err.println("Exception in stopping the frame capture, trying to release the camera now... " + e);
             }
         }
-        if (capture.isOpened())
-        {
+        if (capture.isOpened()){
             capture.release();
         }
     }
@@ -91,8 +79,7 @@ public class CamCaptureDemo{
         stopAcquisition();
     }
 
-    private void startCamera(ActionEvent e)
-    {
+    private void startCamera(ActionEvent e) {
         if (!cameraActive) {
             // start the video capture.
             capture.open(cameraId);
@@ -113,7 +100,7 @@ public class CamCaptureDemo{
                     updateImageView(cameraDisplay, imageToShow);
                     DragandDrop dragandDrop = new DragandDrop();
                     EditingView editingView = new EditingView();
-                   dragandDrop.local(cameraDisplay);
+                    dragandDrop.local(cameraDisplay);
                 };
 
                 timer = Executors.newSingleThreadScheduledExecutor();
@@ -127,38 +114,22 @@ public class CamCaptureDemo{
             }
         }
         else {
-
             cameraActive = false;
             btCamera.setText("Start Camera");
-
-
             stopAcquisition();
         }
     }
 
 
-    private Mat grabFrame()
-    {
+    private Mat grabFrame() {
         Mat frame = new Mat();
 
         // check if the capture is opened.
-        if (capture.isOpened())
-        {
-            try
-            {
+        if (capture.isOpened()) {
+            try {
                 // read the current frame
                 capture.read(frame);
-
-                // If the frame is not empty, process it.
-                //if (!frame.empty())
-                //{
-                // Convert color to gray.
-                //    Imgproc.cvtColor(frame, frame, Imgproc.COLOR_BGR2RGB);
-                //}
-
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 System.err.println("Exception during the image elaboration: " + e);
                 AlertDialogue alertDialogue = new AlertDialogue();
                 alertDialogue.getAlert(e);
@@ -169,12 +140,8 @@ public class CamCaptureDemo{
     }
 
 
-    public BorderPane start()
-    {
-
-
+    public BorderPane start() {
         btCamera.setOnAction(e->startCamera(e));
-
         btCameraBox.getChildren().add(btCamera);
         btCameraBox.setAlignment(Pos.CENTER);
         btCameraBox.setPadding(new Insets(50,0,50,0));
@@ -188,5 +155,4 @@ public class CamCaptureDemo{
         return borderPane;
 
     }
-
 }

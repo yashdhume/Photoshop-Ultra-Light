@@ -117,9 +117,7 @@ public class ToolbarView {
         gp.add(lblSaturation, 0, 8);
         gp.add(sliderSaturation, 1, 8);
 
-
         toolbarPane.getChildren().addAll(gp/*, paintDrawUI.getPaintDrawUI()*/);
     }
-
 
 }

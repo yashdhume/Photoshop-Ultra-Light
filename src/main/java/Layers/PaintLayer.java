@@ -2,7 +2,6 @@ package Layers;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-
 import java.util.ArrayList;
 
 public class PaintLayer extends Layer {
@@ -21,14 +20,6 @@ public class PaintLayer extends Layer {
         Pane pane = new Pane();
         pane.getChildren().add(current);
         return pane;
-    }
-
-    public ImageView getImageView() {
-        return current;
-    }
-    public void setImageView(ImageView imageView){
-        versions.add(current);
-        current = imageView;
     }
 
     @Override

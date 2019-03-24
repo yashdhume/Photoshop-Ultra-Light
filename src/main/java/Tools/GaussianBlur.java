@@ -5,7 +5,6 @@ import Layers.ImageLayer;
 import Main.EditingView;
 import javafx.animation.PauseTransition;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -73,7 +72,4 @@ public class GaussianBlur {
         });
         return sliderGaussian;
     }
-
-
-
 }

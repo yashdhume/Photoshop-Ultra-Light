@@ -24,7 +24,6 @@ public class BasicEffects {
         ImageView imageView = editingView.layerView.getSelectedAsImage();
         ImageLayer layer = (ImageLayer) editingView.layerView.getSelected();
         imageView.setEffect(colorAdjust);
-        //layer.setImage(colorEffect.getEffect());
         editingView.layerView.updateSelected(layer);
     }
 }

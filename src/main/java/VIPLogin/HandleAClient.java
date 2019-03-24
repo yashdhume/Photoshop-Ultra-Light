@@ -2,7 +2,6 @@ package VIPLogin;
 
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,12 +12,9 @@ class HandleAClient implements Runnable {
     private Socket socket; // A connected socket
     private TextArea ta;
     private ArrayList<Account> userPassData;
-    Server server;
     public HandleAClient(Socket socket, TextArea ta) {
         this.socket = socket;
         this.ta = ta;
-        server = new Server();
-        userPassData = server.readFile();
     }
 
     public void run() {
@@ -26,56 +22,68 @@ class HandleAClient implements Runnable {
             // Create data input and output streams
             ObjectOutputStream outputToClient = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream inputFromClient = new ObjectInputStream(socket.getInputStream());
-            String whichClient = "";
-            int counter = 0;
-            try {
-                whichClient = inputFromClient.readUTF();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (whichClient.equals("2")){
-                userPassData = server.readFile();
-                outputToClient.writeObject(userPassData);
-            }
             // Continuously serve the client
             while (true) {
-                if ( whichClient.equals("1")) {
+                String shit = "";
+                try {
+                    System.out.println("f");
+                    shit = inputFromClient.readUTF();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                System.out.println(shit);
+                if ( shit.equals("1")) {
                     String username = inputFromClient.readUTF();
                     String password = inputFromClient.readUTF();
                     boolean isRegistering = inputFromClient.readBoolean();
+                    Server server = new Server();
                     userPassData = server.readFile();
+                    Encrpt encrpt = new Encrpt();
+                    String deencrptedPassword = encrpt.encrypt(password.getBytes(), password.length());
 
+                    //  out.writeUTF("Registed");
                     Platform.runLater(() -> {
                         boolean isRegistered = false;
                         if (isRegistering) {
-                            isRegistered = store(username, password);
+                            isRegistered = server.store(username, password);
                         }
-                       else {
-/*                            if (userPassData.contains(account)) {
-
-                            }*/
-                        }
+                       /* else {
+                            if (userPassData.contains(username)) {
+                                Account account = new Account();
+                                if (userPassData.get(username).equals(password)) {
+                                    System.out.println(userPassData.get(username));
+                                    System.out.println("YEETBOI");
+                                    //TODO ADD VIP FUNCTIONALITY HERE
+                                }
+                            }
+                        }*/
                         if (isRegistered) {
                             ta.appendText("Already Registed");
                         }
                         ta.appendText(username + '\n');
+                        /*ta.appendText("Encrpted Password: " + password + '\n');
+                        ta.appendText("Decrepted Password: " + deencrptedPassword + '\n');
+                        ta.appendText("Registeing: " + isRegistering+ '\n');*/
+                        /*for (String name: userPassData)){
+                            String keys =name;
+                            String value = userPassData.get(name);
+                            ta.appendText(keys + " " + value);
+                        }*/
                         server.saveFile(userPassData);
                     });
-
                 }
-                Thread.yield();
+                else if (shit.equals("2")){
+                    System.out.println(4);
+                    Server server = new Server();
+                    userPassData = server.readFile();
+                    System.out.println(5);
+                    System.out.println(userPassData.size());
+                    outputToClient.writeObject(userPassData);
+                }
             }
         }
         catch(IOException ex) {
             ex.printStackTrace();
         }
-    }
-    public boolean store(String userName, String password){
-        Account account = new Account(userName, password,false);
-        if(!userPassData.contains(account)){
-            userPassData.add(account);
-            return false;
-        }
-        else return true;
     }
 }

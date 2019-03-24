@@ -1,9 +1,11 @@
 package Global;
+
 import VIPLogin.Account;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+
 public class SwitchButton extends Label {
     private SimpleBooleanProperty switchedOn = new SimpleBooleanProperty(true);
     public SwitchButton(Account account) {
@@ -25,8 +27,5 @@ public class SwitchButton extends Label {
             }
         });
         switchedOn.set(false);
-    }
-    public SimpleBooleanProperty switchOnProperty() {
-        return switchedOn;
     }
 }

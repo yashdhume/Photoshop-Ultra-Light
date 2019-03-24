@@ -2,8 +2,6 @@ package Effects;
 
 import Global.AlertDialogue;
 import Global.OpenCVMat;
-import Layers.ImageLayer;
-import Main.EditingView;
 import org.opencv.core.Mat;
 import org.opencv.imgproc.Imgproc;
 import javafx.scene.image.Image;
@@ -31,7 +29,5 @@ public class ColorEffect {
     public Image getEffect(){
         return openCVMat.getImagePost();
     }
-
-
 }
 

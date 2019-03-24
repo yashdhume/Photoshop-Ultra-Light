@@ -69,5 +69,4 @@ public class PropertiesView {
         gp.add(cameraBtn, 0, 1);
         propertiesPane.getChildren().addAll(gp);
     }
-
 }

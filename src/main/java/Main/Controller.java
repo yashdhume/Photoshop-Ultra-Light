@@ -18,9 +18,7 @@ import javafx.scene.image.WritableImage;
 import java.io.File;
 import javafx.embed.swing.SwingFXUtils;
 import javax.imageio.ImageIO;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +33,6 @@ public class Controller extends AnchorPane implements Initializable{
     private Button bWEffectBtn;
     @FXML
     private MenuItem newMI;
-    @FXML
-    private  MenuItem loginMI;
-    @FXML
-    private MenuItem startServerMI;
     @FXML
     private MenuItem adminMI;
     @FXML
@@ -97,41 +91,36 @@ public class Controller extends AnchorPane implements Initializable{
         pane.add(heightTextField, 1, 2);
         pane.add(apply, 1, 3);
 
-        Scene layout_scene = new Scene(pane, 500, 500);
+        Scene scene = new Scene(pane, 500, 500);
+        scene.getStylesheets().add("style.css");
         layout_stage.getIcons().add(new Image("logo.png"));
-        layout_stage.setScene(layout_scene);
+        layout_stage.setScene(scene);
         layout_stage.setAlwaysOnTop(true);
         layout_stage.show();
     }
-    @FXML
-    void startServerAction(){
-        Stage stage = new Stage();
-        stage.setTitle("Authertication Server");
 
-        Server server = new Server();
-        Scene scene = null;
-        try {
-            scene = new Scene(server.start(), 450, 200);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        stage.setScene(scene);
-        stage.setAlwaysOnTop(true);
-        stage.show();
-    }
     @FXML
     void loginAction(){
         Stage stage = new Stage();
-        stage.setTitle("Login/Register");
+        stage.setTitle("Sign In");
+
+        // Start Server; running in the background
+        Server server = new Server();
+        server.start();
+
+        // Start Client
         Client client = new Client();
+
         Scene scene = new Scene(client.start(), 450, 200);
+        scene.getStylesheets().add("style.css");
+        stage.getIcons().add(new Image("logo.png"));
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
         stage.show();
     }
     @FXML
     void adminMIAction(){
-       Stage stage = new Stage();
+        Stage stage = new Stage();
         stage.setTitle("Admin");
         Admin admin = new Admin();
         Scene scene = new Scene(admin.start(), 450, 200);
@@ -141,7 +130,6 @@ public class Controller extends AnchorPane implements Initializable{
     }
 
     void openNew(double width, double height) {
-
         Stage stage = new Stage();
         Pane pane = new Pane();
 
@@ -149,7 +137,7 @@ public class Controller extends AnchorPane implements Initializable{
         pane.getChildren().add(editingView.EditView(width, height));
 
         Scene scene = new Scene(pane, width, height);
-
+        scene.getStylesheets().add("style.css");
         scene.setOnKeyPressed(e->{
             if(e.getCode() == KeyCode.Z && e.isControlDown()){
                 editingView.layerView.getSelected().undo();
@@ -253,8 +241,8 @@ public class Controller extends AnchorPane implements Initializable{
         hbox.getChildren().addAll(yes, no);
         vbox.getChildren().addAll(prompt, hbox);
 
-
         Scene scene = new Scene(vbox,300,150);
+        scene.getStylesheets().add("style.css");
         stage.getIcons().add(new Image("logo.png"));
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
@@ -276,6 +264,7 @@ public class Controller extends AnchorPane implements Initializable{
                 "APIs: OpenCV");
         label.setPadding(new Insets(30));
         Scene scene = new Scene(label,500,350);
+        scene.getStylesheets().add("style.css");
         stage.getIcons().add(new Image("logo.png"));
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);

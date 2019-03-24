@@ -22,10 +22,8 @@ public class Layer {
 
     //Layer Display in Layer Panel
     GridPane pane;
-    Rectangle thumbnail, backgroundColour;
+    Rectangle thumbnail;
     CheckBox visiblityCheckbox;
-    Label layerName;
-
 
     public Layer(String name){
         this.name = name;

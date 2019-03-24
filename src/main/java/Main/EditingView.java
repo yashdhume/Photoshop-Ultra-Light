@@ -1,4 +1,5 @@
 package Main;
+
 import Global.DragandDrop;
 import Global.MouseState;
 import Layers.LayerManipulation;
@@ -11,8 +12,6 @@ import javafx.scene.layout.StackPane;
 public class EditingView {
     public static LayerView layerView;
     public  static MouseState mouseState;
-
-    //public static ImageView imageViewEditView = new ImageView();
     public static AnchorPane anchorPaneEditView = new AnchorPane();
     public static ImageView imgSetByNewDrag = new ImageView();
 
@@ -28,7 +27,6 @@ public class EditingView {
     public static void Render(){
         layerView.renderLayers();
     }
-
 
     //Edit View
     public AnchorPane EditView(){

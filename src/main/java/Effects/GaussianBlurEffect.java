@@ -2,9 +2,6 @@ package Effects;
 
 import Global.AlertDialogue;
 import Global.OpenCVMat;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;

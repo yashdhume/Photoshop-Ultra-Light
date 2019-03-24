@@ -31,6 +31,7 @@ public class ImageScraperView implements Runnable {
         imageView = new ArrayList<>();
         numOfPicturesDisplayed = 10;
     }
+
     //Multi-threading Runs downloads and displays images
     public void run() {
         int numOfSearchResults = 100;
@@ -53,6 +54,7 @@ public class ImageScraperView implements Runnable {
         //run loadImages after thread finishes running
         Platform.runLater(this::loadImages);
     }
+
     private void loadImages(){
         //displays all the images
         for (int i = 0; i < images.size(); i++) {
@@ -71,6 +73,7 @@ public class ImageScraperView implements Runnable {
         }
         flowPane.getChildren().remove(flowPane.getChildren().get(1));
     }
+
     //Search EffectButtons for images
     private void btnPress(VBox vBox, TextField textField, String  extraText){
         images.clear();
@@ -83,6 +86,7 @@ public class ImageScraperView implements Runnable {
         flowPane.getChildren().add(progressBar);
         new Thread(this).start();
     }
+
     //Image View Scroll Pane
     public ScrollPane googleImageView() {
         final TextField textField = new TextField();

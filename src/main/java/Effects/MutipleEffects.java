@@ -4,7 +4,6 @@ import Layers.ImageLayer;
 import Main.EditingView;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-
 import java.util.ArrayList;
 
 public class MutipleEffects {
@@ -38,5 +37,4 @@ public class MutipleEffects {
         });
         return btn;
     }
-
 }

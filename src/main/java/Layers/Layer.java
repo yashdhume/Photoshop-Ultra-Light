@@ -50,7 +50,7 @@ public class Layer {
         pane.add(visiblityCheckbox, 0, 0);
         pane.add(thumbnail, 1, 0);
         pane.add(new Label(this.name), 2, 0);
-        pane.setStyle("-fx-background-color:#E8E5E8; -fx-opacity:1;");
+        pane.setStyle("-fx-background-color:#323232; -fx-opacity:1;");
     }
 
     private Rectangle getThumbnail(){
@@ -76,6 +76,7 @@ public class Layer {
         System.out.println("FAILED TO UNDO");
         return;
     }
+
     //Handle when the layer is selected or not
     public void selectLayer(){
         isSelected = true;
@@ -84,8 +85,9 @@ public class Layer {
 
     public void unselectLayer(){
         isSelected = false;
-        pane.setStyle("-fx-background-color:#E8E5E8; -fx-opacity:1;");
+        pane.setStyle("-fx-background-color:#323232; -fx-opacity:1;");
     }
+
     public void rotate(double degrees){
         return;
     }

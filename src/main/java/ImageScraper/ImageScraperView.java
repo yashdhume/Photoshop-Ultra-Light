@@ -16,7 +16,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
 import java.util.ArrayList;
 
 public class ImageScraperView implements Runnable {
@@ -37,6 +36,7 @@ public class ImageScraperView implements Runnable {
         int numOfSearchResults = 100;
         ImageScraper imageScraper = new ImageScraper();
         ArrayList<String> googleImagesLinks = imageScraper.getImageArray(text, numOfSearchResults);
+
         //adds images to imagesArray from URLs
         for (int i = 0; i < numOfPicturesDisplayed; i++) {
             images.add(new Image(googleImagesLinks.get(i)));
@@ -50,8 +50,7 @@ public class ImageScraperView implements Runnable {
                 numErrors++;
             }
         }
-        System.out.println(numErrors + " Broken Pics");
-        //run loadImages after thread finishes running
+        // System.out.println(numErrors + " Broken Pics"); // Debug statement
         Platform.runLater(this::loadImages);
     }
 

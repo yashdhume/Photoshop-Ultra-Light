@@ -118,12 +118,21 @@ public class Controller extends AnchorPane implements Initializable{
         stage.setAlwaysOnTop(true);
         stage.show();
     }
+
     @FXML
     void adminMIAction(){
         Stage stage = new Stage();
         stage.setTitle("Admin");
+
+        // Start Server; running in the background
+        Server server = new Server();
+        server.start();
+
+        // Start Admin
         Admin admin = new Admin();
-        Scene scene = new Scene(admin.start(), 450, 200);
+
+        Scene scene = new Scene(admin.start(), 450, 400);
+        scene.getStylesheets().add("style.css");
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
         stage.show();

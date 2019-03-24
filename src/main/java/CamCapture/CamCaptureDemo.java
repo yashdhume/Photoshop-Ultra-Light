@@ -45,12 +45,9 @@ public class CamCaptureDemo{
     }
 
     private Image mat2Image(Mat frame){
-        try
-        {
+        try {
             return openCVMat.matToImage(frame);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.err.println("Cannot convert the Mat object:" + e);
             AlertDialogue alertDialogue = new AlertDialogue();
             alertDialogue.getAlert(e);
@@ -88,7 +85,6 @@ public class CamCaptureDemo{
             if (capture.isOpened()) {
                 cameraActive = true;
 
-
                 // grab Global frame every 33 ms (30 frames/sec)
                 Runnable framGrabber = () -> {
 
@@ -108,9 +104,7 @@ public class CamCaptureDemo{
 
                 btCamera.setText("Stop Camera");
             } else {
-
                 System.err.println("Impossible to open the camera connection..");
-
             }
         }
         else {

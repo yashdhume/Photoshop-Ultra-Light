@@ -50,8 +50,6 @@ public class ImageScraper {
             }
 
             System.out.println("number of results: " + resultUrls.size());
-            // Print URLS Debug
-            //for (String imageUrl : resultUrls) System.out.println(imageUrl);
 
         } catch (ParseException | IOException e) {
             e.printStackTrace();

@@ -61,8 +61,10 @@ public class Server {
 
     private final String PATH = "src/main/resources/userPasswordData.txt";
     public void saveFile(ArrayList<Account> users) {
-        try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(new File(PATH).getAbsoluteFile()))) {
+        try {
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(new File(PATH).getAbsoluteFile()));
             os.writeObject(users);
+            os.close();
         }catch (Exception e){
             System.out.println(e);
         }

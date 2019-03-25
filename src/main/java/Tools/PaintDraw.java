@@ -2,10 +2,8 @@ package Tools;
 
 import Global.MouseState;
 import Main.EditingView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -54,5 +52,21 @@ public class PaintDraw {
                 initY = e.getSceneY() > maxY ? maxY : e.getSceneY();
             });
         }
+    }
+    public void drawOnCanvas(){
+        Canvas canvas = new Canvas(700, 700);
+        final GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.strokeRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        gc.setStroke(Color.BLUE);
+        gc.setLineWidth(50);
+        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+            gc.beginPath();
+            gc.moveTo(event.getX(), event.getY());
+            gc.stroke();
+        });
+        canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
+            gc.lineTo(event.getX(), event.getY());
+            gc.stroke();
+        });
     }
 }

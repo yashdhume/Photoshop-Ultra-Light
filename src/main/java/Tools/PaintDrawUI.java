@@ -18,13 +18,12 @@ public class PaintDrawUI {
     public static int GlobalStroke = 5;
     private EditingView editingView;
     //private Color GlobalColor = Color.HOTPINK;
-    private PaintDraw draw;
+    //private PaintDraw draw;
     private TextField textFieldStroke;
     private Slider strokeSlider;
 
     public PaintDrawUI(EditingView editingView) {
         this.editingView = editingView;
-        draw = new PaintDraw(ToolbarView.GlobalColor, GlobalStroke);
         strokeSlider = getStrokeSlider();
         textFieldStroke = getTextFieldStroke();
     }
@@ -41,7 +40,7 @@ public class PaintDrawUI {
 
         textFieldStroke.setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode() == KeyCode.ENTER) {
-                draw.setStroke(Integer.parseInt(textFieldStroke.getText()));
+                //draw.setStroke(Integer.parseInt(textFieldStroke.getText()));
                 strokeSlider.setValue(Integer.parseInt(textFieldStroke.getText()));
             }
         });
@@ -53,11 +52,11 @@ public class PaintDrawUI {
 
         colorPicker.setMaxSize(45, 35);
         colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-            draw.setColor(newValue);
+            //draw.setColor(newValue);
             ToolbarView.GlobalColor = newValue;
         });
         colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
-            draw.setColor(newValue);
+            //draw.setColor(newValue);
         });
         return colorPicker;
     }
@@ -74,7 +73,7 @@ public class PaintDrawUI {
 
         strokeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             GlobalStroke = newValue.intValue();
-            draw.setStroke(newValue.intValue());
+            //draw.setStroke(newValue.intValue());
             textFieldStroke.setText(newValue.toString());
         });
         return strokeSlider;
@@ -86,7 +85,7 @@ public class PaintDrawUI {
 
         textFieldStroke.setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode() == KeyCode.ENTER) {
-                draw.setStroke(Integer.parseInt(textFieldStroke.getText()));
+                //draw.setStroke(Integer.parseInt(textFieldStroke.getText()));
                 strokeSlider.setValue(Integer.parseInt(textFieldStroke.getText()));
             }
         });

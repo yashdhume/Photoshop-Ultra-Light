@@ -19,8 +19,8 @@ public class LayerManipulation {
             if (EditingView.mouseState == MouseState.MOVE){
                 EditingView.layerView.getSelected().setLocation(new Point(e.getSceneX(), e.getSceneY()));
             }
-            else if (EditingView.mouseState == MouseState.RESIZE && EditingView.layerView.getSelected().getType() == LayerType.IMAGE){
-                ((ImageLayer) EditingView.layerView.getSelected()).resize(previousLocation.y - e.getSceneY());
+            else if (EditingView.mouseState == MouseState.RESIZE){
+                EditingView.layerView.getSelected().resize(previousLocation.y - e.getSceneY());
             }
             else if(EditingView.mouseState == MouseState.ROTATE){
                 double deltaX = e.getSceneX() - previousLocation.x;

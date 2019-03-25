@@ -62,9 +62,10 @@ public class ImageLayer extends Layer{
     public void rotate(double degrees) {
         imageView.setRotate(imageView.getRotate()+degrees);
     }
+    @Override
     public void resize(double size) {
-        imageView.setFitWidth(size);
-        imageView.setFitHeight(size);
+        imageView.setFitWidth(imageView.getImage().getWidth()-size);
+        imageView.setFitHeight(imageView.getImage().getHeight()-size);
     }
 
     @Override

@@ -141,9 +141,11 @@ public class LayerView {
             GridPane temp = layers.get(i).getLayerView();
             temp.setOnMouseClicked(e->{
                 int a = Math.abs(layers.size()-layerPane.getRowIndex(temp));
-                layers.get(a).selectLayer();
-                layers.get(indexofSelected).unselectLayer();
-                indexofSelected = a;
+                if (a != indexofSelected){
+                    layers.get(a).selectLayer();
+                    layers.get(indexofSelected).unselectLayer();
+                    indexofSelected = a;
+                }
                 if (e.getClickCount() >= 2){
                     layerOptions(layers.get(a), a);
                 }
@@ -219,7 +221,6 @@ public class LayerView {
                 }
             }
 
-
             text+= " " + count + " successful changes.";
             lblVerification.setText(text);
             renderLayers();
@@ -241,16 +242,10 @@ public class LayerView {
 
     //Compiles the Editable View
     public void renderEditables(){
+        if (editable.getChildren().size() > 0)
+            editable.getChildren().remove(0,editable.getChildren().size()-1);
         for (int i = 0; i < layers.size(); i++){
-            if (layers.get(i).getType() == LayerType.IMAGE && layers.get(i).isVisible){
-                ImageView imageView = ((ImageLayer)layers.get(i)).getImageView();
-                imageView.setPreserveRatio(true);
-                imageView.setFitWidth(width);
-                imageView.setFitHeight(height);
-
-                //Set bounds on images to try to meet the requirements.
-                editable.getChildren().add(new Pane(imageView));
-            } else if (layers.get(i).isVisible)
+            if (layers.get(i).isVisible)
                 editable.getChildren().add(layers.get(i).getLayer());
         }
     }
@@ -287,7 +282,7 @@ public class LayerView {
         selectLayer(layers.size()-1);
     }
     public void addText(String text){
-        layers.add(new TextLayer(text, text));
+        layers.add(new TextLayer(text, text, ToolbarView.GlobalColor));
         renderLayers();
         selectLayer(layers.size()-1);
     }

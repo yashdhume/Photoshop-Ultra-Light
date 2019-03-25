@@ -24,6 +24,7 @@ public class PaintLayer extends Layer {
         canvas = new Canvas(width, height);
         current.getChildren().add(canvas);
         versions = new ArrayList<>();
+        EditingView.Render();
     }
 
     @Override
@@ -34,22 +35,25 @@ public class PaintLayer extends Layer {
     @Override
     public void crop(Point start, Point end) {
         versions.add(new Pane(current));
+        canvas.setWidth(end.x-start.x);
+        canvas.setHeight(end.y - start.y);
 
-        current.setLayoutY(start.y);
-        current.setLayoutX(start.x);
+        canvas.setLayoutX(start.x);
+        canvas.setLayoutY(start.y);
 
-        current.setScaleX(end.x-start.x);
-        current.setScaleY(end.y - start.y);
+        EditingView.Render();
+
     }
 
     @Override
     public void setLocation(Point p) {
         versions.add(new Pane(current));
-        location.x = p.x - current.getScaleX();
-        location.y = p.y - current.getScaleY();
+        location.x = p.x - canvas.getWidth();
+        location.y = p.y - canvas.getHeight();
 
-        current.setLayoutX(location.x);
-        current.setLayoutY(location.y);
+        canvas.setLayoutX(location.x);
+        canvas.setLayoutY(location.y);
+        EditingView.Render();
     }
 
     //Implement this Function

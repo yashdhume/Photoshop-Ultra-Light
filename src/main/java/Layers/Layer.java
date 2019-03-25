@@ -104,6 +104,7 @@ public class Layer {
     public void setLocation(Point p){
         location = p;
     }
+    public void resize(double size){return;}
     public Point getLocation(){
         return location;
     }

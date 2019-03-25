@@ -7,12 +7,14 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.zenjava</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>8.8.3</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
-                    <vendor>GNDNotDevelopers</vendor>
-                    <mainClass>Main.Main</mainClass>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <fork>true</fork>
+                    <executable>C:\\Program Files\\Java\\jdk1.8.0_171\\bin\javac</executable>
                 </configuration>
             </plugin>
         </plugins>

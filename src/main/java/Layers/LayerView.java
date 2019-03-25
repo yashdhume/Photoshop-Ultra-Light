@@ -2,9 +2,14 @@ package Layers;
 
 import Global.OpenCVMat;
 import UI.ToolbarView;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,6 +19,8 @@ import javafx.stage.Stage;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /*
@@ -127,6 +134,9 @@ public class LayerView {
                 layers.get(a).selectLayer();
                 layers.get(indexofSelected).unselectLayer();
                 indexofSelected = a;
+                if (e.getClickCount() >= 2){
+                    layerOptions(layers.get(a), a);
+                }
             });
             layerPane.add(temp, 0, Math.abs(i-layers.size()));
 
@@ -140,6 +150,80 @@ public class LayerView {
         else controlPane.getChildren().set(layerPaneIndex, layerPane);
 
         renderEditables();
+    }
+
+    private void layerOptions(Layer layer, int index){
+        GridPane gp = new GridPane();
+        gp.setPadding(new Insets(20));
+        gp.add(new Label(layer.name + " Options"), 0,0);
+
+        TextField layerName = new TextField();
+        layerName.setText(layer.name);
+        Label lblLayerName = new Label("Layer Name: ");
+        gp.add(lblLayerName, 0,1);
+        gp.add(layerName,1,1);
+
+        Label lblLayerNumber = new Label("Layer Number");
+        ObservableList<String> options = FXCollections.observableArrayList();
+        Observable placeholder;
+        for (int i = 0; i < layers.size(); i++){
+            options.add(layers.get(i).name + " (" + (i+1) + ")");
+        }
+        ComboBox comboBox = new ComboBox(options);
+        comboBox.setValue(options.get(index));
+        gp.add(lblLayerNumber, 0, 2);
+        gp.add(comboBox, 1,2);
+
+        Button apply = new Button("Apply");
+        Button done = new Button("Done");
+        Label lblVerification = new Label("");
+        Stage stage = new Stage();
+        apply.setOnAction(e->{
+            String text = "";
+            int count = 0;
+            System.out.println(layer.name + " (" + (index+1) + ")");
+            System.out.println(comboBox.getValue().toString());
+            if (comboBox.getValue() != layer.name + " (" + (index+1) + ")"){
+                Matcher matcher = Pattern.compile("\\(([^)]+)\\)").matcher(comboBox.getValue().toString());
+                matcher.find();
+                int value = Integer.valueOf(matcher.group(1)).intValue()-1;
+
+                if (value < layers.size() && value>= 0){
+                    Layer temp = layers.get(value);
+                    layers.set(value, layer);
+                    layers.set(index, temp);
+                    count++;
+                }
+                else {
+                    text += " Failed to Change Layer Order.";
+                }
+            }
+
+            if (layerName.getText() != layer.name){
+                boolean isUnique = true;
+                if (layerName.getText() == "" || !isUnique)
+                    text +=  "Failed to change Layer Name";
+                else {
+                    layer.name = layerName.getText();
+                    count++;
+                }
+            }
+
+
+            text+= " " + count + " successful changes.";
+            lblVerification.setText(text);
+            renderLayers();
+            stage.close();
+        });
+
+        done.setOnAction(e-> stage.close());
+        gp.add(apply,0,3);
+        gp.add(done,1,3);
+        gp.add(lblVerification, 0, 4);
+        stage.setScene(new Scene(gp));
+        stage.setAlwaysOnTop(true);
+        stage.show();
+
     }
 
     //Compiles the Editable View

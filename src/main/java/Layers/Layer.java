@@ -65,8 +65,7 @@ public class Layer {
 
     //Get the LayerBox needed for the Layers Panel
     public GridPane getLayerView(){
-        if (pane == null)
-            generateLayer();
+        generateLayer();
         return pane;
     }
 

@@ -164,7 +164,7 @@ public class LayerView {
     }
     public void addPaint(){
         String name = "New Layer " + layers.size();
-        layers.add(new PaintLayer(name, 700, 700));
+        layers.add(new PaintLayer(name));
         renderLayers();
     }
     public void addSolid(double width, double height, Color color){

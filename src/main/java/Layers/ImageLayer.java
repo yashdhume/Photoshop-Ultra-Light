@@ -20,6 +20,9 @@ public class ImageLayer extends Layer{
         originalImage = new ImageView(image);
         layerType = LayerType.IMAGE;
         versions = new ArrayList<>();
+        imageView.setPreserveRatio(true);
+        imageView.setFitHeight(image.getHeight());
+        imageView.setFitWidth(image.getWidth());
     }
     public void setImage(Image img){
         imageView.setImage(img);
@@ -59,13 +62,26 @@ public class ImageLayer extends Layer{
     }
 
     @Override
+    protected Pane getThumbnail() {
+        Pane p = new Pane();
+        ImageView iv = new ImageView(originalImage.getImage());
+        iv.setFitWidth(20);
+        iv.setFitHeight(20);
+        p.getChildren().add(iv);
+        return p ;
+    }
+
+    @Override
     public void rotate(double degrees) {
         imageView.setRotate(imageView.getRotate()+degrees);
     }
     @Override
     public void resize(double size) {
-        imageView.setFitWidth(imageView.getImage().getWidth()-size);
-        imageView.setFitHeight(imageView.getImage().getHeight()-size);
+        if (imageView.getFitHeight() - size < 20 || imageView.getFitWidth() < 20){
+            return; 
+        }
+        imageView.setFitWidth(imageView.getFitWidth()-size);
+        imageView.setFitHeight(imageView.getFitHeight()-size);
     }
 
     @Override

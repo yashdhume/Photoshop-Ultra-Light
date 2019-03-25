@@ -106,6 +106,7 @@ public class LayerView {
             gp.add(name, 0, 0);
             gp.add(submit, 0, 1);
             Scene scene = new Scene(gp);
+            scene.getStylesheets().add("style.css");
             stage.getIcons().add(new Image("logo.png"));
             stage.setScene(scene);
             stage.setAlwaysOnTop(true);
@@ -163,7 +164,7 @@ public class LayerView {
         gp.add(lblLayerName, 0,1);
         gp.add(layerName,1,1);
 
-        Label lblLayerNumber = new Label("Layer Number");
+        Label lblLayerNumber = new Label("Layer Number: ");
         ObservableList<String> options = FXCollections.observableArrayList();
         Observable placeholder;
         for (int i = 0; i < layers.size(); i++){
@@ -217,13 +218,16 @@ public class LayerView {
         });
 
         done.setOnAction(e-> stage.close());
-        gp.add(apply,0,3);
-        gp.add(done,1,3);
+        HBox hbox = new HBox(20);
+        hbox.getChildren().addAll(apply, done);
+        gp.add(hbox,1,3);
         gp.add(lblVerification, 0, 4);
-        stage.setScene(new Scene(gp));
+        Scene scene = new Scene(gp);
+        scene.getStylesheets().add("style.css");
+        stage.getIcons().add(new Image("logo.png"));
+        stage.setScene(scene);
         stage.setAlwaysOnTop(true);
         stage.show();
-
     }
 
     //Compiles the Editable View

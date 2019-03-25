@@ -37,6 +37,7 @@ public class PropertiesView {
             Stage stage = new Stage();
             ImageScraperView imageScraperView = new ImageScraperView("");
             Scene scene = new Scene(imageScraperView.googleImageView(), 500, 500);
+            scene.getStylesheets().add("style.css");
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
             stage.setX(screenBounds.getWidth()-scene.getWidth());
             stage.setY(screenBounds.getHeight()/2-scene.getHeight()/2);
@@ -54,6 +55,7 @@ public class PropertiesView {
             Stage stage = new Stage();
             CamCaptureDemo camCaptureDemo = new CamCaptureDemo();
             Scene scene = new Scene(camCaptureDemo.start(), 800, 600);
+            scene.getStylesheets().add("style.css");
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
             stage.setX(screenBounds.getWidth()-scene.getWidth());
             stage.setY(screenBounds.getHeight()/2-scene.getHeight()/2);

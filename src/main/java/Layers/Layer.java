@@ -24,6 +24,7 @@ public class Layer {
     GridPane pane;
     Rectangle thumbnail;
     CheckBox visiblityCheckbox;
+    Label title;
 
     public Layer(String name){
         this.name = name;
@@ -49,10 +50,15 @@ public class Layer {
         });
         pane.add(visiblityCheckbox, 0, 0);
         pane.add(thumbnail, 1, 0);
-        pane.add(new Label(this.name), 2, 0);
+        title = new Label(this.name);
+        pane.add(title, 2, 0);
         pane.setStyle("-fx-background-color:#323232; -fx-opacity:1;");
     }
-
+    private void updateLayer(){
+        if (title == null)
+            title = new Label(this.name);
+        title.setText(name);
+    }
     private Rectangle getThumbnail(){
         if (layerType == LayerType.SOLID) return new Rectangle(20, 20, Color.BLACK);
         else if (layerType == LayerType.IMAGE) return new Rectangle(20, 20, Color.NAVY);
@@ -65,7 +71,9 @@ public class Layer {
 
     //Get the LayerBox needed for the Layers Panel
     public GridPane getLayerView(){
-        generateLayer();
+        if (pane == null)
+            generateLayer();
+        else updateLayer();
         return pane;
     }
 

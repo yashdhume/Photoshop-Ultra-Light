@@ -31,9 +31,12 @@ public class MutipleEffects {
         EditingView editingView = new EditingView();
         btn.setOnAction((event) -> {
             ColorEffect colorEffect = new ColorEffect(editingView.layerView.getSelectedAsImage().getImage(), whichEffect);
+            editingView.layerView.applyEffectToSelected(colorEffect.getEffect());
+            /*
             ImageLayer layer = (ImageLayer) editingView.layerView.getSelected();
             layer.setImage(colorEffect.getEffect());
             editingView.layerView.updateSelected(layer);
+            */
         });
         return btn;
     }

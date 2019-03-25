@@ -1,6 +1,8 @@
 package Layers;
 
+import Global.MouseState;
 import Global.OpenCVMat;
+import Main.EditingView;
 import UI.ToolbarView;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -72,8 +74,8 @@ public class LayerView {
         this.height = height;
 
         //For testing I recommend adding some files by default
-        layers.add(new ImageLayer("middle", new Image("file:C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/cameraIcon.png")));
-        layers.add(new ImageLayer("foreground", new Image("file:C:/Users/Kashif/IdeaProjects/Photoshop-Ultra-Light/src/main/resources/googleIcon.png")));
+        layers.add(new ImageLayer("middle", new Image("googleIcon.png")));
+        //layers.add(new ImageLayer("foreground", new Image("cameraIcon.png")));
 
         controlPane = pane;
         composite = new ImageView();
@@ -86,7 +88,7 @@ public class LayerView {
     private void InitializeButtons(){
         Button solidButton = new Button("Create new Solid");
         solidButton.setOnAction(e->{
-            this.addSolid(700, 700, ToolbarView.GlobalColor);
+            this.addSolid(width, height, ToolbarView.GlobalColor);
         });
         solidButton.setLayoutX(20);
         solidButton.setLayoutY(80);
@@ -113,9 +115,15 @@ public class LayerView {
         });
         textButton.setLayoutX(20);
         textButton.setLayoutY(100);
+
+        Button paintButton = new Button("Create new Paint");
+        paintButton.setOnAction(e->addPaint());
+        paintButton.setLayoutX(20);
+        paintButton.setLayoutY(120);
+
         HBox hbox = new HBox(20);
         hbox.setPadding(new Insets(50));
-        hbox.getChildren().addAll(solidButton, textButton);
+        hbox.getChildren().addAll(solidButton, paintButton, textButton);
         controlPane.getChildren().add(hbox);
     }
 
@@ -247,8 +255,9 @@ public class LayerView {
         renderEditables();
     }
     public void addPaint(){
+        EditingView.mouseState = MouseState.DRAW;
         String name = "New Layer " + layers.size();
-        layers.add(new PaintLayer(name));
+        layers.add(new PaintLayer(name, width, height));
         renderLayers();
     }
     public void addSolid(double width, double height, Color color){

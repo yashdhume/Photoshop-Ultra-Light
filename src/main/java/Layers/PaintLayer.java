@@ -1,20 +1,25 @@
 package Layers;
 
+import UI.ToolbarView;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.opencv.core.Point;
 
 import java.util.ArrayList;
 
+//Implement with Canvas
 public class PaintLayer extends Layer {
     Pane current;
     Canvas canvas;
     ArrayList<Pane> versions;
-    public PaintLayer(String name){
+    GraphicsContext gc;
+    public PaintLayer(String name, double width, double height){
         super(name);
         current = new Pane();
-        canvas = new Canvas();
+        layerType = LayerType.PAINT;
+        canvas = new Canvas(width, height);
         current.getChildren().add(canvas);
         versions = new ArrayList<>();
     }
@@ -46,9 +51,19 @@ public class PaintLayer extends Layer {
     }
 
     //Implement this Function
-    public void paint(){
+    public void onPaint(Point point){
+         gc = canvas.getGraphicsContext2D();
+         gc.setStroke(ToolbarView.GlobalColor);
+         gc.setLineWidth(50);
+         gc.beginPath();
+         gc.moveTo(point.x, point.y);
+         gc.stroke();
+
+    }
+    public void onFinishedPaint(Point point){
         versions.add(new Pane(current));
-        return;
+        gc.lineTo(point.x, point.y);
+        gc.stroke();
     }
 
     @Override

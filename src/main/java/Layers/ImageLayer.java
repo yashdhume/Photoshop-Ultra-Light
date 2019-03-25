@@ -1,10 +1,14 @@
 package Layers;
 
+import Global.OpenCVMat;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import org.opencv.core.Mat;
 import org.opencv.core.Point;
+import org.opencv.core.Rect;
+
 import java.util.ArrayList;
 
 public class ImageLayer extends Layer{
@@ -51,6 +55,7 @@ public class ImageLayer extends Layer{
         location.y = p.y - imageView.getImage().getHeight()/2;
         imageView.setTranslateX(location.x);
         imageView.setTranslateY(location.y);
+
     }
 
     @Override
@@ -66,15 +71,37 @@ public class ImageLayer extends Layer{
     public void crop(Point start, Point end) {
         double width = end.x- start.x;
         double height = end.y - start.y;
+        System.out.println(width + " " + height);
+        System.out.println(imageView.getImage().getWidth()+ " " + imageView.getImage().getHeight());
+        int adjStartX = (int)(start.x -location.x);
+        int adjStartY = (int)(start.y -location.y);
+        Point adj = new Point((int)start.x, (int)start.y);
+        Point endAdj = new Point((int)end.x - (int)location.x, (int)end.y - (int)location.y);
 
-        start.x-= location.x;
-        end.x -= location.x;
-        start.y-= location.y;
-        end.y -= location.y;
-
-        imageView.setViewport(new Rectangle2D(start.x, start.y, width, height));
+        //System.out.println(start.toString() + " " + end.toString());
+        imageView.setViewport(new Rectangle2D(start.x-location.x, start.y-location.y, width, height));
         imageView.setFitHeight(height);
         imageView.setFitWidth(width);
+        imageView.setLayoutX(start.x);
+        imageView.setLayoutY(start.y);
+        imageView.setSmooth(true);
+
+        /*
+        OpenCVMat openCVMat = new OpenCVMat();
+        Rect subImage = new Rect(adj, endAdj);
+        System.out.println(subImage);
+        Mat a = new Mat(openCVMat.imageToMatrix(imageView.getImage()), subImage);
+        //a.submat(new Rect((int)start.x, (int)start.y,(int)end.x, (int)end.y));
+
+        imageView.setImage(openCVMat.mat2Image(a));
+        imageView.setFitHeight(height);
+        imageView.setFitWidth(width);
+        imageView.setLayoutY(start.y);
+        imageView.setLayoutX(start.x);
+        */
+
+
+
     }
 
     public ImageView getOriginalImage(){return originalImage;}
@@ -83,5 +110,8 @@ public class ImageLayer extends Layer{
     }
     public ImageView getImageView(){
         return imageView;
+    }
+    public void setImageView(ImageView iv){
+        imageView = iv;
     }
 }

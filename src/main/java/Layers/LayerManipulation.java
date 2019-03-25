@@ -9,6 +9,11 @@ public class LayerManipulation {
     public LayerManipulation(){
         EditingView.layerView.getEditableStack().setOnMousePressed(e->{
             previousLocation = new Point(e.getSceneX(), e.getSceneY());
+            if (EditingView.mouseState == MouseState.DRAW){
+                if (EditingView.layerView.getSelected().layerType == LayerType.PAINT){
+                    ((PaintLayer)EditingView.layerView.getSelected()).onPaint(new Point(e.getX(), e.getY()));
+                }
+            }
         });
         EditingView.layerView.getEditableStack().setOnMouseDragged(e->{
             if (EditingView.mouseState == MouseState.MOVE){
@@ -21,10 +26,15 @@ public class LayerManipulation {
                 double deltaX = e.getSceneX() - previousLocation.x;
                 EditingView.layerView.getSelected().rotate(deltaX/100);
             }
+            else if (EditingView.mouseState == MouseState.DRAW){
+                if (EditingView.layerView.getSelected().layerType == LayerType.PAINT){
+                    ((PaintLayer)EditingView.layerView.getSelected()).onFinishedPaint(new Point(e.getX(), e.getY()));
+                }
+            }
         });
         EditingView.layerView.getEditableStack().setOnMouseReleased(e->{
             if (EditingView.mouseState == MouseState.CROP){
-                EditingView.layerView.getSelected().crop(previousLocation, new Point(e.getSceneX(), e.getSceneY()));
+                EditingView.layerView.getSelected().crop(previousLocation, new Point(e.getX(), e.getY()));
             }
             previousLocation = new Point(0,0);
         });

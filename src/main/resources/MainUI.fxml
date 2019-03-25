@@ -45,7 +45,7 @@
                 <Menu mnemonicParsing="false" text="Members">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#loginAction" text="Sign In/Register" />
-                        <MenuItem mnemonicParsing="false" text="VIP Member" onAction="#adminMIAction" />
+                        <MenuItem mnemonicParsing="false" text="Admin" onAction="#adminMIAction" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

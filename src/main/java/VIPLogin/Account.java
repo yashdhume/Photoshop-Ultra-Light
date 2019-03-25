@@ -26,7 +26,7 @@ public class Account implements Serializable {
         boolean retVal = false;
         if(obj instanceof Account){
             Account ptr =(Account) obj;
-            retVal= ptr.getUsername().equals(this.getUsername());
+            retVal = ptr.getUsername().equals(this.getUsername());
         }
         return retVal;
     }
@@ -44,6 +44,6 @@ public class Account implements Serializable {
     }
 
     public void setVip(boolean vip) {
-        isVip = vip;
+        this.isVip = vip;
     }
 }

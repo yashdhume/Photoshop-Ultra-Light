@@ -46,6 +46,7 @@ public class Client {
         gridPane.setPadding(new Insets(30));
         gridPane.setHgap(20);
         gridPane.setVgap(20);
+
         Text txtUserName = new Text("Username");
         TextField txtFieldUserName = new TextField();
         Text txtPassword = new Text("Password");
@@ -57,7 +58,6 @@ public class Client {
         // handle action event
         btn.setOnAction(e -> btnAction(txtFieldUserName,passwordFieldPassword,false));
         btnRegister.setOnAction(e -> btnAction(txtFieldUserName,passwordFieldPassword,true));
-        //txtPassword.setOnKeyReleased(event -> { if (event.getCode() == KeyCode.ENTER) btnAction(txtFieldUserName,passwordFieldPassword,false); });
 
         HBox hbox = new HBox(20);
         hbox.getChildren().addAll(btn, btnRegister);

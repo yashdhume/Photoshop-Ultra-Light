@@ -2,6 +2,7 @@ package Tools;
 
 import Global.MouseState;
 import Main.EditingView;
+import UI.ToolbarView;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,17 +11,20 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
+import javax.tools.Tool;
+
 
 public class PaintDrawUI {
+    public static int GlobalStroke = 5;
     private EditingView editingView;
-    private Color GlobalColor = Color.HOTPINK;
+    //private Color GlobalColor = Color.HOTPINK;
     private PaintDraw draw;
     private TextField textFieldStroke;
     private Slider strokeSlider;
 
     public PaintDrawUI(EditingView editingView) {
         this.editingView = editingView;
-        draw = new PaintDraw(GlobalColor, 5);
+        draw = new PaintDraw(ToolbarView.GlobalColor, GlobalStroke);
         strokeSlider = getStrokeSlider();
         textFieldStroke = getTextFieldStroke();
     }
@@ -32,7 +36,7 @@ public class PaintDrawUI {
 
         Brush.setOnAction((event) -> {
             editingView.mouseState = MouseState.DRAW;
-            draw.drawOnAnchor(editingView.anchorPaneEditView);
+            //draw.drawOnAnchor(editingView.anchorPaneEditView);
         });
 
         textFieldStroke.setOnKeyPressed((KeyEvent event) -> {
@@ -45,12 +49,12 @@ public class PaintDrawUI {
     }
 
     public ColorPicker getColorPickerButton() {
-        ColorPicker colorPicker = new ColorPicker(GlobalColor);
+        ColorPicker colorPicker = new ColorPicker(ToolbarView.GlobalColor);
 
         colorPicker.setMaxSize(45, 35);
         colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             draw.setColor(newValue);
-            GlobalColor = newValue;
+            ToolbarView.GlobalColor = newValue;
         });
         colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             draw.setColor(newValue);
@@ -69,6 +73,7 @@ public class PaintDrawUI {
         strokeSlider.setShowTickLabels(true);
 
         strokeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            GlobalStroke = newValue.intValue();
             draw.setStroke(newValue.intValue());
             textFieldStroke.setText(newValue.toString());
         });

@@ -1,5 +1,7 @@
 package Layers;
 
+import Main.EditingView;
+import Tools.PaintDrawUI;
 import UI.ToolbarView;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -54,7 +56,7 @@ public class PaintLayer extends Layer {
     public void onPaint(Point point){
          gc = canvas.getGraphicsContext2D();
          gc.setStroke(ToolbarView.GlobalColor);
-         gc.setLineWidth(50);
+         gc.setLineWidth(PaintDrawUI.GlobalStroke);
          gc.beginPath();
          gc.moveTo(point.x, point.y);
          gc.stroke();
@@ -64,6 +66,7 @@ public class PaintLayer extends Layer {
         versions.add(new Pane(current));
         gc.lineTo(point.x, point.y);
         gc.stroke();
+        EditingView.Render();
     }
 
     @Override

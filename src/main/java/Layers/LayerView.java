@@ -79,10 +79,11 @@ public class LayerView {
 
         controlPane = pane;
         composite = new ImageView();
-        indexofSelected = 1;
+        indexofSelected = 0;
         editable = new StackPane();
         InitializeButtons();
         renderLayers();
+        layers.get(indexofSelected).selectLayer();
     }
 
     private void InitializeButtons(){
@@ -249,6 +250,13 @@ public class LayerView {
                 editable.getChildren().add(layers.get(i).getLayer());
         }
     }
+    private void selectLayer(int index){
+        if (index < layers.size()){
+            layers.get(indexofSelected).unselectLayer();
+            indexofSelected = index;
+            layers.get(indexofSelected).selectLayer();
+        }
+    }
     public void addLayer(){
         String name = "New Layer " + layers.size();
         layers.add(new Layer(name));
@@ -259,21 +267,25 @@ public class LayerView {
         String name = "New Layer " + layers.size();
         layers.add(new PaintLayer(name, width, height));
         renderLayers();
+        selectLayer(layers.size()-1);
     }
     public void addSolid(double width, double height, Color color){
         String name = "New Layer " + layers.size();
         layers.add(new SolidLayer(name, width, height, color));
         renderLayers();
+        selectLayer(layers.size()-1);
     }
     //add an Image to the layer Stack
     public void addImage(Image image){
         String name = "New Layer " + layers.size();
         layers.add(new ImageLayer(name, image));
         renderLayers();
+        selectLayer(layers.size()-1);
     }
     public void addText(String text){
         layers.add(new TextLayer(text, text));
         renderLayers();
+        selectLayer(layers.size()-1);
     }
     public void removeSelectedLayer(){
         layers.remove(indexofSelected.intValue());

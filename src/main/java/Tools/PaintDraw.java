@@ -1,6 +1,7 @@
 package Tools;
 
 import Global.MouseState;
+import Layers.LayerType;
 import Main.EditingView;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -28,7 +29,7 @@ public class PaintDraw {
     }
 
     public void drawOnAnchor(AnchorPane anchorPane){
-        if(EditingView.layerView.getSelectedAsImage().getImage()!=null && EditingView.mouseState == MouseState.DRAW) {
+        if(EditingView.layerView.getSelected().getType() == LayerType.IMAGE && EditingView.mouseState == MouseState.DRAW) {
             System.out.println(EditingView.layerView.getSelectedAsImage().getImage());
             final double maxX = EditingView.layerView.getSelectedAsImage().getImage().getWidth();
             final double maxY = EditingView.layerView.getSelectedAsImage().getImage().getHeight();

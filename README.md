@@ -1,38 +1,49 @@
-# Photoshop-Ultra-Light
-## Developing by GND not Developers 
-*Yash Dhume; Kashif Hussain; Kathryn, Mei-Yu, Chen; Jessica .;*
-### CSCI 2020U Course Project
+# ![Logo](./images/logo.png) Photoshop-Ultra-Light
 
-## About the Project
+*This application is developed for CSCI2020U Final Project*.
 
-Language: Java 1.8 (dependencies: JavaFX)
+## What is Photoshop-Ultra-Light?
 
-Build tool: Maven 3.1.5
+Photoshop-Ultra-Light features a variety of tools for image or photo editing 
+which including group layer arranging, brush management, variable fonts, resize,
+recolor, and various applied filters.
 
-APIs: OpenCV
+## Features
 
-## How to Build and Run the Application
+**Image Sources**
+1. Provide picture from your local machine (any format)
+2. Browse pictures using our built-in Google search feature
+3. Take picture using your webcam
 
-**Option 1**
+**Image Editing**
+1. Various Filters (monochrome, gaussian blur, or do random effects!)
+2. Image Quality Customization (Hue, Saturation, Brightness, Contrast)
+3. Resize, Crop, and Rotate Images
+4. Brush (customize the stroke and color as your need) 
 
-1. Clone the repository: `git clone https://github.com/yashdhume/Photoshop-Ultra-Light`
-2. Go into the directory: `cd Photoshop-Ultra-Light`
-3. Build using Maven: `mvn clean install`
-4. Run the Application: `java -cp .\target\PhotoshopUltraLight-1.0-SNAPSHOT.jar Main.Main`
+## Identify your Interest!
 
-**Option 2**
-1. Install or open [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
-2. Select `Project from Version Control`
-3. Select `Git`
-4. Paste `https://github.com/yashdhume/Photoshop-Ultra-Light` in the URL field
-5. If not logged in yet, log in to Github account first (bottom left hand side)
-6. Select `clone` and the repository should be clone to the workspace
-7. Run the project
+- [I want to use this awesome photoshop](./USER_GUIDE.md)
+- [I am interested to find out how this cool application works](./DEV_GUIDE.md)
+- [I am marking this project, I need to know where you implemented what's being marked](./CODE_GUIDE.md)
 
-**Option 3**
+## Meet the Developers
 
-1. Clone the repository: `git clone https://github.com/yashdhume/Photoshop-Ultra-Light`
-2. Install or open [Eclipse](https://www.eclipse.org/downloads/)
-3. Import project to Eclipse
-4. Make sure Maven module are included
-5. Build and run the application
+UOIT second year Computer Science students who are very passionate about 
+applying best code practices and applied computer vision to our current project
+
+- [Kathryn (Mei-Yu) Chen](https://github.com/meifish)
+    
+    *Implements various filters, webcam usability, build tool, login & registration, testing, and bug fixes*
+    
+- [Yash Dhume](https://github.com/yashdhume)
+
+    *Implements UI, drawing tools, main canvas, login & registration, Google search, drag and drop, build tool, and bug fixes*
+    
+- [Kashif Hussain](https://github.com/KashifIV)
+    
+    *Implements layers, main canvas, text tool, drawing tools, login & registration, and bug fixes*
+
+- [Jessica .](https://github.com/jwdjj)
+
+    *Implements UI, menu bar functionality, login & registration, bug fixes, testing, and documentation*

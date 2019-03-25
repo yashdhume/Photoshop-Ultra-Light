@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -98,7 +99,17 @@ public class LayerView {
         textButton.setOnAction(e->{
             Stage stage = new Stage();
             GridPane gp = new GridPane();
+
             TextField name = new TextField();
+            name.setOnKeyReleased(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    if (name.getText().length() >0){
+                        addText(name.getText());
+                        stage.close();
+                    }
+                }
+            });
+
             Button submit = new Button("Done");
             submit.setOnAction(event->{
                 if (name.getText().length() >0){
@@ -106,6 +117,7 @@ public class LayerView {
                     stage.close();
                 }
             });
+
             gp.add(name, 0, 0);
             gp.add(submit, 0, 1);
             Scene scene = new Scene(gp);

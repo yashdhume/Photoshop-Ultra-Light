@@ -2,24 +2,48 @@ package Layers;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import org.opencv.core.Point;
+
 import java.util.ArrayList;
 
 public class PaintLayer extends Layer {
-    ImageView current;
-    ArrayList<ImageView> versions;
-    public PaintLayer(String name, int width, int height){
+    Pane current;
+    ArrayList<Pane> versions;
+    public PaintLayer(String name){
         super(name);
-        current = new ImageView();
-        current.setFitWidth(width);
-        current.setFitHeight(height);
+        current = new Pane();
         versions = new ArrayList<>();
     }
 
     @Override
     public Pane getLayer() {
-        Pane pane = new Pane();
-        pane.getChildren().add(current);
-        return pane;
+        return current;
+    }
+
+    @Override
+    public void crop(Point start, Point end) {
+        versions.add(new Pane(current));
+        current.setLayoutY(start.y);
+        current.setLayoutX(start.x);
+
+        current.setScaleX(end.x-start.x);
+        current.setScaleY(end.y - start.y);
+    }
+
+    @Override
+    public void setLocation(Point p) {
+        versions.add(new Pane(current));
+        location.x = p.x - current.getScaleX();
+        location.y = p.y - current.getScaleY();
+
+        current.setLayoutX(location.x);
+        current.setLayoutY(location.y);
+    }
+
+    //Implement this Function
+    public void paint(){
+        versions.add(new Pane(current));
+        return;
     }
 
     @Override

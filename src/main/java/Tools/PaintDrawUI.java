@@ -81,6 +81,7 @@ public class PaintDrawUI {
 
     //textfield stroke
     private TextField getTextFieldStroke() {
+        TextField textFieldStroke = new TextField();
         textFieldStroke.setPrefColumnCount(3);
         textFieldStroke.setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode() == KeyCode.ENTER) {

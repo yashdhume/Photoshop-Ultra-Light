@@ -12,6 +12,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import org.opencv.core.Point;
 
+/*
+    This is the Layer Superclass, all Layer's must inherit from this class.
+
+    The main focus of this class is to provide information for the Layer View to
+    construct the layer panel. It additionally holds skeleton functions which is
+    recommended for each inherited object to override.
+ */
+
 public class Layer {
 
     // Layer Information
@@ -26,6 +34,7 @@ public class Layer {
     CheckBox visiblityCheckbox;
     Label title;
 
+    //The name of the layer is required.
     public Layer(String name){
         this.name = name;
         layerType = LayerType.EMPTY;
@@ -54,11 +63,13 @@ public class Layer {
         pane.add(title, 2, 0);
         pane.setStyle("-fx-background-color:#323232; -fx-opacity:1;");
     }
+    //Limit Discarding the constructed layer upon reconstruction
     private void updateLayer(){
         if (title == null)
             title = new Label(this.name);
         title.setText(name);
     }
+    //Custom Thumbnail for each Layer
     protected Pane getThumbnail(){
         Pane pane = new Pane();
         if (layerType == LayerType.SOLID) pane.getChildren().add(new Rectangle(20, 20, Color.BLACK));
@@ -79,24 +90,26 @@ public class Layer {
         return pane;
     }
 
-    //Get the pane of the layer. Used primarily
+    //Get the pane of the layer. Used primarily by the renderer.
     public Pane getLayer(){return null;}
     public void undo(){
         System.out.println("FAILED TO UNDO");
         return;
     }
 
-    //Handle when the layer is selected or not
+    //Handle when the layer is selected
     public void selectLayer(){
         isSelected = true;
         pane.setStyle("-fx-background-color:#5AA4FF; -fx-opacity:1;");
     }
-
+    //Handle when the layer loses its selection
     public void unselectLayer(){
         isSelected = false;
         pane.setStyle("-fx-background-color:#323232; -fx-opacity:1;");
     }
 
+    //It is recommended the following functions are overriden by the
+    // inherited classes.
     public void rotate(double degrees){
         return;
     }

@@ -56,7 +56,7 @@ public class PaintLayer extends Layer {
         EditingView.Render();
     }
 
-    //Implement this Function
+    //Initializes the stroke.
     public void onPaint(Point point){
          gc = canvas.getGraphicsContext2D();
          gc.setStroke(ToolbarView.GlobalColor);
@@ -66,6 +66,7 @@ public class PaintLayer extends Layer {
          gc.stroke();
 
     }
+    //Completes the stroke.
     public void onFinishedPaint(Point point){
         versions.add(new Pane(current));
         gc.lineTo(point.x, point.y);

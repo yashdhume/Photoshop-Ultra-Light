@@ -35,7 +35,6 @@ public class TextLayer extends Layer{
     public String getText() {
         return text;
     }
-
     @Override
     public void setLocation(Point p) {
         location.x = p.x - text.length()*(fontSize/3);

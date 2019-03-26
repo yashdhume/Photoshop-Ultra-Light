@@ -1,14 +1,21 @@
 package UI;
 
 import Global.MouseState;
-import Tools.*;
 import Main.EditingView;
+import Tools.PaintDrawUI;
+import Tools.BasicEffects;
+import Tools.BlackandWhiteEffect;
+import Tools.ChangeColorSpace;
+import Tools.GaussianBlur;
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
 public class ToolbarView {
@@ -38,8 +45,8 @@ public class ToolbarView {
         Button btnBlackAndWhite = blackandWhiteEffect.getButton();
 
         // RGB
-        MutipleEffects mutipleEffects = new MutipleEffects();
-        Button btnEffects = mutipleEffects.getButton();
+        ChangeColorSpace changeColorSpace = new ChangeColorSpace();
+        Button btnEffects = changeColorSpace.getButton();
 
         // Declaring label for contrast, hue, brightness, and saturation
         Label lblBrightness = new Label();
@@ -62,8 +69,8 @@ public class ToolbarView {
         BasicEffects basicEffects = new BasicEffects();
         Slider sliderContrast = basicEffects.getSlider(0);
         Slider sliderHue = basicEffects.getSlider(1);
-        Slider sliderBrightness =  basicEffects.getSlider(2);
-        Slider sliderSaturation =  basicEffects.getSlider(3);
+        Slider sliderBrightness = basicEffects.getSlider(2);
+        Slider sliderSaturation = basicEffects.getSlider(3);
 
         // Colorpicker label and Button
         Label lblColorPicker = new Label();

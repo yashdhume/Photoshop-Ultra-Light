@@ -13,12 +13,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/MainUI.fxml"));
         primaryStage.setTitle("Photoshop Ultra Light");
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setMaximized(true);
-        Scene scene = new Scene(root,((primaryScreenBounds.getWidth() - primaryStage.getWidth()) / 2),((primaryScreenBounds.getHeight() - primaryStage.getHeight()) / 4));
+        Scene scene = new Scene(root, ((primaryScreenBounds.getWidth() - primaryStage.getWidth()) / 2), ((primaryScreenBounds.getHeight() - primaryStage.getHeight()) / 4));
         scene.getStylesheets().add("style.css");
         new LayerShortCuts(scene);
         primaryStage.setScene(scene);

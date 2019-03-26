@@ -17,7 +17,9 @@ import javafx.scene.layout.VBox;
  * @web http://java-buddy.blogspot.com
  */
 public class Histogram {
-    public Histogram(){}
+    public Histogram() {
+    }
+
     public VBox start() {
         Button btnDo = new Button("Make Histogram");
         ImageView imageView = new ImageView();
@@ -25,7 +27,7 @@ public class Histogram {
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final LineChart<String, Number> chartHistogram = new LineChart<>(xAxis, yAxis);
-        chartHistogram.setMaxSize(400,250);
+        chartHistogram.setMaxSize(400, 250);
         chartHistogram.setCreateSymbols(false);
         btnDo.setOnAction((ActionEvent event) -> {
             Image image = EditingView.layerView.getSelectedAsImage().getImage();
@@ -33,7 +35,7 @@ public class Histogram {
             chartHistogram.getData().clear();
 
             ImageHistogram imageHistogram = new ImageHistogram(image);
-            if(imageHistogram.isSuccess()){
+            if (imageHistogram.isSuccess()) {
                 chartHistogram.getData().addAll(
                         imageHistogram.getSeriesRed(),
                         imageHistogram.getSeriesGreen(),
@@ -42,10 +44,9 @@ public class Histogram {
         });
 
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(chartHistogram,btnDo);
+        vBox.getChildren().addAll(chartHistogram, btnDo);
         return vBox;
     }
-
 
 
     class ImageHistogram {

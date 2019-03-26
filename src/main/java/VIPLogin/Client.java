@@ -1,5 +1,5 @@
 package VIPLogin;
-
+//User Client
 import java.io.*;
 import java.net.*;
 import javafx.geometry.Insets;
@@ -30,7 +30,7 @@ public class Client {
             System.out.println(ex.toString() + '\n');
         }
     }
-
+    //Display gridpane of username password
     public GridPane start() {
         initalize();
 

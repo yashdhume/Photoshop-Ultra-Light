@@ -13,16 +13,18 @@ import javafx.util.Duration;
 
 public class GaussianBlur {
     private EditingView editingView;
+
     public GaussianBlur(EditingView editingView) {
         this.editingView = editingView;
     }
-    public  Button getButton(){
+
+    public Button getButton() {
         Button btnGaussianBlur = new Button();
         btnGaussianBlur.setGraphic(new ImageView(new Image("gaussianBlurIcon.png", 25, 25, false, false)));
         btnGaussianBlur.setTooltip(new Tooltip("Gaussian Blur"));
         btnGaussianBlur.setOnAction((event) -> {
             GaussianBlurEffect gaussianBlurEffect = new GaussianBlurEffect(editingView.layerView.getSelectedAsImage().getImage(), 45, 0);
-            ImageLayer layer = (ImageLayer)editingView.layerView.getSelected();
+            ImageLayer layer = (ImageLayer) editingView.layerView.getSelected();
             layer.setImage(gaussianBlurEffect.getEffect());
             EditingView.layerView.updateSelected(layer);
         });
@@ -52,7 +54,7 @@ public class GaussianBlur {
                         kernel += 1;
                     }
 
-                    GaussianBlurEffect gaussianBlurEffect = new GaussianBlurEffect(((ImageLayer)editingView.layerView.getSelected()).getOriginalImage().getImage(), kernel, 0);
+                    GaussianBlurEffect gaussianBlurEffect = new GaussianBlurEffect(((ImageLayer) editingView.layerView.getSelected()).getOriginalImage().getImage(), kernel, 0);
                     editingView.layerView.applyEffectToSelected(gaussianBlurEffect.getEffect());
                 };
                 new Thread(runGaussian).start();
@@ -66,7 +68,7 @@ public class GaussianBlur {
             if (kernel % 2 == 0) {
                 kernel += 1;
             }
-            GaussianBlurEffect gaussianBlurEffect = new GaussianBlurEffect(((ImageLayer)editingView.layerView.getSelected()).getOriginalImage().getImage(), kernel, 0);
+            GaussianBlurEffect gaussianBlurEffect = new GaussianBlurEffect(((ImageLayer) editingView.layerView.getSelected()).getOriginalImage().getImage(), kernel, 0);
             gaussianBlurEffect.setGaussianEffect(kernel);
             EditingView.layerView.applyEffectToSelected(gaussianBlurEffect.getEffect());
         });

@@ -8,13 +8,17 @@ import javafx.scene.image.ImageView;
 public class BasicEffects {
     private double contrast, hue, brightness, saturation;
 
+    //Constructor
     public BasicEffects(double contrast, double hue, double brightness, double saturation) {
         this.contrast = contrast;
         this.hue = hue;
         this.brightness = brightness;
         this.saturation = saturation;
     }
-    public void changeEffect(){
+
+    //ChangeEffects
+    public void changeEffect() {
+        //Set the contrast huhe brightness and saturation
         ColorAdjust colorAdjust = new ColorAdjust();
         EditingView editingView = new EditingView();
         colorAdjust.setContrast(contrast);

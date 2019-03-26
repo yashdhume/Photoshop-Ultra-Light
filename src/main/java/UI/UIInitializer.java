@@ -1,5 +1,5 @@
 package UI;
-
+//Initlize all the ui
 import javafx.scene.layout.AnchorPane;
 
 public class UIInitializer {

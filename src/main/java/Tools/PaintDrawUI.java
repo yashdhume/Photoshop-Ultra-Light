@@ -1,4 +1,5 @@
 package Tools;
+//Paint Draw UI
 
 import Global.MouseState;
 import Main.EditingView;
@@ -9,25 +10,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-
-import javax.tools.Tool;
 
 
 public class PaintDrawUI {
     public static int GlobalStroke = 5;
     private EditingView editingView;
-    //private Color GlobalColor = Color.HOTPINK;
-    //private PaintDraw draw;
     private TextField textFieldStroke;
     private Slider strokeSlider;
 
+    //constructor
     public PaintDrawUI(EditingView editingView) {
         this.editingView = editingView;
         strokeSlider = getStrokeSlider();
         textFieldStroke = getTextFieldStroke();
     }
 
+    //get the brush button
     private Button getButtonButton() {
         Button Brush = new Button();
         Brush.setGraphic(new ImageView(new Image("brushIcon.png", 25, 25, false, false)));
@@ -47,6 +45,7 @@ public class PaintDrawUI {
         return Brush;
     }
 
+    //get the color picker
     public ColorPicker getColorPickerButton() {
         ColorPicker colorPicker = new ColorPicker(ToolbarView.GlobalColor);
 
@@ -61,6 +60,7 @@ public class PaintDrawUI {
         return colorPicker;
     }
 
+    //get the stroke slider
     private Slider getStrokeSlider() {
         Slider strokeSlider = new Slider(0, 100, 100);
         strokeSlider.setMin(0);
@@ -79,19 +79,18 @@ public class PaintDrawUI {
         return strokeSlider;
     }
 
+    //textfield stroke
     private TextField getTextFieldStroke() {
-        TextField textFieldStroke = new TextField();
         textFieldStroke.setPrefColumnCount(3);
-
         textFieldStroke.setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode() == KeyCode.ENTER) {
-                //draw.setStroke(Integer.parseInt(textFieldStroke.getText()));
                 strokeSlider.setValue(Integer.parseInt(textFieldStroke.getText()));
             }
         });
         return textFieldStroke;
     }
 
+    //get paint draw ui
     public GridPane getPaintDrawUI() {
         GridPane gp = new GridPane();
         gp.setHgap(10);

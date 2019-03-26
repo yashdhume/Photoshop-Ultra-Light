@@ -1,7 +1,7 @@
 package VIPLogin;
 
 import java.io.Serializable;
-
+//Account Object
 public class Account implements Serializable {
     private String username;
     private String password;

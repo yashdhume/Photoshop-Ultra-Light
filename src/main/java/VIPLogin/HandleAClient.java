@@ -1,7 +1,9 @@
 package VIPLogin;
+//Server handling a client
 
 import Global.AlertDialogue;
 import javafx.application.Platform;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -27,7 +29,7 @@ class HandleAClient implements Runnable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if (whichClient.equals("2")){
+            if (whichClient.equals("2")) {
                 Server server = new Server();
                 userPassData = server.readFile();
                 outputToClient.writeObject(userPassData);
@@ -45,33 +47,32 @@ class HandleAClient implements Runnable {
                         boolean isRegistered = false;
                         if (isRegistering) {
                             isRegistered = store(username, password);
-                        }
-                        else if(userPassData!=null){
-                            for (Account account: userPassData) {
-                               if(account.getUsername().equals(username)&&account.getPassword().equals(password)){
-                                   account.setLoggedIn(true);
-                               }
-                               else if (account.getUsername().equals(username)&&!account.getPassword().equals(password)){
-                                   System.out.println(account.getUsername());
-                                   alert.getAlert(new Exception("User Name or Password doesn't Exist"));
-                               }
+                        } else if (userPassData != null) {
+                            //login
+                            for (Account account : userPassData) {
+                                if (account.getUsername().equals(username) && account.getPassword().equals(password)) {
+                                    account.setLoggedIn(true);
+                                } else if (account.getUsername().equals(username) && !account.getPassword().equals(password)) {
+                                    System.out.println(account.getUsername());
+                                    alert.getAlert(new Exception("User Name or Password doesn't Exist"));
+                                }
                             }
                             server.saveFile(userPassData);
                         }
-                        if (isRegistered) {
-                            alert.getAlert(new Exception("User is already registered"));
-                        }
+                        if (isRegistered) alert.getAlert(new Exception("User is already registered"));
                         server.saveFile(userPassData);
                     });
                 }
             }
-        } catch(IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
-    private boolean store(String userName, String password){
-        Account account = new Account(userName, password,false, false);
-        if(!userPassData.contains(account)){
+
+    //Store the file
+    private boolean store(String userName, String password) {
+        Account account = new Account(userName, password, false, false);
+        if (!userPassData.contains(account)) {
             userPassData.add(account);
             return false;
         } else return true;

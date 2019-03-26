@@ -16,14 +16,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
 import java.util.ArrayList;
 
 public class ImageScraperView implements Runnable {
-    private ArrayList<Image> images ;
+    private ArrayList<Image> images;
     private ArrayList<ImageView> imageView;
     private int numOfPicturesDisplayed;
     private String text;
     private final FlowPane flowPane = new FlowPane();
+
     public ImageScraperView(String text) {
         this.text = text;
         images = new ArrayList<>();
@@ -54,7 +56,7 @@ public class ImageScraperView implements Runnable {
         Platform.runLater(this::loadImages);
     }
 
-    private void loadImages(){
+    private void loadImages() {
         //displays all the images
         for (int i = 0; i < images.size(); i++) {
             EditingView editingView = new EditingView();
@@ -74,13 +76,13 @@ public class ImageScraperView implements Runnable {
     }
 
     //Search EffectButtons for images
-    private void btnPress(VBox vBox, TextField textField, String  extraText){
+    private void btnPress(VBox vBox, TextField textField, String extraText) {
         images.clear();
         imageView.clear();
         flowPane.getChildren().clear();
         flowPane.getChildren().add(vBox);
         this.text = textField.getText();
-        this.text = this.text+extraText;
+        this.text = this.text + extraText;
         ProgressBar progressBar = new ProgressBar();
         flowPane.getChildren().add(progressBar);
         new Thread(this).start();
@@ -101,12 +103,14 @@ public class ImageScraperView implements Runnable {
         flowPane.setAlignment(Pos.CENTER);
         vBox.getChildren().add(textField);
         HBox hBox = new HBox();
-        hBox.getChildren().addAll(searchBtn,funnyBtn, cuteBtn);
+        hBox.getChildren().addAll(searchBtn, funnyBtn, cuteBtn);
         vBox.getChildren().add(hBox);
         vBox.setAlignment(Pos.CENTER);
-        vBox.setPadding(new Insets(5,5,5,5));
+        vBox.setPadding(new Insets(5, 5, 5, 5));
         flowPane.getChildren().add(vBox);
-        textField.setOnKeyReleased(event -> { if (event.getCode() == KeyCode.ENTER) btnPress(vBox, textField, ""); });
+        textField.setOnKeyReleased(event -> {
+            if (event.getCode() == KeyCode.ENTER) btnPress(vBox, textField, "");
+        });
         searchBtn.setOnAction(e -> btnPress(vBox, textField, ""));
         funnyBtn.setOnAction(e -> btnPress(vBox, textField, " funny"));
         cuteBtn.setOnAction(e -> btnPress(vBox, textField, " cute"));

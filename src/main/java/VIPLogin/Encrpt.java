@@ -1,5 +1,5 @@
 package VIPLogin;
-
+//XOR encryption to so no password is stored passed through sockets
 public class Encrpt {
     private char[] key = "a_5$]-xU44qmLut;".toCharArray();
     public Encrpt(){}

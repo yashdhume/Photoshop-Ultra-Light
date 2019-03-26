@@ -13,10 +13,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
+
 import java.awt.image.RenderedImage;
+
 import javafx.scene.image.WritableImage;
+
 import java.io.File;
+
 import javafx.embed.swing.SwingFXUtils;
+
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.net.URL;
@@ -24,40 +29,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class Controller extends AnchorPane implements Initializable{
-    @FXML
-    private Button picGoogleBtn;
-    @FXML
-    private Button cameraBtn;
-    @FXML
-    private Button bWEffectBtn;
-    @FXML
-    private MenuItem newMI;
-    @FXML
-    private MenuItem adminMI;
+public class Controller extends AnchorPane implements Initializable {
     @FXML
     private Menu openRecentMenu;
     @FXML
     private AnchorPane toolBar;
     @FXML
-    private AnchorPane view;
-    @FXML
     private AnchorPane properties, layers;
-    @FXML
-    private  Button drawBtn;
-    @FXML
-    private Slider strokeSlide;
-    @FXML
-    private ColorPicker colorPicker;
-    @FXML
-    private TextField strokeTextBox;
-    @FXML
-    private MenuItem logOutMI;
 
     private File file;
     private double width, height;
     private EditingView editingView = new EditingView();
-    private List<String> recents = new ArrayList<String>();
+    private List<String> recents = new ArrayList<>();
     private Stage layout_stage;
 
     @Override
@@ -86,7 +69,7 @@ public class Controller extends AnchorPane implements Initializable{
             openNew(width, height);
         });
 
-        pane.add(new Label("Set Layout Size"), 0,0);
+        pane.add(new Label("Set Layout Size"), 0, 0);
         pane.add(new Label("Width: "), 0, 1);
         pane.add(widthTextField, 1, 1);
         pane.add(new Label("Height: "), 0, 2);
@@ -106,8 +89,8 @@ public class Controller extends AnchorPane implements Initializable{
 
         Scene scene = new Scene(pane, width, height);
         scene.getStylesheets().add("style.css");
-        scene.setOnKeyPressed(e->{
-            if(e.getCode() == KeyCode.Z && e.isControlDown()){
+        scene.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.Z && e.isControlDown()) {
                 editingView.layerView.getSelected().undo();
             }
         });
@@ -137,7 +120,7 @@ public class Controller extends AnchorPane implements Initializable{
     @FXML
     void openRecent(ActionEvent event) {
         openRecentMenu.getItems().clear();
-        for(String s : recents) {
+        for (String s : recents) {
             MenuItem mi = new MenuItem(s);
             mi.setOnAction((e) -> {
                 Image image = new Image(s);
@@ -148,7 +131,9 @@ public class Controller extends AnchorPane implements Initializable{
     }
 
     @FXML
-    void save(ActionEvent event) { save(); }
+    void save(ActionEvent event) {
+        save();
+    }
 
     @FXML
     void saveAs(ActionEvent event) {
@@ -164,7 +149,7 @@ public class Controller extends AnchorPane implements Initializable{
 
     private void save() {
         try {
-            WritableImage writableImage = new WritableImage((int)width, (int)height);
+            WritableImage writableImage = new WritableImage((int) width, (int) height);
             EditingView.anchorPaneEditView.snapshot(null, writableImage);
             RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
             ImageIO.write(renderedImage, "png", file);
@@ -189,15 +174,19 @@ public class Controller extends AnchorPane implements Initializable{
         // Set up label and buttons
         Label prompt = new Label("Are you sure you want to quit?");
         Button yes = new Button("Yes");
-        yes.setOnAction((e) -> { System.exit(0); });
+        yes.setOnAction((e) -> {
+            System.exit(0);
+        });
         Button no = new Button("No");
-        no.setOnAction((e) -> {stage.close();});
+        no.setOnAction((e) -> {
+            stage.close();
+        });
 
         // Add all buttons and label
         hbox.getChildren().addAll(yes, no);
         vbox.getChildren().addAll(prompt, hbox);
 
-        Scene scene = new Scene(vbox,300,150);
+        Scene scene = new Scene(vbox, 300, 150);
         showWindow(stage, scene);
     }
 
@@ -215,18 +204,20 @@ public class Controller extends AnchorPane implements Initializable{
                 "Build tool: Maven 3.1.5\n" +
                 "APIs: OpenCV");
         label.setPadding(new Insets(30));
-        Scene scene = new Scene(label,500,350);
+        Scene scene = new Scene(label, 500, 350);
         showWindow(stage, scene);
     }
-    private boolean isServerRunning= false;
+
+    private boolean isServerRunning = false;
+
     @FXML
-    void loginAction(){
+    void loginAction() {
         Stage stage = new Stage();
         stage.setTitle("Sign In");
 
         // Start Server; running in the background
         Server server = new Server();
-        if(!isServerRunning) {
+        if (!isServerRunning) {
             server.start();
             isServerRunning = true;
         }
@@ -238,13 +229,13 @@ public class Controller extends AnchorPane implements Initializable{
     }
 
     @FXML
-    void adminMIAction(){
+    void adminMIAction() {
         Stage stage = new Stage();
         stage.setTitle("Admin");
 
         // Start Server; running in the background
         Server server = new Server();
-        if(!isServerRunning) {
+        if (!isServerRunning) {
             server.start();
             isServerRunning = true;
         }
@@ -254,11 +245,12 @@ public class Controller extends AnchorPane implements Initializable{
         Scene scene = new Scene(admin.start(server), 450, 400);
         showWindow(stage, scene);
     }
+
     @FXML
-    void logOutMIAction(){
+    void logOutMIAction() {
         Server server = new Server();
         ArrayList<Account> accounts = server.readFile();
-        for(Account account: accounts){
+        for (Account account : accounts) {
             account.setLoggedIn(false);
         }
     }

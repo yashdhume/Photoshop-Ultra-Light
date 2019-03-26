@@ -1,7 +1,6 @@
 package VIPLogin;
 
-import VIPLogin.Account;
-import VIPLogin.Server;
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -11,11 +10,11 @@ import java.util.ArrayList;
 
 public class SwitchButton extends Label {
     private SimpleBooleanProperty switchedOn = new SimpleBooleanProperty(true);
-    private int index;
     ArrayList<Account> accounts;
+
+    //Switch Button that changes if value is true or not
     public SwitchButton(int count, ArrayList<Account> account, Server server) {
         this.accounts = account;
-        this.index = count;
         Button switchBtn = new Button();
         switchBtn.setPrefWidth(40);
         switchBtn.setOnAction(t -> switchedOn.set(!switchedOn.get()));
@@ -41,7 +40,9 @@ public class SwitchButton extends Label {
         setStyle(switchedOn.getValue().booleanValue());
         server.saveFile(accounts);
     }
-    private void setStyle(boolean value){
+
+    //setStyle update
+    private void setStyle(boolean value) {
         if (value) {
             setText("ON");
             setStyle("-fx-background-color: green;-fx-text-fill:white;-fx-border-radius: 20 20 20 20;");

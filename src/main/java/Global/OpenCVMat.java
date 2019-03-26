@@ -9,6 +9,7 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
+
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.ByteArrayInputStream;
@@ -16,39 +17,45 @@ import java.nio.ByteBuffer;
 
 public class OpenCVMat {
     private Mat originalImage, effect;
+
     // Constructor
-    public OpenCVMat(){}
+    public OpenCVMat() {
+    }
 
-    public void setEffect(Mat effect){ this.effect = effect; }
+    public void setEffect(Mat effect) {
+        this.effect = effect;
+    }
 
-    public  void setOriginalImage(Mat originalImage){ this.originalImage = originalImage; }
+    public void setOriginalImage(Mat originalImage) {
+        this.originalImage = originalImage;
+    }
 
     //Return the original Matrix of the Image
-    public Mat getOriginalImage(){
+    public Mat getOriginalImage() {
         return originalImage;
     }
 
     //Return the Matrix after the effect
-    public Mat getEffect(){
+    public Mat getEffect() {
         return effect;
     }
 
     //Get the Original Image before the Effect
-    public Image getImageOriginal(){
-        try{
+    public Image getImageOriginal() {
+        try {
             return matToImage(originalImage);
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
     //Get the Buffered Image After the Effect
-    public Image getImagePost(){
+    public Image getImagePost() {
         try {
             // getImageOriginal();
             return matToImage(effect);
-        }catch(Exception e){
-            return  null;
+        } catch (Exception e) {
+            return null;
         }
     }
 
@@ -94,14 +101,14 @@ public class OpenCVMat {
     }
 
     //Matrix to JavaFX image
-    public Image matToImage(Mat matrix){
+    public Image matToImage(Mat matrix) {
         try {
             //converts to .bmp for fast conversion
             MatOfByte byteMat = new MatOfByte();
             Imgcodecs.imencode(".bmp", matrix, byteMat);
             return new Image(new ByteArrayInputStream(byteMat.toArray()));
 
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             return null;
         }
@@ -110,18 +117,19 @@ public class OpenCVMat {
     //Matrix to Buffered Image
     public BufferedImage matToBufferedImage(Mat original) {
         java.awt.image.BufferedImage image = null;
-        int width = original.width(); int height = original.height(); int channels = original.channels();
+        int width = original.width();
+        int height = original.height();
+        int channels = original.channels();
         byte[] sourcePixels = new byte[width * height * channels];
-        original.get(0,0, sourcePixels);
+        original.get(0, 0, sourcePixels);
 
-        if (original.channels() > 1){
+        if (original.channels() > 1) {
             image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-        }
-        else {
+        } else {
             image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
         }
 
-        byte[] targetPixels =  ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
+        byte[] targetPixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
         System.arraycopy(sourcePixels, 0, targetPixels, 0, sourcePixels.length);
         return image;
     }

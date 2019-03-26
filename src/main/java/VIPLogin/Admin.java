@@ -1,5 +1,5 @@
 package VIPLogin;
-
+//Admin client
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class Admin {
     private ObjectOutputStream toServer = null;
     // DataInputStream fromServer = null;
     private ObjectInputStream fromServer = null;
-
+    //inialize the sockets and streams
     private void initalize() {
         try {
             Socket socket = new Socket("localhost", 8000);
@@ -29,7 +29,7 @@ public class Admin {
             alertDialogue.getAlert(ex);
         }
     }
-
+    //Display all the users and a switch for the vip or not
     public BorderPane start(Server server) {
         initalize();
         try {

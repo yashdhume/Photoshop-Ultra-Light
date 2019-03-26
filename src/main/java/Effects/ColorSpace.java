@@ -4,9 +4,9 @@ import Main.EditingView;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import java.util.ArrayList;
-
-public class MutipleEffects {
-    public MutipleEffects(){}
+//
+public class ColorSpace {
+    public ColorSpace(){}
     private ArrayList<Button> getButtonArr(){
         ArrayList<Button> effectButtons = new ArrayList<>();
         effectButtons.add(getEffectButton("RGB to Grey", 7));

@@ -1,4 +1,5 @@
 package Global;
+//Alert Dialogue
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -7,12 +8,16 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 public class AlertDialogue {
-    public AlertDialogue(){}
-    public void getAlert(Exception ex){
+    public AlertDialogue() {
+    }
+
+    //Get Exception Dialgogue
+    public void getAlert(Exception ex) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Exception Dialog");
         alert.setHeaderText("Look, an Exception Dialog");
@@ -22,7 +27,7 @@ public class AlertDialogue {
         String exceptionText = sw.toString();
 
         Label label = new Label("The exception stacktrace was:");
-
+        //Gui
         TextArea textArea = new TextArea(exceptionText);
         textArea.setEditable(false);
         textArea.setWrapText(true);

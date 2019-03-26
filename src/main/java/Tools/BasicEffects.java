@@ -1,9 +1,11 @@
 package Tools;
+//Sliders for contrast saturation brightness and hue
 
 import javafx.scene.control.Slider;
 
 public class BasicEffects {
     private double[] basicEffectDoubles;
+
     public BasicEffects() {
         basicEffectDoubles = new double[4];
     }

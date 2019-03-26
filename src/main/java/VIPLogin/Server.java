@@ -4,19 +4,18 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Date;
+
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 
 public class Server {
     private TextArea ta = new TextArea();
     private int clientNo = 0;
-    private ArrayList<Account> userPassData;
 
-    public Server(){
-        userPassData =  readFile();
-    }
-    public TextArea start(){
-        new Thread( () -> {
+    public Server() {}
+
+    public TextArea start() {
+        new Thread(() -> {
             try {
                 // Create SumIntegers server socket
                 ServerSocket serverSocket = new ServerSocket(8000);
@@ -29,7 +28,7 @@ public class Server {
                     // Increment clientNo
                     clientNo++;
 
-                    Platform.runLater( () -> {
+                    Platform.runLater(() -> {
                         // Display the client number
                         System.out.println("Starting thread for client " + clientNo + " at " + new Date() + '\n');
 
@@ -42,19 +41,20 @@ public class Server {
                     // Create and start SumIntegers new thread for the connection
                     new Thread(new HandleAClient(socket)).start();
                 }
-            }
-            catch(IOException ex) {
+            } catch (IOException ex) {
                 System.err.println(ex);
             }
         }).start();
-        return  ta;
+        return ta;
     }
+
     private final String PATH = "src/main/resources/userPasswordData.txt";
+
     public void saveFile(ArrayList<Account> users) {
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(new File(PATH).getAbsoluteFile()));
             os.writeObject(users);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -63,7 +63,7 @@ public class Server {
         try {
             ObjectInputStream is = new ObjectInputStream(new FileInputStream(new File(PATH).getAbsoluteFile()));
             return (ArrayList<Account>) is.readObject();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             return null;
         }

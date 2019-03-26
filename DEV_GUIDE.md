@@ -5,15 +5,14 @@
 
     Language: Java 1.8 or Java 8
 
-    Build tool: Maven 3.1.5 & Gradle
+    Build tool: Gradle
 
     APIs: OpenCV
 
 ## Get Started
 
 1. Get your Java environment ready, download [here](https://java.com/en/download/help/download_options.xml)
-2. Make sure maven is installed [Maven](https://maven.apache.org/install.html)
-3. Make sure Gradle is installed [Gradle](https://gradle.org/install)
+2. Make sure Gradle is installed [Gradle](https://gradle.org/install)
 
 Note: If you're using older Java version, you might want to make sure you have 
 [JavaFX](https://docs.oracle.com/javase/8/javafx/get-started-tutorial/jfx-overview.htm) included
@@ -34,19 +33,17 @@ Note: If you're using older Java version, you might want to make sure you have
 1. Clone the repository: `git clone https://github.com/yashdhume/Photoshop-Ultra-Light.git`
 2. Install or open [Eclipse](https://www.eclipse.org/downloads/)
 3. Import project to Eclipse
-4. Make sure Maven module are included
-5. Build and run the application
+4. Build and run the application
 
 **Option 3**
 
 1. Clone the repository: `git clone https://github.com/yashdhume/Photoshop-Ultra-Light.git`
 2. Go into the directory: `cd Photoshop-Ultra-Light`
-3. Build using Maven: `mvn clean install`
-4. Depends on your OS system:
+3. Depends on your OS system:
    1. If running on MacOS `click gradlew`
    2. If running on Windows `click gradlew.bat`
-5. Build using Gradle `gradle build`
-6. Run the Application `gradle run`
+4. Build using Gradle `gradle build`
+5. Run the Application `gradle run`
 
 ## So, What are the Codes doing?
 

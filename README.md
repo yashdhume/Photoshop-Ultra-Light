@@ -1,6 +1,8 @@
 # ![Logo](./images/logo.png) Photoshop-Ultra-Light
 
-*This application is developed for CSCI2020U Final Project*.
+*This application is developed for CSCI2020U Final Project*
+
+`Link to repository: https://github.com/yashdhume/Photoshop-Ultra-Light`
 
 ## What is Photoshop-Ultra-Light?
 

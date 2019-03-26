@@ -60,7 +60,7 @@ public class Controller extends AnchorPane implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        new UIInitializer(toolBar, properties);
+        new UIInitializer(toolBar);
     }
 
     // File
@@ -92,50 +92,7 @@ public class Controller extends AnchorPane implements Initializable{
         pane.add(apply, 1, 3);
 
         Scene scene = new Scene(pane, 500, 500);
-        scene.getStylesheets().add("style.css");
-        layout_stage.getIcons().add(new Image("logo.png"));
-        layout_stage.setScene(scene);
-        layout_stage.setAlwaysOnTop(true);
-        layout_stage.show();
-    }
-
-    @FXML
-    void loginAction(){
-        Stage stage = new Stage();
-        stage.setTitle("Sign In");
-
-        // Start Server; running in the background
-        Server server = new Server();
-        server.start();
-
-        // Start Client
-        Client client = new Client();
-
-        Scene scene = new Scene(client.start(), 450, 200);
-        scene.getStylesheets().add("style.css");
-        stage.getIcons().add(new Image("logo.png"));
-        stage.setScene(scene);
-        stage.setAlwaysOnTop(true);
-        stage.show();
-    }
-
-    @FXML
-    void adminMIAction(){
-        Stage stage = new Stage();
-        stage.setTitle("Admin");
-
-        // Start Server; running in the background
-        Server server = new Server();
-        server.start();
-
-        // Start Admin
-        Admin admin = new Admin();
-
-        Scene scene = new Scene(admin.start(), 450, 400);
-        scene.getStylesheets().add("style.css");
-        stage.setScene(scene);
-        stage.setAlwaysOnTop(true);
-        stage.show();
+        showWindow(layout_stage, scene);
     }
 
     void openNew(double width, double height) {
@@ -153,10 +110,7 @@ public class Controller extends AnchorPane implements Initializable{
             }
         });
 
-        stage.getIcons().add(new Image("logo.png"));
-        stage.setScene(scene);
-        stage.setAlwaysOnTop(true);
-        stage.show();
+        showWindow(stage, scene);
     }
 
 
@@ -192,20 +146,7 @@ public class Controller extends AnchorPane implements Initializable{
     }
 
     @FXML
-    void save(ActionEvent event) {
-        FileChooser savefile = new FileChooser();
-        savefile.setTitle("Save");
-        if (file != null) {
-            try {
-                WritableImage writableImage = new WritableImage((int)width, (int)height);
-                EditingView.anchorPaneEditView.snapshot(null, writableImage);
-                RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
-                ImageIO.write(renderedImage, "png", file);
-            } catch (IOException ex) {
-                System.out.println("Error!");
-            }
-        }
-    }
+    void save(ActionEvent event) { save(); }
 
     @FXML
     void saveAs(ActionEvent event) {
@@ -216,6 +157,10 @@ public class Controller extends AnchorPane implements Initializable{
                 new FileChooser.ExtensionFilter("PNG", "*.png"));
         savefile.setTitle("Save As");
         file = savefile.showSaveDialog(stage);
+        save();
+    }
+
+    private void save() {
         try {
             WritableImage writableImage = new WritableImage((int)width, (int)height);
             EditingView.anchorPaneEditView.snapshot(null, writableImage);
@@ -251,11 +196,7 @@ public class Controller extends AnchorPane implements Initializable{
         vbox.getChildren().addAll(prompt, hbox);
 
         Scene scene = new Scene(vbox,300,150);
-        scene.getStylesheets().add("style.css");
-        stage.getIcons().add(new Image("logo.png"));
-        stage.setScene(scene);
-        stage.setAlwaysOnTop(true);
-        stage.show();
+        showWindow(stage, scene);
     }
 
     // Help
@@ -273,11 +214,46 @@ public class Controller extends AnchorPane implements Initializable{
                 "APIs: OpenCV");
         label.setPadding(new Insets(30));
         Scene scene = new Scene(label,500,350);
+        showWindow(stage, scene);
+    }
+
+    @FXML
+    void loginAction(){
+        Stage stage = new Stage();
+        stage.setTitle("Sign In");
+
+        // Start Server; running in the background
+        Server server = new Server();
+        server.start();
+
+        // Start Client
+        Client client = new Client();
+
+        Scene scene = new Scene(client.start(), 450, 200);
+        showWindow(stage, scene);
+    }
+
+    @FXML
+    void adminMIAction(){
+        Stage stage = new Stage();
+        stage.setTitle("Admin");
+
+        // Start Server; running in the background
+        Server server = new Server();
+        server.start();
+
+        // Start Admin
+        Admin admin = new Admin();
+
+        Scene scene = new Scene(admin.start(server), 450, 400);
+        showWindow(stage, scene);
+    }
+
+    void showWindow(Stage stage, Scene scene) {
         scene.getStylesheets().add("style.css");
         stage.getIcons().add(new Image("logo.png"));
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
         stage.show();
     }
-
 }

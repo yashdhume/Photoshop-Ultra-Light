@@ -10,7 +10,6 @@ import javafx.scene.text.Text;
 
 public class Client {
     public Client(){}
-
     // Declare IO streams
     private ObjectOutputStream toServer = null;
     private ObjectInputStream fromServer = null;
@@ -76,7 +75,6 @@ public class Client {
             // Get the radius from the text field
             String username = textField.getText();
             String password = passwordField.getText();
-            String key = "Yash Dhume";
             Encrpt encrpt = new Encrpt();
             String encrptedPassword = encrpt.encrypt(password.getBytes(),password.length());
 

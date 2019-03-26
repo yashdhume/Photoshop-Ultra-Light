@@ -1,7 +1,7 @@
 package VIPLogin;
 
+import Global.AlertDialogue;
 import javafx.application.Platform;
-import javafx.scene.control.TextArea;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -10,12 +10,10 @@ import java.util.ArrayList;
 
 class HandleAClient implements Runnable {
     private Socket socket; // A connected socket
-    private TextArea ta;
     private ArrayList<Account> userPassData;
 
-    public HandleAClient(Socket socket, TextArea ta) {
+    public HandleAClient(Socket socket) {
         this.socket = socket;
-        this.ta = ta;
     }
 
     public void run() {
@@ -45,12 +43,13 @@ class HandleAClient implements Runnable {
                             isRegistered = server.store(username, password);
                         }
                         if (isRegistered) {
-                            ta.appendText("Already Registered");
+                            AlertDialogue alert = new AlertDialogue();
+                            alert.getAlert(new Exception("User is already registered"));
                         } else {
                             Account new_account = new Account(username, password, false);
                             userPassData.add(new_account);
                         }
-                        ta.appendText(username + '\n');
+
                         server.saveFile(userPassData);
                     });
                 } else if (temp.equals("2")){

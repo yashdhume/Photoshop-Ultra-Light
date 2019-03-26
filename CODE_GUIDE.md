@@ -1,11 +1,11 @@
-# ![Logo](./images/logo.png) Code Guide for Photoshop-Ultra-Light
+# Code Guide for Photoshop-Ultra-Light ![Logo](./images/logo.png)
 
 ## Main
 This is where is starts, [click here to view](./src/main/java/Main/Main.java)
 
 ## User Interface
 
-You can find the main UI code [here]() and the functionality e.g. show the application, etc. can be viewed [here](./src/main/java/Main/Controller.java)
+You can find the main UI code [here](./src/main/resources/MainUI.fxml) and the functionality e.g. show the application, etc. can be viewed [here](./src/main/java/Main/Controller.java)
 
 ## File I/O
 
@@ -15,7 +15,7 @@ Where to look at: `open()`, `openRecent()`, `save()`, and `saveAs()`
 
 ## Socket I/O
 
-There is a [server](./src/main/java/VIPLogin/Server.java) implemented to handle member login where it check if the user is a VIP member or not
+There is a [server](./src/main/java/VIPLogin/Server.java) implemented to handle member login where it checks if the user is a VIP member or not
 if the user is VIP member they will see more features. This is where [client](./src/main/java/VIPLogin/HandleAClient.java) 
 initial request being handled.
 

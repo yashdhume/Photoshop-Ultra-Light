@@ -31,7 +31,7 @@ public class Admin {
         }
     }
 
-    public BorderPane start() {
+    public BorderPane start(Server server) {
         initalize();
         try {
             String a = "2";
@@ -60,7 +60,7 @@ public class Admin {
         for (Account account : accounts) {
             userNames.add(new Text(account.getUsername()));
             gridPane.add(userNames.get(count), 0, count);
-            SwitchButton button = new SwitchButton(account);
+            SwitchButton button = new SwitchButton(count, accounts, server);
             switchButtons.add(button);
             gridPane.add(switchButtons.get(count), 1, count);
             count++;

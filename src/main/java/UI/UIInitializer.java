@@ -6,6 +6,10 @@ public class UIInitializer {
     public ToolbarView toolbarView;
     public PropertiesView propertiesView;
 
+    public UIInitializer(AnchorPane toolbar){
+        InitializeToolbar(toolbar);
+    }
+
     public UIInitializer(AnchorPane toolbar, AnchorPane properties){
         InitializeToolbar(toolbar);
         InitializeProperties(properties);

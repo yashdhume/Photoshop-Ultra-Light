@@ -20,8 +20,7 @@ public class Server {
             try {
                 // Create SumIntegers server socket
                 ServerSocket serverSocket = new ServerSocket(8000);
-                ta.appendText("MultiThreadServer started at "
-                        + new Date() + '\n');
+                ta.appendText("MultiThreadServer started at " + new Date() + '\n');
 
                 while (true) {
                     // Listen for SumIntegers new connection request
@@ -32,7 +31,7 @@ public class Server {
 
                     Platform.runLater( () -> {
                         // Display the client number
-                        ta.appendText("Starting thread for client " + clientNo + " at " + new Date() + '\n');
+                        System.out.println("Starting thread for client " + clientNo + " at " + new Date() + '\n');
 
                         // Find the client's host name, and IP address
                         InetAddress inetAddress = socket.getInetAddress();
@@ -41,7 +40,7 @@ public class Server {
                     });
 
                     // Create and start SumIntegers new thread for the connection
-                    new Thread(new HandleAClient(socket,ta)).start();
+                    new Thread(new HandleAClient(socket)).start();
                 }
             }
             catch(IOException ex) {
@@ -50,13 +49,13 @@ public class Server {
         }).start();
         return  ta;
     }
+
     public boolean store(String userName, String password){
         Account account = new Account(userName, password,false);
         if(!userPassData.contains(account)){
             userPassData.add(account);
             return false;
-        }
-        else return true;
+        } else return true;
     }
 
     private final String PATH = "src/main/resources/userPasswordData.txt";
@@ -64,14 +63,14 @@ public class Server {
         try {
             ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(new File(PATH).getAbsoluteFile()));
             os.writeObject(users);
-            os.close();
         }catch (Exception e){
             System.out.println(e);
         }
     }
 
     public ArrayList<Account> readFile() {
-        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(new File(PATH).getAbsoluteFile()))) {
+        try {
+            ObjectInputStream is = new ObjectInputStream(new FileInputStream(new File(PATH).getAbsoluteFile()));
             return (ArrayList<Account>) is.readObject();
         }catch (Exception e){
             System.out.println(e);

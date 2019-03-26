@@ -1,4 +1,4 @@
-# ![Logo](./images/logo.png) User Guide for Photoshop-Ultra-Light
+# User Guide for Photoshop-Ultra-Light ![Logo](./images/logo.png)
 *hello, user!*
 
 ## Install the Application
@@ -43,7 +43,7 @@
 
 Move, Rotate, Crop, and Resize
 
-## Original Picture (for Comparison)
+### Original Picture (for Comparison)
 
 ![Original](./images/img_original.PNG)
 
@@ -51,7 +51,7 @@ Move, Rotate, Crop, and Resize
 
 ![Brush](./images/img_brush.PNG)
 
-## Text
+### Text
 
 ![Text](./images/img_text.PNG)
 

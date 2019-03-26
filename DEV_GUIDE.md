@@ -1,4 +1,4 @@
-# ![Logo](./images/logo.png) Developer Guide for Photoshop-Ultra-Light
+# Developer Guide for Photoshop-Ultra-Light ![Logo](./images/logo.png)
 *hello, developer!*
 
 ## About the Project
@@ -43,6 +43,9 @@ Note: If you're using older Java version, you might want to make sure you have
 3. Build using Maven: `mvn clean install`
 4. Run the Application: `java -cp .\target\PhotoshopUltraLight-1.0-SNAPSHOT.jar Main.Main`
 
+## So, What are the Codes doing?
+
+Let's see [here](./CODE_GUIDE.md) in detail where to find its functionality and how it's being implemented
 
 ## What's Next?
 

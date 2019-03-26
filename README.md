@@ -1,4 +1,4 @@
-# ![Logo](./images/logo.png) Photoshop-Ultra-Light
+# Photoshop-Ultra-Light ![Logo](./images/logo.png)
 
 *This application is developed for CSCI2020U Final Project*.
 
@@ -25,12 +25,15 @@ recolor, and various applied filters.
 
 - [I want to use this awesome photoshop](./USER_GUIDE.md)
 - [I am interested to find out how this cool application works](./DEV_GUIDE.md)
-- [I am marking this project, I need to know where you implemented what's being marked](./CODE_GUIDE.md)
+- I am marking this project, [I need to know where you implemented what's being marked](./CODE_GUIDE.md)
+  and [how to run it](./DEV_GUIDE.md)
 
 ## Meet the Developers
 
 UOIT second year Computer Science students who are very passionate about 
 applying best code practices and applied computer vision to our current project
+
+*Ordered by: Last Name*
 
 - [Kathryn (Mei-Yu) Chen](https://github.com/meifish)
     

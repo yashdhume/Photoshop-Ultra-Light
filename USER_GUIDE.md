@@ -1,4 +1,4 @@
-# User Guide for Photoshop-Ultra-Light ![Logo](./images/logo.png)
+# ![Logo](./images/logo.png) User Guide for Photoshop-Ultra-Light
 *hello, user!*
 
 ## Install the Application

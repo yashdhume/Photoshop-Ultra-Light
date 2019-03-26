@@ -1,4 +1,4 @@
-# Developer Guide for Photoshop-Ultra-Light ![Logo](./images/logo.png)
+# ![Logo](./images/logo.png) Developer Guide for Photoshop-Ultra-Light
 *hello, developer!*
 
 ## About the Project

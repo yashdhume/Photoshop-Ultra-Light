@@ -1,4 +1,4 @@
-# Code Guide for Photoshop-Ultra-Light ![Logo](./images/logo.png)
+# ![Logo](./images/logo.png) Code Guide for Photoshop-Ultra-Light
 
 ## Main
 This is where is starts, [click here to view](./src/main/java/Main/Main.java)

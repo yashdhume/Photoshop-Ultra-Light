@@ -1,4 +1,4 @@
-# Photoshop-Ultra-Light ![Logo](./images/logo.png)
+# ![Logo](./images/logo.png) Photoshop-Ultra-Light
 
 *This application is developed for CSCI2020U Final Project*.
 

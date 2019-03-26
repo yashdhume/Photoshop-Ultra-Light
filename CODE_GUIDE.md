@@ -23,6 +23,10 @@ initial request being handled.
 
 We're implementing multi-thread server for the purpose of this project which the code can be viewed [here](./src/main/java/VIPLogin/Server.java)
 
+## Build Tool
+
+Using gradle and the details can be seen [here](./build.gradle)
+
 ## General and More Information About the Code
 
 - **CamCapture**: where all the code for webcam implementation located

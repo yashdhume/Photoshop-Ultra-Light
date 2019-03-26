@@ -22,7 +22,7 @@ public class Layer {
 
     //Layer Display in Layer Panel
     GridPane pane;
-    Rectangle thumbnail;
+    Pane thumbnail;
     CheckBox visiblityCheckbox;
     Label title;
 
@@ -37,7 +37,7 @@ public class Layer {
     //Create the Layer Box objects to be rendered in the Layers panel.
     private void generateLayer(){
         pane = new GridPane();
-        pane.setPadding(new Insets(10));
+        pane.setPadding(new Insets(20));
         thumbnail = getThumbnail();
         visiblityCheckbox = new CheckBox();
         visiblityCheckbox.setSelected(true);
@@ -59,14 +59,14 @@ public class Layer {
             title = new Label(this.name);
         title.setText(name);
     }
-    private Rectangle getThumbnail(){
-        if (layerType == LayerType.SOLID) return new Rectangle(20, 20, Color.BLACK);
-        else if (layerType == LayerType.IMAGE) return new Rectangle(20, 20, Color.NAVY);
+    protected Pane getThumbnail(){
+        Pane pane = new Pane();
+        if (layerType == LayerType.SOLID) pane.getChildren().add(new Rectangle(20, 20, Color.BLACK));
+        else if (layerType == LayerType.IMAGE) pane.getChildren().add( new Rectangle(20, 20, Color.NAVY));
         else{
-            Rectangle a= new Rectangle(20, 20);
-            a.setFill(Color.RED);
-            return a;
+            pane.getChildren().add(new Rectangle(20, 20, Color.RED));
         }
+        return pane;
     }
 
     //Get the LayerBox needed for the Layers Panel

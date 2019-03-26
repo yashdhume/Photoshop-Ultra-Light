@@ -43,7 +43,7 @@ applying best code practices and applied computer vision to our current project
     
 - [Yash Dhume](https://github.com/yashdhume)
 
-    *Implements UI, drawing tools, main canvas, login & registration, Google search, drag and drop, build tool, and bug fixes*
+    *Implements UI, drawing tools, main canvas, effects, alerts, opencv, mutithreading, fileio, login & registration(sockets), Google search, drag and drop, build tool, and bug fixes*
     
 - [Kashif Hussain](https://github.com/KashifIV)
     

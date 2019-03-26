@@ -10,7 +10,7 @@
     APIs: OpenCV
 
 ## About Java JDK
-If your system does not have Java JDK installed already, you have to install it first. Please note Java open jdk version `java-1.8.0-openjdk` is not compatible, because `javafx` library is missing. Before you start, make sure your JDK version is correct. 
+If your system does not have Java JDK installed already, you have to install it first. Please note that Java open jdk version `java-1.8.0-openjdk` is not compatible, because `javafx` library is missing. Before you start, make sure your JDK version is correct. 
 
 **JDK Installation**
 1. If your system already has Java installed, you can skip this step.

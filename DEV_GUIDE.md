@@ -67,7 +67,7 @@ Note: If you're using older Java version, you might want to make sure you have
 1. Clone the repository: `git clone https://github.com/yashdhume/Photoshop-Ultra-Light.git`
 2. Go into the directory: `cd Photoshop-Ultra-Light`
 3. Build using Maven: `mvn clean install`
-4. Depends on your OS system:
+4. If you want to build by Gradle, depends on your OS system:
    1. If running on MacOS `click gradlew`
    2. If running on Windows `click gradlew.bat`
 5. Build using Gradle `gradle build`

@@ -19,14 +19,14 @@ import javafx.stage.WindowEvent;
 
 public class PropertiesView {
     AnchorPane propertiesPane;
-
+    public static GridPane gp = new GridPane();
     public PropertiesView(AnchorPane pane) {
+        gp.setVisible(false);
         propertiesPane = pane;
         GetPropertiesView();
     }
     //Gui for Properties
     public void GetPropertiesView() {
-        GridPane gp = new GridPane();
         gp.setPadding(new Insets(30, 30, 30, 30));
         gp.setHgap(10);
         gp.setVgap(10);

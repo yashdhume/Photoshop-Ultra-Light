@@ -51,6 +51,8 @@ public class Controller extends AnchorPane implements Initializable{
     private ColorPicker colorPicker;
     @FXML
     private TextField strokeTextBox;
+    @FXML
+    private MenuItem logOutMI;
 
     private File file;
     private double width, height;
@@ -251,6 +253,14 @@ public class Controller extends AnchorPane implements Initializable{
 
         Scene scene = new Scene(admin.start(server), 450, 400);
         showWindow(stage, scene);
+    }
+    @FXML
+    void logOutMIAction(){
+        Server server = new Server();
+        ArrayList<Account> accounts = server.readFile();
+        for(Account account: accounts){
+            account.setLoggedIn(false);
+        }
     }
 
     void showWindow(Stage stage, Scene scene) {

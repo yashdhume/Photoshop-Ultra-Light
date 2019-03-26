@@ -34,7 +34,8 @@
                 <Menu mnemonicParsing="false" text="Members">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#loginAction" text="Sign In/Register" />
-                        <MenuItem mnemonicParsing="false" text="Admin" onAction="#adminMIAction" />
+                        <MenuItem mnemonicParsing="false" onAction="#adminMIAction" text="Admin" />
+                  <MenuItem fx:id="logOutMI" mnemonicParsing="false" onAction="#logOutMIAction" text="Log Out" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

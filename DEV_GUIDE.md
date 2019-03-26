@@ -15,7 +15,7 @@ If your system does not have Java JDK installed already, you have to install it 
 **JDK Installation**
 1. If your system already has Java installed, you can skip this step.
 2. Otherwise, install [Java SE Development Kit 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) <br>
-Choose from the list and download the version which is compatible to your OS system.
+Choose from the list and download the compatible version to your OS system.
  
 **Check Java JDK version**
 1. **Windows User:** 

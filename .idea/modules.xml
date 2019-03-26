@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PhotoshopUltraLight.iml" filepath="$PROJECT_DIR$/PhotoshopUltraLight.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Photoshop-Ultra-Light.iml" filepath="$PROJECT_DIR$/.idea/modules/Photoshop-Ultra-Light.iml" />
     </modules>
   </component>
 </project>

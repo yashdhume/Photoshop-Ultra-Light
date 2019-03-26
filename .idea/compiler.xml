@@ -16,10 +16,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="PhotoshopUltraLight" />
+        <module name="Photoshop-Ultra-Light" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Photoshop-Ultra-Light" target="1.8" />
       <module name="PhotoshopUltraLight" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -47,7 +47,7 @@ applying best code practices and applied computer vision to our current project
     
 - [Kashif Hussain](https://github.com/KashifIV)
     
-    *Implements layers, main canvas, text tool, drawing tools, login & registration, and bug fixes*
+    *Implements Layer System, main canvas, renderer, text tool, drawing tools, State, Black and white Effect, login & registration, and various bug fixes*
 
 - [Jessica .](https://github.com/jwdjj)
 

@@ -39,7 +39,7 @@ applying best code practices and applied computer vision to our current project
 
 - [Kathryn (Mei-Yu) Chen](https://github.com/meifish)
     
-    *Implements various filters, webcam usability, build tool, login & registration, testing, and bug fixes*
+    *Implements various filters, imageIO, webcam usability, build tool, login & registration, testing, and bug fixes*
     
 - [Yash Dhume](https://github.com/yashdhume)
 

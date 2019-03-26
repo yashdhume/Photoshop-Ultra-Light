@@ -25,7 +25,7 @@ We're implementing multi-thread server for the purpose of this project which the
 
 ## Build Tool
 
-Using gradle and the details can be seen [here](./gradle.build)
+Using gradle and the details can be seen [here](./build.gradle)
 
 ## General and More Information About the Code
 

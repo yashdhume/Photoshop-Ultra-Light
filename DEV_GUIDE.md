@@ -39,11 +39,13 @@ Note: If you're using older Java version, you might want to make sure you have
 
 **Option 3**
 
-1. Clone the repository: `git clone https://github.com/yashdhume/Photoshop-Ultra-Light`
+1. Clone the repository: `git clone https://github.com/yashdhume/Photoshop-Ultra-Light.git`
 2. Go into the directory: `cd Photoshop-Ultra-Light`
 3. Build using Maven: `mvn clean install`
-4. Build using Gradle `gradle build`
-5. Run the Application `gradle run`
+4a. If running on MacOS `click gradlew`
+4b. If running on Windows `click gradlew.bat`
+5. Build using Gradle `gradle build`
+6. Run the Application `gradle run`
 
 ## So, What are the Codes doing?
 

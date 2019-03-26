@@ -49,15 +49,6 @@ public class Server {
         }).start();
         return  ta;
     }
-
-    public boolean store(String userName, String password){
-        Account account = new Account(userName, password,false);
-        if(!userPassData.contains(account)){
-            userPassData.add(account);
-            return false;
-        } else return true;
-    }
-
     private final String PATH = "src/main/resources/userPasswordData.txt";
     public void saveFile(ArrayList<Account> users) {
         try {

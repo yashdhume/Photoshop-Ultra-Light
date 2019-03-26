@@ -6,11 +6,15 @@ public class Account implements Serializable {
     private String username;
     private String password;
     private boolean isVip;
+    private boolean isLoggedIn;
 
-    public Account(String username, String password, boolean isVip) {
+
+
+    public Account(String username, String password, boolean isVip, boolean isLoggedIn) {
         this.username = username;
         this.password = password;
         this.isVip = isVip;
+        this.isLoggedIn = isLoggedIn;
     }
 
     public String getUsername() {
@@ -30,6 +34,10 @@ public class Account implements Serializable {
         }
         return retVal;
     }
+
+    public boolean isLoggedIn() { return isLoggedIn; }
+
+    public void setLoggedIn(boolean loggedIn) { isLoggedIn = loggedIn; }
 
     public String getPassword() {
         return password;

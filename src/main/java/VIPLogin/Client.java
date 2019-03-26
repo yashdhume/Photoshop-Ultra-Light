@@ -51,15 +51,15 @@ public class Client {
         Text txtPassword = new Text("Password");
         PasswordField passwordFieldPassword = new PasswordField();
 
-        Button btn = new Button("Login");
+        Button btnLogin = new Button("Login");
         Button btnRegister = new Button("Register");
 
         // handle action event
-        btn.setOnAction(e -> btnAction(txtFieldUserName,passwordFieldPassword,false));
+        btnLogin.setOnAction(e -> btnAction(txtFieldUserName,passwordFieldPassword,false));
         btnRegister.setOnAction(e -> btnAction(txtFieldUserName,passwordFieldPassword,true));
 
         HBox hbox = new HBox(20);
-        hbox.getChildren().addAll(btn, btnRegister);
+        hbox.getChildren().addAll(btnLogin, btnRegister);
 
         gridPane.add(txtUserName,0,0);
         gridPane.add(txtFieldUserName,1,0);

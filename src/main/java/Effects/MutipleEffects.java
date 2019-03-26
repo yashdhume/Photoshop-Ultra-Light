@@ -1,6 +1,5 @@
 package Effects;
 
-import Layers.ImageLayer;
 import Main.EditingView;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;

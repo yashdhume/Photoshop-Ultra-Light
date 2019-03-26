@@ -216,7 +216,7 @@ public class Controller extends AnchorPane implements Initializable{
         Scene scene = new Scene(label,500,350);
         showWindow(stage, scene);
     }
-
+    private boolean isServerRunning= false;
     @FXML
     void loginAction(){
         Stage stage = new Stage();
@@ -224,8 +224,10 @@ public class Controller extends AnchorPane implements Initializable{
 
         // Start Server; running in the background
         Server server = new Server();
-        server.start();
-
+        if(!isServerRunning) {
+            server.start();
+            isServerRunning = true;
+        }
         // Start Client
         Client client = new Client();
 
@@ -240,8 +242,10 @@ public class Controller extends AnchorPane implements Initializable{
 
         // Start Server; running in the background
         Server server = new Server();
-        server.start();
-
+        if(!isServerRunning) {
+            server.start();
+            isServerRunning = true;
+        }
         // Start Admin
         Admin admin = new Admin();
 

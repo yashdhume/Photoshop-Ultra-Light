@@ -21,15 +21,20 @@ class HandleAClient implements Runnable {
             // Create data input and output streams
             ObjectOutputStream outputToClient = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream inputFromClient = new ObjectInputStream(socket.getInputStream());
-
+            String temp = "";
+            try {
+                temp = inputFromClient.readUTF();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (temp.equals("2")){
+                Server server = new Server();
+                userPassData = server.readFile();
+                outputToClient.writeObject(userPassData);
+            }
             // Continuously serve the client
             while (true) {
-                String temp = "";
-                try {
-                    temp = inputFromClient.readUTF();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
 
                 if (temp.equals("1")) {
                     String username = inputFromClient.readUTF();
@@ -52,10 +57,6 @@ class HandleAClient implements Runnable {
 
                         server.saveFile(userPassData);
                     });
-                } else if (temp.equals("2")){
-                    Server server = new Server();
-                    userPassData = server.readFile();
-                    outputToClient.writeObject(userPassData);
                 }
             }
         } catch(IOException ex) {

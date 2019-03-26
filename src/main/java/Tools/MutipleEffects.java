@@ -19,7 +19,7 @@ public class MutipleEffects {
             Scene scene = new Scene(mutipleEffects.getMutipleEffects(), 150, 200);
             Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
             stage.setX(0);
-            stage.setY(screenBounds.getHeight());
+            stage.setY(screenBounds.getHeight()-500);
             stage.setScene(scene);
             stage.setAlwaysOnTop(true);
             stage.show();

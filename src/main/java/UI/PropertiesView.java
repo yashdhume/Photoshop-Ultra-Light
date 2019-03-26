@@ -2,6 +2,7 @@ package UI;
 
 import CamCapture.CamCaptureDemo;
 import ImageScraper.ImageScraperView;
+import Tools.Histogram;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -11,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -66,9 +69,12 @@ public class PropertiesView {
             stage.show();
         });
 
+        Histogram histogram = new Histogram();
+        VBox vBoxHistogram = histogram.start();
         // Add Buttons to the pane
-        gp.add(picGoogleBtn, 0, 0);
-        gp.add(cameraBtn, 0, 1);
+        gp.add(vBoxHistogram, 0,0);
+        gp.add(picGoogleBtn, 0, 1);
+        gp.add(cameraBtn, 0, 2);
         propertiesPane.getChildren().addAll(gp);
     }
 }

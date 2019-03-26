@@ -25,7 +25,7 @@ public class MutipleEffects {
             stage.show();
         });
         btnEffects.setGraphic(new ImageView(new Image("randomIcon.png", 25, 25, false, false)));
-        btnEffects.setTooltip(new Tooltip("Random Effect"));
+        btnEffects.setTooltip(new Tooltip("Change Color Space"));
         return btnEffects;
     }
 }

@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 import Global.AlertDialogue;
-import Global.SwitchButton;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;

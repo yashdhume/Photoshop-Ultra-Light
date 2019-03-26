@@ -1,4 +1,4 @@
-package Global;
+package VIPLogin;
 
 import VIPLogin.Account;
 import VIPLogin.Server;

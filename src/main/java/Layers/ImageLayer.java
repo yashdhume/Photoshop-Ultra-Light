@@ -52,6 +52,10 @@ public class ImageLayer extends Layer{
         versions.add(new ImageView(imageView.getImage()));
         imageView.setImage(image);
     }
+    public void fitImage(double width, double height){
+        imageView.setFitWidth(width);
+        imageView.setFitHeight(height);
+    }
     @Override
     public void setLocation(Point p) {
         location.x = p.x - imageView.getImage().getWidth()/2;

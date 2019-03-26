@@ -63,6 +63,8 @@ public class Layer {
         Pane pane = new Pane();
         if (layerType == LayerType.SOLID) pane.getChildren().add(new Rectangle(20, 20, Color.BLACK));
         else if (layerType == LayerType.IMAGE) pane.getChildren().add( new Rectangle(20, 20, Color.NAVY));
+        else if(layerType == LayerType.PAINT) pane.getChildren().add(new Rectangle(20, 20, Color.BLUE));
+        else if (layerType == LayerType.TEXT)pane.getChildren().add(new Rectangle(20, 20, Color.BLACK));
         else{
             pane.getChildren().add(new Rectangle(20, 20, Color.RED));
         }

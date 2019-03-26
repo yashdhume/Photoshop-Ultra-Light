@@ -14,6 +14,7 @@ public class TextLayer extends Layer{
 
     public TextLayer(String name, String text, Color color){
         super(name);
+        layerType = LayerType.TEXT;
         this.text = text;
         fontSize = 20;
         label = new Label(this.text);

@@ -135,9 +135,18 @@ public class LayerView {
         paintButton.setLayoutX(20);
         paintButton.setLayoutY(120);
 
+        Button fitButton = new Button("Fit Image");
+        fitButton.setOnAction(e->{
+            if (getSelected().getType() == LayerType.IMAGE){
+                ((ImageLayer)getSelected()).fitImage(width, height);
+            }
+        });
+        fitButton.setLayoutY(140);
+        fitButton.setLayoutX(20);
+
         HBox hbox = new HBox(20);
         hbox.setPadding(new Insets(50));
-        hbox.getChildren().addAll(solidButton, paintButton, textButton);
+        hbox.getChildren().addAll(solidButton, paintButton, textButton, fitButton);
         controlPane.getChildren().add(hbox);
     }
 
